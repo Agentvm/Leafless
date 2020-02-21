@@ -13,6 +13,9 @@ public class Movement : MonoBehaviour
 
     //
     Vector3 input;
+    bool movement_disabled = false;
+
+    public bool MovementDisabled { get => movement_disabled; set => movement_disabled = value; }
 
     // Damping variables
 
@@ -32,6 +35,8 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if ( MovementDisabled ) return;
+
         // Use input class please
         input.x = Input.GetAxis ("Horizontal");
         input.z = Input.GetAxis ("Vertical");
