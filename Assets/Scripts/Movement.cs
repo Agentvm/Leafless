@@ -6,9 +6,10 @@ public class Movement : MonoBehaviour
 {
     // Components
     CharacterController controller;
+    PointAndClick PointAndClickScriptReference;
 
     // Constants
-    [SerializeField] float movement_speed = 8f;
+    [SerializeField] float movement_speed = 80f;
 
     //
     Vector3 input;
@@ -20,6 +21,7 @@ public class Movement : MonoBehaviour
     {
         // Get Components
         controller = GetComponent<CharacterController> ();
+        PointAndClickScriptReference = GetComponent<PointAndClick> ();
 
         // no input
         input.x = 0f;
@@ -34,6 +36,11 @@ public class Movement : MonoBehaviour
         input.x = Input.GetAxis ("Horizontal");
         input.z = Input.GetAxis ("Vertical");
 
-        controller.Move (input * Time.deltaTime * movement_speed );
+        // move according to input, but keep a height of 0
+        controller.SimpleMove (input * Time.deltaTime * movement_speed );
+        this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
+
+        // look to the current mous position
+        this.transform.LookAt (PointAndClickScriptReference.Mouse_point);
     }
 }

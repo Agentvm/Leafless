@@ -40,6 +40,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6782811783927630211}
   - component: {fileID: 6782811783934633577}
+  - component: {fileID: 47539240}
+  - component: {fileID: 47539238}
+  - component: {fileID: 47539239}
+  - component: {fileID: 47539242}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -82,6 +86,61 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!143 &47539240
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782811783927207331}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.5
+  m_Radius: 1.13
+  m_SlopeLimit: 0.0001
+  m_StepOffset: 0.00001
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &47539238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782811783927207331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3dc09a0a30cc7640be49dfc9536d7cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &47539239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782811783927207331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94efe96f0910164891d4e3a2d4dff83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement_speed: 800
+--- !u!114 &47539242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782811783927207331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c11cb314fe03844aa277258041b9a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6782811783927207333
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +189,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 933bdf7b41480184683bd5794c900571, type: 3}
+  - {fileID: 2100000, guid: 7eaebbfd36dc7724da6dcbf22440cf88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
