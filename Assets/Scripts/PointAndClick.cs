@@ -7,7 +7,7 @@ public class PointAndClick : MonoBehaviour
     // Components
     Animator animator;
     Camera main_camera;
-    Eat EatScriptReference;
+    Movement MovementScriptReference;
 
     // raycasting
     private Vector3 mouse_point;
@@ -25,7 +25,7 @@ public class PointAndClick : MonoBehaviour
         // get components
         main_camera = Camera.main;
         animator = GetComponent<Animator> ();
-        EatScriptReference = GetComponent<Eat> ();
+        MovementScriptReference = GetComponent<Movement> ();
 
         // zero
         mouse_point.x = 0;
@@ -49,10 +49,7 @@ public class PointAndClick : MonoBehaviour
         // If leaf is clicked
         if ( Input.GetMouseButton (0) && active_object_transform.tag == "Interactable" )
         {
-
-            EatScriptReference.eatLeaf (active_object_transform );
-
-            
+            MovementScriptReference.ClickedInteractable = active_object_transform;
         }
     }
 

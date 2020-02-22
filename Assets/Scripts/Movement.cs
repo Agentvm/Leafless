@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    enum State {WasdMovement, EatLeaf}
+    State state;
+
     // Components
     CharacterController controller;
     PointAndClick PointAndClickScriptReference;
@@ -13,11 +16,15 @@ public class Movement : MonoBehaviour
 
     //
     Vector3 input;
-    bool movement_disabled = false;
+    Transform clicked_interactable = null; // object clicked by player
+    //bool movement_disabled = false;
 
-    public bool MovementDisabled { get => movement_disabled; set => movement_disabled = value; }
+    public Transform ClickedInteractable { get => clicked_interactable; set => clicked_interactable = value; }
+    //public bool MovementDisabled { get => movement_disabled; set => movement_disabled = value; }
 
+    
     // Damping variables
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,22 +37,56 @@ public class Movement : MonoBehaviour
         input.x = 0f;
         input.y = 0f;
         input.z = 0f;
+
+        // state
+        state = State.WasdMovement;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ( MovementDisabled ) return;
+        //if ( MovementDisabled ) return;
 
         // Use input class please
         input.x = Input.GetAxis ("Horizontal");
         input.z = Input.GetAxis ("Vertical");
 
-        // move according to input, but keep a height of 0
-        controller.SimpleMove (input * Time.deltaTime * movement_speed );
-        this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
+        if (state == State.WasdMovement)
+        {
+            if ( ClickedInteractable != null ) state = State.EatLeaf;
 
-        // look to the current mous position
-        this.transform.LookAt (PointAndClickScriptReference.Mouse_point);
+            // move according to input, but keep a height of 0
+            controller.SimpleMove (input * Time.deltaTime * movement_speed);
+            this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
+
+            // look to the current mous position
+            this.transform.LookAt (PointAndClickScriptReference.Mouse_point);
+        }
+        else if ( state == State.EatLeaf )
+        {
+            if (false ) // if done with state
+            {
+                ClickedInteractable = null;
+            }
+
+            // move towards leaf
+            Vector3 move_vector = ClickedInteractable.position - this.transform.position;
+            move_vector.Normalize ();
+
+            controller.SimpleMove (move_vector * Time.deltaTime * movement_speed);
+            this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
+
+            // look to the current mous position
+            this.transform.LookAt (ClickedInteractable.position );
+        }
+
+        
     }
+
+    
+    void changeState ()
+    {
+    
+    }
+
 }
