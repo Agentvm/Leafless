@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Actually, this should be global
 public class PointAndClick : MonoBehaviour
 {
     // Components
@@ -16,8 +18,10 @@ public class PointAndClick : MonoBehaviour
 
     //
     Transform active_object_transform;
+    Transform clicked_interactable = null; // object clicked by player
 
-    public Vector3 Mouse_point { get => mouse_point;}
+    public Vector3 Mouse_point { get => mouse_point; }
+    public Transform ClickedInteractable { get => clicked_interactable; set => clicked_interactable = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -49,8 +53,9 @@ public class PointAndClick : MonoBehaviour
         // If leaf is clicked
         if ( Input.GetMouseButton (0) && active_object_transform.tag == "Interactable" )
         {
-            MovementScriptReference.ClickedInteractable = active_object_transform;
+            ClickedInteractable = active_object_transform;
         }
+        else ClickedInteractable = null;
     }
 
 }
