@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
 
     public void Die ()
     {
+        transform.parent.GetComponent<SpawnWaves> ().NumberOfActiveEnemies--;
+        this.GetComponent<SphereCollider> ().enabled = false;
         FollowScriptReference.stopFollowing ();
         //animator.Play ("Armature|Die");
         death_time = Time.time;

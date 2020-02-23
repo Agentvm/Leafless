@@ -45,7 +45,7 @@ public class PointAndClick : MonoBehaviour
         if ( Physics.Raycast (ray, out ray_hit) )
         {
             mouse_point = ray_hit.point;
-            mouse_point.y = 0.5f;
+            mouse_point.y = 0.0f;
             active_object_transform = ray_hit.transform;
         }
         else active_object_transform = null;

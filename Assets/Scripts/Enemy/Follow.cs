@@ -45,4 +45,9 @@ public class Follow : MonoBehaviour
     {
         currently_following = true;
     }
+
+    public void setGoal (Transform transform_to_follow)
+    {
+        followed_object = transform_to_follow;
+    }
 }

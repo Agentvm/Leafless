@@ -67,6 +67,7 @@ public class Movement : MonoBehaviour
             if ( PointAndClickScriptReference.ClickedInteractable != null )
             {
                 leaf_to_approach = PointAndClickScriptReference.ClickedInteractable;
+                ShootScriptReference.disableShooting ();
                 state = State.ApproachLeaf;
             }
 
@@ -79,6 +80,13 @@ public class Movement : MonoBehaviour
         }
         else if ( state == State.ApproachLeaf )
         {
+            if ( Mathf.Abs (Input.GetAxis ("Horizontal" )) > .5f || Mathf.Abs (Input.GetAxis ("Vertical" )) > .5f )
+            {
+                state = State.WasdMovement;
+                PointAndClickScriptReference.ClickedInteractable = null;
+                return;
+            }
+
             // figure out leaf position
             Vector3 modified_leaf_position = leaf_to_approach.position;
 
@@ -120,6 +128,7 @@ public class Movement : MonoBehaviour
                 leaf_to_approach = null;
                 ShootScriptReference.Ammunition += 1;
                 animator.SetBool ("Eating", false);
+                ShootScriptReference.enableShooting ();
                 state = State.WasdMovement;
             }
         }

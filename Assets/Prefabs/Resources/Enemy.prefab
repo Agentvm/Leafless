@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 67546158741569353}
   - component: {fileID: 6831568929144327873}
   - component: {fileID: 8317519297392600709}
+  - component: {fileID: 436836781}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6831568929144327872}
-  m_LocalRotation: {x: -0, y: 0.64356446, z: -0, w: 0.7653919}
+  m_LocalRotation: {x: 0, y: 0.64356273, z: 0, w: 0.7653934}
   m_LocalPosition: {x: -9.29, y: 0.069, z: -6.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -68,7 +69,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.5
-  m_Radius: 1.13
+  m_Radius: 0.5
   m_SlopeLimit: 0.0001
   m_StepOffset: 0.00001
   m_SkinWidth: 0.08
@@ -112,8 +113,20 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &436836781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831568929144327872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4c6b04af7edc34bb8b7e77675bcab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6831568929144327874
 GameObject:
   m_ObjectHideFlags: 0
