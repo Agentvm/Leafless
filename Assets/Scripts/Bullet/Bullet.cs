@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    bool explode_time_started = false;
+    bool explosion_started = false;
     float explode_time = 0f;
+
+    [SerializeField]Transform bullet_body;
+    [SerializeField]ParticleSystem explode_particle;
+    [SerializeField]ParticleSystem explode_flash;
+    [SerializeField]TrailRenderer trail_renderer;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +21,8 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if ( explosion_started && !explode_particle.isPlaying )
+            Destroy (this.gameObject);
     }
 
     private void OnTriggerEnter ( Collider collider )
@@ -24,15 +30,24 @@ public class Bullet : MonoBehaviour
         if ( collider.transform.tag == "Enemy")
             collider.transform.GetComponent<Enemy> ().Die ();
 
-        explode_on_contact ();
+        if (collider.tag != "Ground" && collider.tag != "Player")
+            explode_on_contact ();
     }
 
     public void explode_on_contact ()
     {
+        // hold the bullet in the air and disable the bullet body aswell as the collider
+        this.GetComponent<Translate> ().stopTranslating ();
+        bullet_body.gameObject.SetActive(false );
+        this.GetComponent<Collider> ().enabled = false;
+
+        // play the explosion animation, disable the trail
+        explosion_started = true;
+        explode_flash.Play ();
+        explode_particle.Play ();
         //if ( !explode_time_started )
         //{
-        //    // hold the bullet in the air and play the explosion animation
-        //    this.transform.parent.GetComponent<Translate> ().stopTranslating ();
+        //    
         //    explode_time = Time.time;
         //    explode_time_started = true;
         //}

@@ -16,7 +16,11 @@ public class Translate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ( stop_translating ) return;
+        if ( stop_translating )
+        {
+            this.transform.Translate (Vector3.zero);
+            return;
+        }
 
         this.transform.Translate (this.transform.forward * bullet_speed * Time.deltaTime, Space.World);
     }

@@ -48,7 +48,7 @@ public class Shoot : MonoBehaviour
         if (currently_shooting && Time.time > shoot_time + 0.5f )
         {
                 Ammunition -= 1;
-                Instantiate (Resources.Load ("Bullet"), this.transform.position, this.transform.rotation);
+                Instantiate (Resources.Load ("Bullet"), this.transform.position + this.transform.forward * .5f, this.transform.rotation);
                 currently_shooting = false;
                 animator.SetBool ("Shooting", false);
         }
