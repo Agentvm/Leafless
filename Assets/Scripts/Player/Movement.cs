@@ -124,7 +124,7 @@ public class Movement : MonoBehaviour
             // play eat animation, then change state
             if ( Time.time > time_start_of_leaf_eating + leaf_eat_delay )
             {
-                leaf_to_approach.gameObject.SetActive (false); // grow script should link in here
+                leaf_to_approach.transform.GetComponent<Leaf> ().getEaten ();
                 leaf_to_approach = null;
                 ShootScriptReference.Ammunition += 1;
                 animator.SetBool ("Eating", false);
