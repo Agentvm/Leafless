@@ -31,7 +31,8 @@ public class Growth : MonoBehaviour
         //Vector3 point_on_radius = this.transform.position + this.transform.forward * plant_diameter;
         //instantiateLeafOnRadius (point_on_radius);
 
-        foreach (Vector3 position in getPositionsOnRadius ((int)(plant_diameter * 0.5f * Mathf.PI) ))
+        int leaf_count = (int)((Mathf.PI * plant_diameter) / 2.2f);
+        foreach (Vector3 position in getPositionsOnRadius ((int)(leaf_count) ))
         {
             instantiateLeafOnRadius (position );
         }
