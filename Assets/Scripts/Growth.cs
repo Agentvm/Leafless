@@ -18,15 +18,19 @@ public class Growth : MonoBehaviour
     bool regrowing_started = false;
     float regrow_start_time = 0f;
 
+    float leaf_offset = 0f;
+
     //private float GrowDelay { get => max_grow_delay - ((max_grow_delay - min_grow_delay) * number_of_leaves / max_leaves); }
 
     // Start is called before the first frame update
     void Start()
     {
         // get plant radius from child model
-        //plant_diameter = Vector3.Distance (this.transform.GetChild (0).transform.position, this.transform.GetChild (1).transform.position) * 2;
+        //plant_diameter = Vector3.Distance (this.transform.position, this.transform.GetChild (0).GetChild (0).transform.position) * 2;
         plant_diameter = this.transform.GetChild (0).localScale.x;
         leaf_object = Resources.Load ("LeafComplete");
+
+        Debug.Log ("Diameter " + this.name + ": " + plant_diameter);
 
         //Vector3 point_on_radius = this.transform.position + this.transform.forward * plant_diameter;
         //instantiateLeafOnRadius (point_on_radius);
@@ -40,6 +44,9 @@ public class Growth : MonoBehaviour
         number_of_leaves = max_leaves = this.transform.childCount;
         reCalculateGrowDelay ();
     }
+
+    //15.734:  -0.5 13.1
+    //10:       0.6 7.4
 
     List<Vector3> getPositionsOnRadius (int number_of_positions)
     {
@@ -69,10 +76,9 @@ public class Growth : MonoBehaviour
                                                         Quaternion.LookRotation (point_on_radius - this.transform.position, Vector3.up),
                                                         this.transform)).transform;
 
-        float leaf_offset = 0f;
-        if ( new_leaf.GetChild (1) )
-            // get leaf-joint distance
-            leaf_offset = Vector3.Distance (new_leaf.GetChild (1).transform.position, new_leaf.position);
+        
+        if ( leaf_offset == 0f && new_leaf.GetChild (1) ) // leaf offset is the same for each leaf
+            leaf_offset = Vector3.Distance (new_leaf.GetChild (1).transform.position, new_leaf.position); // get leaf-joint distance
         new_leaf.position -= new_leaf.forward.normalized * leaf_offset;
     }
 
