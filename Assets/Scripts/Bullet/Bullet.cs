@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     bool explosion_started = false;
+    float start_time = 0f;
+    float maximum_life_time = 10f;
     float explode_time = 0f;
 
     [SerializeField]Transform bullet_body;
@@ -15,13 +17,13 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        start_time = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ( explosion_started && !explode_particle.isPlaying )
+        if ( explosion_started && !explode_particle.isPlaying || Time.time > start_time + maximum_life_time )
             Destroy (this.gameObject);
     }
 
