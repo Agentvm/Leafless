@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
+    [SerializeField]int ammunition_capacity = 3;
     [SerializeField]int ammunition = 0;
 
     // references
@@ -19,7 +20,7 @@ public class Shoot : MonoBehaviour
     bool currently_shooting = false;
     bool shooting_disabled = false;
 
-    public int Ammunition { get => ammunition; set => ammunition = value; }
+    public int Ammunition { get => ammunition; set => ammunition = Mathf.Min (value, ammunition_capacity); }
 
     // Start is called before the first frame update
     void Start()
