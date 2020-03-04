@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Growth : MonoBehaviour
 {
-    float plant_diameter = 10f;
+    float plant_radius = 10f;
     Object leaf_object;
 
     [SerializeField] float max_grow_delay = 10f;
@@ -27,20 +27,26 @@ public class Growth : MonoBehaviour
     {
         // get plant radius from child model
         //plant_diameter = Vector3.Distance (this.transform.position, this.transform.GetChild (0).GetChild (0).transform.position) * 2;
-        plant_diameter = this.transform.GetChild (0).localScale.x;
+        //plant_diameter = this.transform.GetChild (0).localScale.x;
+        plant_radius = this.transform.GetChild (0).transform.GetComponent<Renderer> ().bounds.extents.magnitude / 2;
+        plant_radius *= 0.81f; // At this point, I really don't care how I fix this
+
+        // preload leaf object
         leaf_object = Resources.Load ("LeafComplete");
 
-        Debug.Log ("Diameter " + this.name + ": " + plant_diameter);
-
-        //Vector3 point_on_radius = this.transform.position + this.transform.forward * plant_diameter;
+        // single leaf test
+        // Debug.Log ("Diameter " + this.name + ": " + plant_radius);
+        //Vector3 point_on_radius = this.transform.position + this.transform.forward * plant_radius;
         //instantiateLeafOnRadius (point_on_radius);
 
-        int leaf_count = (int)((Mathf.PI * plant_diameter) / 2.2f);
+        // grow all leafs at the start of the game
+        int leaf_count = (int)((Mathf.PI * (plant_radius/.81f)) / 2.2f);
         foreach (Vector3 position in getPositionsOnRadius ((int)(leaf_count) ))
         {
             instantiateLeafOnRadius (position );
         }
 
+        // setup the regrow mechanism
         number_of_leaves = max_leaves = this.transform.childCount;
         reCalculateGrowDelay ();
     }
@@ -63,7 +69,7 @@ public class Growth : MonoBehaviour
             position.z = Mathf.Sin (theta); // calculate y of theta
 
             // add current point, multiplying it with radius
-            list_of_points.Add (this.transform.position + position * plant_diameter);
+            list_of_points.Add (this.transform.position + position * plant_radius);
         }
 
         return list_of_points;
@@ -76,10 +82,10 @@ public class Growth : MonoBehaviour
                                                         Quaternion.LookRotation (point_on_radius - this.transform.position, Vector3.up),
                                                         this.transform)).transform;
 
-        
+
         if ( leaf_offset == 0f && new_leaf.GetChild (1) ) // leaf offset is the same for each leaf
             leaf_offset = Vector3.Distance (new_leaf.GetChild (1).transform.position, new_leaf.position); // get leaf-joint distance
-        new_leaf.position -= new_leaf.forward.normalized * leaf_offset;
+        new_leaf.position += new_leaf.forward.normalized * leaf_offset;
     }
 
     // Update is called once per frame
