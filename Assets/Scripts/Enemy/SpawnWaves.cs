@@ -8,6 +8,7 @@ public class SpawnWaves : MonoBehaviour
     Transform player;
 
     int number_of_active_enemies = 0;
+    int number_of_leaves_eaten = 0;
 
     public int NumberOfActiveEnemies { get => number_of_active_enemies; set => number_of_active_enemies = value; }
 
@@ -21,7 +22,7 @@ public class SpawnWaves : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (number_of_active_enemies < 3)
+        if (number_of_active_enemies < (3 + Time.time / 20) )
         {
             spawnEnemy (randomPointNearPlayer ());
         }
