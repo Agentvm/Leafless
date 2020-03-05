@@ -10,15 +10,20 @@ public class PointAndClick : MonoBehaviour
     Animator animator;
     Camera main_camera;
     Movement MovementScriptReference;
+    Shoot ShootScriptReference;
 
     // raycasting
     private Vector3 mouse_point;
     RaycastHit ray_hit;
     Ray ray;
 
-    //
+    // object identification
     Transform active_object_transform;
     Transform clicked_interactable = null; // object clicked by player
+
+    // timing
+    float last_click_time = 0f;
+    float click_delay = 0.3f;
 
     public Vector3 Mouse_point { get => mouse_point; }
     public Transform ClickedInteractable { get => clicked_interactable; set => clicked_interactable = value; }
@@ -30,6 +35,7 @@ public class PointAndClick : MonoBehaviour
         main_camera = Camera.main;
         animator = GetComponent<Animator> ();
         MovementScriptReference = GetComponent<Movement> ();
+        ShootScriptReference = GetComponent<Shoot> ();
 
         // zero
         mouse_point.x = 0;
@@ -41,6 +47,7 @@ public class PointAndClick : MonoBehaviour
     void Update()
     {
         // Shoot a ray from the camera through the mouse position into the scene and get the collision point
+        // Also get the object that was hit
         ray = main_camera.ScreenPointToRay (Input.mousePosition);
         if ( Physics.Raycast (ray, out ray_hit) )
         {
@@ -50,12 +57,26 @@ public class PointAndClick : MonoBehaviour
         }
         else active_object_transform = null;
 
-        // If leaf is clicked
-        if ( Input.GetMouseButton (0) && active_object_transform.tag == "Interactable" )
+        // Mouse clicked?
+        if ( Input.GetMouseButton (0) && Time.time > last_click_time + click_delay)
         {
-            ClickedInteractable = active_object_transform;
+            last_click_time = Time.time;
+
+            // Clicked on object, or in the air?
+            if ( active_object_transform.tag == "Interactable" )
+            {
+                ShootScriptReference.disableShooting ();
+
+                ClickedInteractable = active_object_transform;
+                MovementScriptReference.leafClicked (active_object_transform);
+            }
+            else // Shoot, if no Interactable object was clicked
+            {
+                ClickedInteractable = null;
+                ShootScriptReference.startShooting (true); // force shooting
+            }   
         }
-        else ClickedInteractable = null;
+
     }
 
 }

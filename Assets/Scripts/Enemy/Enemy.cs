@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     // variables
     bool dying = false;
     float death_time = 0;
+    bool end_game = false;
+    float end_game_time = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,10 @@ public class Enemy : MonoBehaviour
         {
             this.gameObject.SetActive (false);
         }
+        else if ( end_game && Time.time > end_game_time + 0.7f )
+        {
+            Application.LoadLevel (Application.loadedLevel);
+        }
     }
 
     public void Die ()
@@ -40,12 +46,24 @@ public class Enemy : MonoBehaviour
         dying = true;
     }
 
+    // Kill Player
     private void OnTriggerEnter ( Collider collider )
     {
         if ( collider.transform.tag == "Player")
         {
-            UnityEditor.EditorApplication.isPlaying = false;
-            Application.Quit ();
+            // Stop player an all enemies
+            collider.GetComponent<Movement> ().MovementDisabled = true;
+            if (transform.parent)
+            {
+                this.transform.GetComponentInParent<SpawnWaves> ().StopAllEnemies ();
+                //this.transform.GetComponentInParent<SpawnWaves> ().StopSpawning ();
+            }
+            this.GetComponent<Animator> ().SetBool ("Eating", true);
+
+            end_game = true;
+            end_game_time = Time.time;
+            //UnityEditor.EditorApplication.isPlaying = false;
+            //Application.Quit ();
         }
     }
 }

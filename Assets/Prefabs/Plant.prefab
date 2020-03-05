@@ -152,5 +152,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4999db88965a2fc4397744d1e9cc4ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_grow_delay: 10
-  min_grow_delay: 4
+  max_grow_delay: 20
+  min_grow_delay: 8

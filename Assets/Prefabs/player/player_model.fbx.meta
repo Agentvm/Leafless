@@ -10,6 +10,9 @@ ModelImporter:
     100008: Bone_end
     100010: //RootNode
     100012: Sphere
+    100014: AmmoLeft
+    100016: AmmoMiddle
+    100018: AmmoRight
     400000: Armature
     400002: Bone
     400004: Bone.001
@@ -17,14 +20,24 @@ ModelImporter:
     400008: Bone_end
     400010: //RootNode
     400012: Sphere
+    400014: AmmoLeft
+    400016: AmmoMiddle
+    400018: AmmoRight
     2100000: Material.001
+    2100002: No Name
     4300000: Sphere
+    4300002: AmmoMiddle
+    4300004: AmmoLeft
+    4300006: AmmoRight
     7400000: Armature|Bite
     7400002: Armature|Idle1
     7400004: Armature|Idle2
     7400006: Armature|Shoot
     9500000: //RootNode
     13700000: Sphere
+    13700002: AmmoLeft
+    13700004: AmmoMiddle
+    13700006: AmmoRight
   externalObjects: {}
   materials:
     importMaterials: 1

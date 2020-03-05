@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    // Statemachine
     enum State {WasdMovement, ApproachLeaf, EatLeaf}
     State state;
 
@@ -16,6 +17,8 @@ public class Movement : MonoBehaviour
     Animator animator;
 
     // Movement
+    Vector3 input;
+    bool movement_disabled = false;
 
         // Constants
         [Range(0f, 1600f)][SerializeField] float max_movement_speed = 800f;
@@ -23,21 +26,19 @@ public class Movement : MonoBehaviour
         [Range(1f, 10f)][SerializeField] float acceleration = 4f;
         [Range(1f, 10f)][SerializeField] float rotation_acceleration = 6f;
 
-    float movement_speed = 0f;
+    float current_movement_speed = 0f;
 
-    //
-    Vector3 input;
+    // Damping variables
+    float damp_movement = 0f;
+
+    // Interaction with objects
     Transform leaf_to_approach = null;
-    
-    //bool movement_disabled = false;
     float time_start_of_leaf_eating = 0f;
     float leaf_eat_delay = 1.1f;
     
-    //public bool MovementDisabled { get => movement_disabled; set => movement_disabled = value; }
+    // Properties
+    public bool MovementDisabled { get => movement_disabled; set => movement_disabled = value; }
 
-    
-    // Damping variables
-    float damp_movement = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +62,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if ( MovementDisabled ) return;
+        if ( MovementDisabled ) return;
 
         // Use input class please
         input.x = Input.GetAxis ("Horizontal");
@@ -70,18 +71,14 @@ public class Movement : MonoBehaviour
 
         if (state == State.WasdMovement)
         {
-            if ( PointAndClickScriptReference.ClickedInteractable != null )
-            {
-                leaf_to_approach = PointAndClickScriptReference.ClickedInteractable;
-                ShootScriptReference.disableShooting ();
+            if ( leaf_to_approach != null )
                 state = State.ApproachLeaf;
-            }
 
             // gather speed // a max speed of 1f ensures that character does not move faster in diagon alley
             dampedAccelerate (Mathf.Min (input.magnitude, 1f) * max_movement_speed); 
 
             // move according to input, but keep a height of 0
-            controller.SimpleMove (input.normalized * Time.deltaTime * movement_speed);
+            controller.SimpleMove (input.normalized * Time.deltaTime * current_movement_speed);
             this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
 
             // turn towards current mouse position
@@ -96,7 +93,7 @@ public class Movement : MonoBehaviour
             if ( Mathf.Abs (Input.GetAxis ("Horizontal" )) > .5f || Mathf.Abs (Input.GetAxis ("Vertical" )) > .5f )
             {
                 state = State.WasdMovement;
-                PointAndClickScriptReference.ClickedInteractable = null;
+                leaf_to_approach = null;
                 return;
             }
 
@@ -126,7 +123,7 @@ public class Movement : MonoBehaviour
 
                 // move towards leaf
                 dampedAccelerate (max_movement_speed);
-                controller.SimpleMove (move_vector * Time.deltaTime * movement_speed);
+                controller.SimpleMove (move_vector * Time.deltaTime * current_movement_speed);
                 this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
             }
 
@@ -152,13 +149,18 @@ public class Movement : MonoBehaviour
 
     void dampedAccelerate (float speed_to_be)
     {
-        movement_speed = Mathf.SmoothDamp (movement_speed, speed_to_be, ref damp_movement, acceleration * Time.deltaTime);
+        current_movement_speed = Mathf.SmoothDamp (current_movement_speed, speed_to_be, ref damp_movement, acceleration * Time.deltaTime);
     }
-
     
     void changeState ()
     {
     
+    }
+
+    public void leafClicked (Transform clicked_leaf)
+    {
+        if ( state != State.ApproachLeaf && state != State.EatLeaf )
+            leaf_to_approach = clicked_leaf;
     }
 
 }

@@ -13,6 +13,8 @@ public class Follow : MonoBehaviour
     // variables
     [SerializeField]bool currently_following = true;
 
+    public bool CurrentlyFollowing { get => currently_following; set => currently_following = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +24,7 @@ public class Follow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ( !followed_object || !currently_following) return;
+        if ( !followed_object || !CurrentlyFollowing) return;
         
         // figure out move vector towards leaf
         Vector3 move_vector = followed_object.position - this.transform.position;
@@ -38,12 +40,12 @@ public class Follow : MonoBehaviour
 
     public void stopFollowing ()
     {
-        currently_following = false;
+        CurrentlyFollowing = false;
     }
 
     public void startFollowing ()
     {
-        currently_following = true;
+        CurrentlyFollowing = true;
     }
 
     public void setGoal (Transform transform_to_follow)

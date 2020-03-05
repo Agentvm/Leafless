@@ -43,4 +43,25 @@ public class SpawnWaves : MonoBehaviour
         new_enemy.GetComponent<Follow> ().setGoal (player);
         NumberOfActiveEnemies++;
     }
+
+    public void StopAllEnemies ()
+    {
+        foreach ( Transform enemy in transform )
+        {
+            enemy.GetComponent<Follow> ().CurrentlyFollowing = false;
+        }
+    }
+
+    public void AllEnemiesAttack ()
+    {
+        foreach ( Transform enemy in transform )
+        {
+            enemy.GetComponent<Follow> ().CurrentlyFollowing = true;
+        }
+    }
+
+    public void StopSpawning ()
+    {
+        Debug.LogError ("SpawnWaves>StopSpawning is not implemented yet");
+    }
 }

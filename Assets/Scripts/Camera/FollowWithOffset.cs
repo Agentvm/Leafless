@@ -12,6 +12,8 @@ public class FollowWithOffset : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if ( !master )
+            master = GameObject.FindWithTag ("Player").transform;
         offset = master.position - this.transform.position;
     }
 
