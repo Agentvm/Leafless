@@ -14,10 +14,18 @@ public class Bullet : MonoBehaviour
     [SerializeField]ParticleSystem explode_flash;
     [SerializeField]TrailRenderer trail_renderer;
 
+    [SerializeField]AudioClip[] shoot_sounds;
+
+    private void Awake ()
+    {
+        this.GetComponent<AudioSource> ().clip = shoot_sounds[Random.Range (0, shoot_sounds.Length)];
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         start_time = Time.time;
+        this.GetComponent<AudioSource> ().Play ();
     }
 
     // Update is called once per frame

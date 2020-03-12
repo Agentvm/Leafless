@@ -72,7 +72,7 @@ public class Movement : MonoBehaviour
         if (state == State.WasdMovement)
         {
             if ( leaf_to_approach != null )
-                state = State.ApproachLeaf;
+                changeState (State.ApproachLeaf );
 
             // gather speed // a max speed of 1f ensures that character does not move faster in diagon alley
             dampedAccelerate (Mathf.Min (input.magnitude, 1f) * max_movement_speed); 
@@ -92,7 +92,7 @@ public class Movement : MonoBehaviour
         {
             if ( Mathf.Abs (Input.GetAxis ("Horizontal" )) > .5f || Mathf.Abs (Input.GetAxis ("Vertical" )) > .5f )
             {
-                state = State.WasdMovement;
+                changeState (State.WasdMovement);
                 leaf_to_approach = null;
                 return;
             }
@@ -111,7 +111,7 @@ public class Movement : MonoBehaviour
             if (Vector3.Distance (this.transform.position, modified_leaf_position) < .5f )
             {
                 animator.SetBool ("Eating", true);
-                state = State.EatLeaf;
+                changeState (State.EatLeaf );
                 time_start_of_leaf_eating = Time.time;
                 return;
             }
@@ -132,15 +132,17 @@ public class Movement : MonoBehaviour
         }
         else if (state == State.EatLeaf)
         {
+
+
             // play eat animation, then change state
             if ( Time.time > time_start_of_leaf_eating + leaf_eat_delay )
             {
-                leaf_to_approach.transform.GetComponent<Leaf> ().getEaten ();
+                leaf_to_approach.transform.GetComponent<Leaf> ().gameObject.SetActive (false);
                 leaf_to_approach = null;
                 ShootScriptReference.Ammunition += 1;
                 animator.SetBool ("Eating", false);
                 ShootScriptReference.enableShooting ();
-                state = State.WasdMovement;
+                changeState (State.WasdMovement);
             }
         }
 
@@ -152,9 +154,11 @@ public class Movement : MonoBehaviour
         current_movement_speed = Mathf.SmoothDamp (current_movement_speed, speed_to_be, ref damp_movement, acceleration * Time.deltaTime);
     }
     
-    void changeState ()
+    void changeState ( State new_state)
     {
-    
+        if (new_state == State.EatLeaf)
+            leaf_to_approach.transform.GetComponent<Leaf> ().getEaten ();
+        state = new_state;
     }
 
     public void leafClicked (Transform clicked_leaf)

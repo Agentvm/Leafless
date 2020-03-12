@@ -105,6 +105,8 @@ public class Growth : MonoBehaviour
                 reCalculateGrowDelay ();
                 if (leaf_regrow_queue.Count > 0) regrow_start_time = Time.time;
             }
+            //if (number_of_leaves == 1)
+            //    AudioManager.Instance.Play ("Chime");
         }
         else regrowing_started = false;
 
