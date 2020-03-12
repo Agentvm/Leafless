@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
         }
         else if ( end_game && Time.time > end_game_time + 0.7f )
         {
-            Application.LoadLevel (Application.loadedLevel);
+            SceneLoader.Instance.loadNextScene ();
         }
     }
 
@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
         //animator.Play ("Armature|Die");
         death_time = Time.time;
         dying = true;
+        SceneLoader.Instance.Award = 2;
     }
 
     // Kill Player

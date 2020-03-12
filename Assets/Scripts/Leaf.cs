@@ -33,6 +33,7 @@ public class Leaf : MonoBehaviour
         play_audio (get_eaten_sounds[Random.Range (0, get_eaten_sounds.Length)]);
         if ( this.transform.parent && this.transform.parent.parent )
             this.transform.parent.parent.GetComponent<Growth> ().noticeEatenLeaf (this.transform);
+        SceneLoader.Instance.Award = 1;
     }
 
     void play_audio (AudioClip clip )
