@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2377161579795371758}
   - component: {fileID: 2377161579795371757}
   - component: {fileID: 2377161579795371756}
-  - component: {fileID: 2377161579795371755}
   - component: {fileID: 2377161579795371754}
+  - component: {fileID: 9051261444171449303}
   m_Layer: 0
   m_Name: PlantBody
   m_TagString: Untagged
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2377161579795371753}
-  m_LocalRotation: {x: -0, y: -0, z: -0.9924624, w: 0.12254987}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 2377161580157018625}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -165.921}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 180}
 --- !u!33 &2377161579795371757
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -79,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &2377161579795371755
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2377161579795371753}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2377161579795371754
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -108,6 +95,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!136 &9051261444171449303
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377161579795371753}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.45
+  m_Height: 2.6169991
+  m_Direction: 1
+  m_Center: {x: -7.8716466e-17, y: 0.003254509, z: -0.00000009536743}
 --- !u!1 &2377161580157018624
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2377161580157018624}
   m_LocalRotation: {x: -0, y: -0.8690273, z: -0, w: 0.49476406}
-  m_LocalPosition: {x: 11.7, y: 0, z: 15.93}
+  m_LocalPosition: {x: 11.7, y: 1.9, z: 15.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2377161579795371758}
@@ -153,7 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4999db88965a2fc4397744d1e9cc4ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_grow_delay: 40
+  max_size: 16
+  min_size: 4
+  max_grow_delay: 30
   min_grow_delay: 6
 --- !u!82 &82494655444563336
 AudioSource:
