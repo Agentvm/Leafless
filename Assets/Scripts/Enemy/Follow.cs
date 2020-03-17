@@ -14,6 +14,7 @@ public class Follow : MonoBehaviour
     [SerializeField]bool currently_following = true;
 
     public bool CurrentlyFollowing { get => currently_following; set => currently_following = value; }
+    public Transform FollowedObject { get => followed_object; set => followed_object = value; }
 
     // Start is called before the first frame update
     void Start()

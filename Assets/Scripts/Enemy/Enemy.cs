@@ -26,14 +26,24 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if Distance to player gets too large, respawn
+        if ( Vector3.Distance (this.transform.position, FollowScriptReference.FollowedObject.position) > 60f )
+            Respawn ();
+
         if ( dying && Time.time > death_time + 1f )
         {
-            this.gameObject.SetActive (false);
+            Destroy (this.gameObject);
         }
         else if ( end_game && Time.time > end_game_time + 0.7f )
         {
             SceneLoader.Instance.loadNextScene ();
         }
+    }
+
+    private void Respawn ()
+    {
+        transform.parent.GetComponent<SpawnWaves> ().spawnEnemy ();
+        Destroy (this.gameObject);
     }
 
     public void Die ()

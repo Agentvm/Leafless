@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4999db88965a2fc4397744d1e9cc4ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_grow_delay: 20
-  min_grow_delay: 8
+  max_grow_delay: 40
+  min_grow_delay: 6
 --- !u!82 &82494655444563336
 AudioSource:
   m_ObjectHideFlags: 0

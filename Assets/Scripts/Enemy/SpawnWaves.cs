@@ -9,22 +9,37 @@ public class SpawnWaves : MonoBehaviour
 
     int number_of_active_enemies = 0;
     int number_of_leaves_eaten = 0;
+    float start_time;
+    float spawn_time = 0f;
 
     public int NumberOfActiveEnemies { get => number_of_active_enemies; set => number_of_active_enemies = value; }
+    public int NumberOfLeavesEaten { get => number_of_leaves_eaten; set => number_of_leaves_eaten = value; }
 
     // Start is called before the first frame update
     void Start()
     {
         enemy_object = Resources.Load ("Enemy");
         player = GameObject.FindWithTag ("Player").transform;
+        start_time = Time.time;
+        //InvokeRepeating ("spawnEnemy", 0f, 10f);
+        SceneLoader.Instance.Award = 100;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (number_of_active_enemies < (3 + Time.time / 20) )
+        if (number_of_active_enemies < (3) )
         {
-            spawnEnemy (randomPointNearPlayer ());
+            spawnEnemy ();
+        }
+        float award_progress = (SceneLoader.Instance.Award)/100f;
+        int spawn_time_reduction = (int) (7 * Mathf.Min (1, award_progress ));
+        if (Time.time - start_time > spawn_time + (10 - spawn_time_reduction ))
+        {
+            Debug.Log ("award_progress: " + award_progress + ", spawn_time_reduction: " + spawn_time_reduction + ", NumberOfActiveEnemies: " + NumberOfActiveEnemies);
+            spawnEnemy ();
+            spawn_time = Time.time - start_time;
+            //SceneLoader.Instance.Award = 50;
         }
     }
 
@@ -38,8 +53,16 @@ public class SpawnWaves : MonoBehaviour
         return player.transform.position + point_on_circle;
     }
 
-    void spawnEnemy (Vector3 global_position)
+    public void spawnEnemy ( Vector3 global_position )
     {
+        Transform new_enemy = ((GameObject)Instantiate (enemy_object, global_position, Quaternion.LookRotation (global_position - player.position, Vector3.up), this.transform)).transform;
+        new_enemy.GetComponent<Follow> ().setGoal (player);
+        NumberOfActiveEnemies++;
+    }
+
+    public void spawnEnemy ()
+    {
+        Vector3 global_position = randomPointNearPlayer ();
         Transform new_enemy = ((GameObject)Instantiate (enemy_object, global_position, Quaternion.LookRotation (global_position - player.position, Vector3.up), this.transform)).transform;
         new_enemy.GetComponent<Follow> ().setGoal (player);
         NumberOfActiveEnemies++;
