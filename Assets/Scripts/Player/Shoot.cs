@@ -37,7 +37,9 @@ public class Shoot : MonoBehaviour
         if (currently_shooting && Time.time > shoot_time + 0.5f )
         {
             Ammunition -= 1;
-            Instantiate (Resources.Load ("Bullet"), this.transform.position + this.transform.forward * .5f, this.transform.rotation);
+            Quaternion shoot_rotation = this.transform.rotation;
+            shoot_rotation.eulerAngles = new Vector3 (0f, shoot_rotation.eulerAngles.y, 0f);
+            Instantiate (Resources.Load ("Bullet"), this.transform.position + this.transform.forward * .5f, shoot_rotation);
             animator.SetBool ("Shooting", false);
             currently_shooting = false;
                 

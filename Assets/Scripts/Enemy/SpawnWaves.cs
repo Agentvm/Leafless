@@ -22,7 +22,6 @@ public class SpawnWaves : MonoBehaviour
         player = GameObject.FindWithTag ("Player").transform;
         start_time = Time.time;
         //InvokeRepeating ("spawnEnemy", 0f, 10f);
-        SceneLoader.Instance.Award = 100;
     }
 
     // Update is called once per frame
@@ -36,7 +35,6 @@ public class SpawnWaves : MonoBehaviour
         int spawn_time_reduction = (int) (7 * Mathf.Min (1, award_progress ));
         if (Time.time - start_time > spawn_time + (10 - spawn_time_reduction ))
         {
-            Debug.Log ("award_progress: " + award_progress + ", spawn_time_reduction: " + spawn_time_reduction + ", NumberOfActiveEnemies: " + NumberOfActiveEnemies);
             spawnEnemy ();
             spawn_time = Time.time - start_time;
             //SceneLoader.Instance.Award = 50;
@@ -45,7 +43,7 @@ public class SpawnWaves : MonoBehaviour
 
     Vector3 randomPointNearPlayer ()
     {
-        Vector2 point_on_circle_2d = Random.insideUnitCircle.normalized * 50f;
+        Vector2 point_on_circle_2d = Random.insideUnitCircle.normalized * 35f;
         Vector3 point_on_circle = Vector3.zero;
         point_on_circle.x = point_on_circle_2d.x;
         point_on_circle.z = point_on_circle_2d.y;

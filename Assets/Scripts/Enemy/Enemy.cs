@@ -21,13 +21,16 @@ public class Enemy : MonoBehaviour
     {
         FollowScriptReference = GetComponent<Follow> ();
         animator = GetComponent<Animator> ();
+        
+        Ray ray = new Ray (this.transform.position, -Vector3.up);
+        if ( !Physics.Raycast (ray, 5f) ) Respawn ();
     }
 
     // Update is called once per frame
     void Update()
     {
         // if Distance to player gets too large, respawn
-        if ( Vector3.Distance (this.transform.position, FollowScriptReference.FollowedObject.position) > 60f )
+        if ( Vector3.Distance (this.transform.position, FollowScriptReference.FollowedObject.position) > 50f )
             Respawn ();
 
         if ( dying && Time.time > death_time + 1f )

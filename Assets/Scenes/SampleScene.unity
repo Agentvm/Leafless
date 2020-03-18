@@ -624,7 +624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1344014747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,16 +856,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 280476589}
     m_Modifications:
-    - target: {fileID: 1662988535346275898, guid: cc097002644ca0b4e8c30b48249fd084,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 1662988535368520111, guid: cc097002644ca0b4e8c30b48249fd084,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
     - target: {fileID: 1662988535400905625, guid: cc097002644ca0b4e8c30b48249fd084,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -925,36 +915,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Panel
-      objectReference: {fileID: 0}
-    - target: {fileID: 1662988535869215568, guid: cc097002644ca0b4e8c30b48249fd084,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 1662988535984447528, guid: cc097002644ca0b4e8c30b48249fd084,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 1662988536218059038, guid: cc097002644ca0b4e8c30b48249fd084,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 1662988536521921418, guid: cc097002644ca0b4e8c30b48249fd084,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 1662988536531153724, guid: cc097002644ca0b4e8c30b48249fd084,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 1662988536646995961, guid: cc097002644ca0b4e8c30b48249fd084,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc097002644ca0b4e8c30b48249fd084, type: 3}

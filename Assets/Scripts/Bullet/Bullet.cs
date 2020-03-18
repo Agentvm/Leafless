@@ -40,13 +40,13 @@ public class Bullet : MonoBehaviour
         if ( collider.transform.tag == "Enemy")
             collider.transform.GetComponent<Enemy> ().Die ();
 
-        if (collider.tag != "Ground" && collider.tag != "Player")
+        if (collider.tag != "Player")
             explode_on_contact ();
     }
 
     public void explode_on_contact ()
     {
-        // hold the bullet in the air and disable the bullet body aswell as the collider
+        // hold the bullet in the air and disable the bullet body as well as the collider
         this.GetComponent<Translate> ().stopTranslating ();
         bullet_body.gameObject.SetActive(false );
         this.GetComponent<Collider> ().enabled = false;

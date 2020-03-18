@@ -167,6 +167,13 @@ public class Growth : MonoBehaviour
 
     }
 
+    public void destroyOneLeaf ()
+    {
+        max_leaves--;
+        number_of_leaves--;
+        reCalculateGrowDelay ();
+    }
+
     void reCalculateGrowDelay ()
     {
         current_grow_delay = max_grow_delay - ((max_grow_delay - min_grow_delay) * number_of_leaves / max_leaves);

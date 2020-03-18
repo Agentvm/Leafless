@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Ground
   - Score
+  - Panel
+  - PlantBody
   layers:
   - Default
   - TransparentFX

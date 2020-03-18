@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2377161579795371756}
   - component: {fileID: 2377161579795371754}
   - component: {fileID: 9051261444171449303}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlantBody
-  m_TagString: Untagged
+  m_TagString: PlantBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4999db88965a2fc4397744d1e9cc4ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_size: 16
+  max_size: 14
   min_size: 4
   max_grow_delay: 30
   min_grow_delay: 6
