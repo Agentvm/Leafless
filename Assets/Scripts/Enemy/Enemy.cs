@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     // References
     Follow FollowScriptReference;
+    SpawnWaves SpawnWavesReference;
 
     // variables
     bool dying = false;
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         FollowScriptReference = GetComponent<Follow> ();
+        SpawnWavesReference = this.transform.parent.GetComponent<SpawnWaves> ();
         animator = GetComponent<Animator> ();
         
         Ray ray = new Ray (this.transform.position, -Vector3.up);
@@ -45,16 +47,16 @@ public class Enemy : MonoBehaviour
 
     private void Respawn ()
     {
-        transform.parent.GetComponent<SpawnWaves> ().spawnEnemy ();
+        SpawnWavesReference.spawnEnemy ();
+        SpawnWavesReference.NumberOfActiveEnemies--;
         Destroy (this.gameObject);
     }
 
     public void Die ()
     {
-        transform.parent.GetComponent<SpawnWaves> ().NumberOfActiveEnemies--;
+        SpawnWavesReference.NumberOfActiveEnemies--;
         this.GetComponent<SphereCollider> ().enabled = false;
         FollowScriptReference.stopFollowing ();
-        //animator.Play ("Armature|Die");
         death_time = Time.time;
         dying = true;
         SceneLoader.Instance.Award = 2;
@@ -65,7 +67,7 @@ public class Enemy : MonoBehaviour
     {
         if ( collider.transform.tag == "Player")
         {
-            // Stop player an all enemies
+            // Stop player and all enemies
             collider.GetComponent<Movement> ().MovementDisabled = true;
             if (transform.parent)
             {
