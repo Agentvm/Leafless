@@ -63,7 +63,7 @@ public class PointAndClick : MonoBehaviour
             last_click_time = Time.time;
 
             // Clicked on object, or in the air?
-            if ( active_object_transform.tag == "Interactable" )
+            if ( active_object_transform && active_object_transform.tag == "Interactable" )
             {
                 ShootScriptReference.disableShooting ();
 

@@ -33,8 +33,7 @@ public class Leaf : MonoBehaviour
     {
         // play get eaten animation
         play_audio (get_eaten_sounds[Random.Range (0, get_eaten_sounds.Length)]);
-        if ( this.transform.parent && this.transform.parent.parent )
-            GrowthScriptReference.noticeEatenLeaf (this.transform);
+        GrowthScriptReference.noticeEatenLeaf (this.transform);
         SceneLoader.Instance.Award = 1;
     }
 
