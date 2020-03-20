@@ -9,12 +9,12 @@ public class AmmunitionIndicator : MonoBehaviour
     [SerializeField] Material deactivated_material;
     [SerializeField] Material active_material;
     Renderer renderer = null;
-    Shoot shootScriptReference = null;
+    Movement MovementScriptReference = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        shootScriptReference = this.transform.parent.GetComponent<Shoot> ();
+        MovementScriptReference = this.transform.parent.GetComponent<Movement> ();
         renderer = this.GetComponent<Renderer> ();
 
         if (!deactivated_material)
@@ -24,7 +24,7 @@ public class AmmunitionIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (shootScriptReference.Ammunition >= indicator_number)
+        if (MovementScriptReference.Ammunition >= indicator_number)
         {
             if ( !active_material )
                 renderer.material.SetColor ("_Color", Color.red);

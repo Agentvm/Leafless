@@ -27,7 +27,6 @@ public class SpawnWaves : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log ("NumberOfActiveEnemies: " + NumberOfActiveEnemies);
 
         if ( number_of_active_enemies == 0 )
         {

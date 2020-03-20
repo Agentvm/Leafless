@@ -10,7 +10,6 @@ public class PointAndClick : MonoBehaviour
     Animator animator;
     Camera main_camera;
     Movement MovementScriptReference;
-    Shoot ShootScriptReference;
 
     // raycasting
     private Vector3 mouse_point;
@@ -35,7 +34,6 @@ public class PointAndClick : MonoBehaviour
         main_camera = Camera.main;
         animator = GetComponent<Animator> ();
         MovementScriptReference = GetComponent<Movement> ();
-        ShootScriptReference = GetComponent<Shoot> ();
 
         // zero
         mouse_point.x = 0;
@@ -65,15 +63,13 @@ public class PointAndClick : MonoBehaviour
             // Clicked on object, or in the air?
             if ( active_object_transform && active_object_transform.tag == "Interactable" )
             {
-                ShootScriptReference.disableShooting ();
-
                 ClickedInteractable = active_object_transform;
                 MovementScriptReference.leafClicked (active_object_transform);
             }
             else // Shoot, if no Interactable object was clicked
             {
                 ClickedInteractable = null;
-                ShootScriptReference.startShooting (true); // force shooting
+                MovementScriptReference.tryStartShooting (); // force shooting
             }   
         }
 

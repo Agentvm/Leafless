@@ -5,12 +5,11 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     // Statemachine
-    enum State {WasdMovement, ApproachLeaf, EatLeaf}
+    enum State {FreeMovement, ApproachLeaf, EatLeaf, Shoot}
     State state;
 
     // References
     PointAndClick PointAndClickScriptReference;
-    Shoot ShootScriptReference;
 
     // Components
     CharacterController controller;
@@ -31,6 +30,13 @@ public class Movement : MonoBehaviour
     // Damping variables
     float damp_movement = 0f;
 
+    // Shoot
+    Object bullet_object;
+    [SerializeField]int ammunition_capacity = 3;
+    [SerializeField]int ammunition = 0;
+    float shoot_time = 0f;
+    float shoot_delay = .5f * (1f/1.5f);
+
     // Interaction with objects
     Transform leaf_to_approach = null;
     float time_start_of_leaf_eating = 0f;
@@ -38,6 +44,7 @@ public class Movement : MonoBehaviour
     
     // Properties
     public bool MovementDisabled { get => movement_disabled; set => movement_disabled = value; }
+    public int Ammunition { get => ammunition; set => ammunition = Mathf.Min (value, ammunition_capacity); }
 
 
     // Start is called before the first frame update
@@ -47,16 +54,19 @@ public class Movement : MonoBehaviour
         controller = GetComponent<CharacterController> ();
         animator = GetComponent<Animator> ();
 
+        // Get References
         PointAndClickScriptReference = GetComponent<PointAndClick> ();
-        ShootScriptReference = GetComponent<Shoot> ();
 
-        // no input
+        // Preload bullet object
+        bullet_object = Resources.Load ("Bullet");
+
+        // set no input
         input.x = 0f;
         input.y = 0f;
         input.z = 0f;
 
-        // state
-        state = State.WasdMovement;
+        // set initial state
+        state = State.FreeMovement;
     }
 
     // Update is called once per frame
@@ -69,30 +79,18 @@ public class Movement : MonoBehaviour
         input.z = Input.GetAxis ("Vertical");
         //input.Normalize ();
 
-        if (state == State.WasdMovement)
+        if (state == State.FreeMovement)
         {
             if ( leaf_to_approach != null )
                 changeState (State.ApproachLeaf );
 
-            // gather speed // a max speed of 1f ensures that character does not move faster in diagon alley
-            dampedAccelerate (Mathf.Min (input.magnitude, 1f) * max_movement_speed); 
-
-            // move according to input, but keep a height of 0
-            controller.SimpleMove (input.normalized * Time.deltaTime * current_movement_speed);
-            this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
-
-            // turn towards current mouse position
-            Quaternion look_rotation = Quaternion.LookRotation (PointAndClickScriptReference.Mouse_point - this.transform.position);
-            transform.rotation = Quaternion.Slerp (transform.rotation, look_rotation, Time.deltaTime * rotation_acceleration);
-
-            // look to the current mouse position
-            //this.transform.LookAt (PointAndClickScriptReference.Mouse_point);
+            Move ();
         }
         else if ( state == State.ApproachLeaf )
         {
             if ( Mathf.Abs (Input.GetAxis ("Horizontal" )) > .5f || Mathf.Abs (Input.GetAxis ("Vertical" )) > .5f )
             {
-                changeState (State.WasdMovement);
+                changeState (State.FreeMovement);
                 leaf_to_approach = null;
                 return;
             }
@@ -132,32 +130,68 @@ public class Movement : MonoBehaviour
         }
         else if (state == State.EatLeaf)
         {
-
+            // Stop the leaf eating "animation"
+            if ( Time.time > time_start_of_leaf_eating + leaf_eat_delay / 2 )
+                leaf_to_approach.transform.GetComponent<Leaf> ().gameObject.SetActive (false);
 
             // play eat animation, then change state
             if ( Time.time > time_start_of_leaf_eating + leaf_eat_delay )
             {
-                leaf_to_approach.transform.GetComponent<Leaf> ().gameObject.SetActive (false);
+                //leaf_to_approach.transform.GetComponent<Leaf> ().gameObject.SetActive (false);
                 leaf_to_approach = null;
-                ShootScriptReference.Ammunition += 1;
+                Ammunition += 1;
                 animator.SetBool ("Eating", false);
-                ShootScriptReference.enableShooting ();
-                changeState (State.WasdMovement);
+                changeState (State.FreeMovement);
+            }
+        }
+        else if (state == State.Shoot)
+        {
+            // Make speed changes less fast
+            Move (0.5f, 0.4f );
+            
+            // at the right time in the animation, instantiate the bullet
+            if ( Time.time > shoot_time + shoot_delay )
+            {
+                Ammunition -= 1;
+                Quaternion shoot_rotation = this.transform.rotation;
+                shoot_rotation.eulerAngles = new Vector3 (0f, shoot_rotation.eulerAngles.y, 0f);
+                Instantiate (bullet_object, this.transform.position + this.transform.forward * .5f, shoot_rotation);
+                animator.SetBool ("Shooting", false);
+                changeState (State.FreeMovement);
             }
         }
 
-        
     }
 
-    void dampedAccelerate (float speed_to_be)
+    void Move ( float acceleration_modifier = 1f, float rotation_acceleration_modifier = 1f )
     {
-        current_movement_speed = Mathf.SmoothDamp (current_movement_speed, speed_to_be, ref damp_movement, acceleration * Time.deltaTime);
+        // gather speed // a max speed of 1f ensures that character does not move faster in diagon alley
+        dampedAccelerate (Mathf.Min (input.magnitude, 1f) * max_movement_speed, acceleration_modifier );
+
+        // move according to input, but keep a height of 0
+        controller.SimpleMove (input.normalized * Time.deltaTime * current_movement_speed);
+        this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
+
+        // turn towards current mouse position
+        Quaternion look_rotation = Quaternion.LookRotation (PointAndClickScriptReference.Mouse_point - this.transform.position);
+        transform.rotation = Quaternion.Slerp (transform.rotation, look_rotation, Time.deltaTime * rotation_acceleration * rotation_acceleration_modifier );
+    }
+
+    void dampedAccelerate (float speed_to_be, float acceleration_modifier = 1f)
+    {
+        current_movement_speed = Mathf.SmoothDamp (current_movement_speed, speed_to_be, ref damp_movement, acceleration * acceleration_modifier * Time.deltaTime);
     }
     
+    // this is the place for state entry instructions
     void changeState ( State new_state)
     {
         if (new_state == State.EatLeaf)
             leaf_to_approach.transform.GetComponent<Leaf> ().getEaten ();
+        else if (new_state == State.Shoot)
+        {
+            animator.SetBool ("Shooting", true);
+            shoot_time = Time.time;
+        }
         state = new_state;
     }
 
@@ -165,6 +199,16 @@ public class Movement : MonoBehaviour
     {
         if ( state != State.ApproachLeaf && state != State.EatLeaf )
             leaf_to_approach = clicked_leaf;
+    }
+
+    public void tryStartShooting ( bool forced = false )
+    {
+        if ( state == State.FreeMovement &&
+             Ammunition > 0 &&
+             Time.time > shoot_time + shoot_delay * 2 )
+        {
+            changeState (State.Shoot);
+        }
     }
 
 }
