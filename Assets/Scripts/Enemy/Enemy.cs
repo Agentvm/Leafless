@@ -23,9 +23,14 @@ public class Enemy : MonoBehaviour
         FollowScriptReference = GetComponent<Follow> ();
         SpawnWavesReference = this.transform.parent.GetComponent<SpawnWaves> ();
         animator = GetComponent<Animator> ();
-        
+
+        RaycastHit ray_hit;
         Ray ray = new Ray (this.transform.position, -Vector3.up);
-        if ( !Physics.Raycast (ray, 5f) ) Respawn ();
+        if ( !Physics.Raycast (ray, out ray_hit, 5f) ) Respawn ();
+        else
+        {
+            if ( ray_hit.transform.tag == "PlantBody" ) Respawn ();
+        }
     }
 
     // Update is called once per frame
@@ -54,11 +59,20 @@ public class Enemy : MonoBehaviour
 
     public void Die ()
     {
-        SpawnWavesReference.NumberOfActiveEnemies--;
-        this.GetComponent<SphereCollider> ().enabled = false;
+        // stop movement
         FollowScriptReference.stopFollowing ();
+        
+        //
+        this.GetComponent<SphereCollider> ().enabled = false;
+        this.GetComponent<CharacterController> ().enabled = false;
+        this.gameObject.AddComponent<BoxCollider> ();
+        Rigidbody death_rigidbody = this.gameObject.AddComponent<Rigidbody> ();
+        death_rigidbody.AddExplosionForce (600f, this.transform.position + this.transform.forward * 1f - this.transform.up * 0.6f, 100f );
+
+        // 
         death_time = Time.time;
         dying = true;
+        SpawnWavesReference.NumberOfActiveEnemies--;
         SceneLoader.Instance.Award = 2;
     }
 

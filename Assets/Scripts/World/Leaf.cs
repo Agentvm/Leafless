@@ -44,11 +44,7 @@ public class Leaf : MonoBehaviour
 
     public void reGrow ()
     {
-        Debug.Log ("Hi, my name is " + name);
-        Debug.Log ("Anyway, I'm regrowing now.");
-
         // reset transform
-        //this.transform.localScale = original_scale;
         this.transform.position = original_position;
         this.transform.rotation = original_rotation;
         rigid_body.isKinematic = false;
@@ -71,7 +67,6 @@ public class Leaf : MonoBehaviour
             //color.a = strength;
 
             // change size
-            Debug.Log ("original_scale: " + original_scale);
             this.transform.localScale = original_scale * strength;
 
             yield return new WaitForSeconds (.1f);

@@ -67,8 +67,8 @@ HingeJoint:
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
-    min: 8.8922
-    max: 148.14842
+    min: -38.78384
+    max: 95.48375
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -76,8 +76,8 @@ HingeJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
+  m_MassScale: 2
+  m_ConnectedMassScale: 3
 --- !u!82 &5509466724539298157
 AudioSource:
   m_ObjectHideFlags: 0
@@ -409,12 +409,12 @@ PrefabInstance:
     - target: {fileID: 9079342117425046490, guid: c491a51ce8d866f48aa138914963828b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6367375
+      value: 0.69748884
       objectReference: {fileID: 0}
     - target: {fileID: 9079342117425046490, guid: c491a51ce8d866f48aa138914963828b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7710806
+      value: 0.7165957
       objectReference: {fileID: 0}
     - target: {fileID: 9079342117425046490, guid: c491a51ce8d866f48aa138914963828b,
         type: 3}
@@ -429,7 +429,7 @@ PrefabInstance:
     - target: {fileID: 9079342117425046490, guid: c491a51ce8d866f48aa138914963828b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -100.90199
+      value: -91.548
       objectReference: {fileID: 0}
     - target: {fileID: 9079342117425046490, guid: c491a51ce8d866f48aa138914963828b,
         type: 3}

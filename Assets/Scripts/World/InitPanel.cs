@@ -32,29 +32,41 @@ public class InitPanel : MonoBehaviour
         int current_number_of_positions = 0;
         Vector3 origin = new Vector3 (0, 1.9f, 0);
 
-        while ( current_number_of_positions < number_of_positions)
+        for (int i = 0; i <= 100; i++ )
         {
+            if ( current_number_of_positions >= number_of_positions )
+                break;
+
             // get a new random position
             Vector3 direction = Random.insideUnitSphere;
-            //if ( direction.magnitude < 0.5f ) direction = direction * 2f;
             Vector3 random_position = direction * this.transform.localScale.x * 35f;
             random_position.y = 1.9f; // Make sure plant is above ground
 
             // check it is not too close to another pick
             if ( random_positions.Count > 0 )
             {
+                bool suitable_position = true;
+
+                // check with all existing positions if this one is suitable
                 foreach ( Vector3 picked_position in random_positions )
                 {
                     // discard if too close to another position or the origin
-                    if ( Vector3.Distance (picked_position, random_position) < 20 || Vector3.Distance (random_position, origin) < 20f ) continue;
+                    if ( Vector3.Distance (picked_position, random_position) < 8 || Vector3.Distance (random_position, origin) < 20f )
+                    {
+                        suitable_position = false;
+                        break;
+                    }
                 }
 
                 // add the random position, if it is suitable
-                random_positions.Add (random_position);
-                current_number_of_positions++;
+                if ( suitable_position )
+                {
+                    random_positions.Add (random_position);
+                    current_number_of_positions++;
+                }
             }
-            // check it is not too close to the panel origin
-            else if ( Vector3.Distance (random_position, origin) > 30f)
+            // check if the first selected position is too close to the world origin
+            else if ( Vector3.Distance (random_position, origin) > 20f )
             {
                 // add the first position
                 random_positions.Add (random_position);
