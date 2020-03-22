@@ -198,7 +198,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176008084221571369}
-  m_Text: Move with WASD
+  m_Text: Explore the world by pushing it's boundaries
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

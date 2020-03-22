@@ -24,11 +24,11 @@ public class Tutorial : MonoBehaviour
             Instance = this;
         else if ( Instance != this )
             Destroy (gameObject);
-        DontDestroyOnLoad (gameObject);
+        //DontDestroyOnLoad (gameObject);
 
-        if ( UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "Menu" )
-            this.gameObject.SetActive (false);
-        else this.gameObject.SetActive (true);
+        //if ( UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "Menu" )
+        //    this.gameObject.SetActive (false);
+        //else this.gameObject.SetActive (true);
     }
 
     // Start is called before the first frame update
@@ -37,11 +37,17 @@ public class Tutorial : MonoBehaviour
         player = GameObject.FindWithTag ("Player").transform;
         origin = player.position;
         text_offset = move_text.transform.position - player.position;
+
+        if ( !SceneLoader.Instance.tutorial_toggle )
+            this.gameObject.SetActive (false);
+        else this.gameObject.SetActive (true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         // tell the player to move
         if ( player && Vector3.Distance (player.position, origin) > 6f )
         {
