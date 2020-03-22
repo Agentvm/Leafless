@@ -20,6 +20,7 @@ public class FollowWithOffset : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = master.position - offset;
+        if (master)
+            this.transform.position = master.position - offset;
     }
 }

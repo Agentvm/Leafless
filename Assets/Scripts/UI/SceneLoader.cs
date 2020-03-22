@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
-    // Static instance of AudioManager which allows it to be accessed by any other script.
+    // Static instance of SceneLoader which allows it to be accessed by any other script.
     public static SceneLoader Instance = null;
 
     private int award = 0;
     private int ewerd = 0;
     private Text award_text;
     private string current_scene_name = "";
+    public bool tutorial_toggle = true;
+    public bool tutorial_completed = false;
 
     public int Award { get => award; set => award += value; }
 

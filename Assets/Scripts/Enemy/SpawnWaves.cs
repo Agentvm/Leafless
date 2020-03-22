@@ -27,13 +27,17 @@ public class SpawnWaves : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if ( number_of_active_enemies == 0 )
+        // start of game: if leaves have been eaten, spawn enemies
+        if (SceneLoader.Instance.Award > 2 && NumberOfActiveEnemies == 0)
         {
             spawnEnemy ();
         }
-        else if ( NumberOfActiveEnemies < (1 + SceneLoader.Instance.Award / 10 ))
+
+        // if enemies are less than possible max (tied to award), eneble spawning
+        int current_max_enemies = (Mathf.Min (1, SceneLoader.Instance.Award) + SceneLoader.Instance.Award / 10 );
+        if ( NumberOfActiveEnemies < current_max_enemies)
         {
+            // as award increases, decrease spawn time of enemies
             float award_progress = (SceneLoader.Instance.Award) / 100f;
             int spawn_time_reduction = (int) (7 * Mathf.Min (1, award_progress ));
             if ( Time.time - start_time > spawn_time + (10 - spawn_time_reduction) )

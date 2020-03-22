@@ -18,6 +18,7 @@ public class Leaf : MonoBehaviour
     Vector3 original_position;
     Quaternion original_rotation;
     Vector3 original_scale;
+    Vector3 original_panel_position;
 
     //// Start is called before the first frame update
     void Start()
@@ -34,18 +35,14 @@ public class Leaf : MonoBehaviour
         original_position = this.transform.position;
         original_rotation = this.transform.rotation;
         original_scale = this.transform.localScale;
+        original_panel_position = this.transform.parent.parent.parent.transform.position;
     }
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
 
     public void reGrow ()
     {
         // reset transform
-        this.transform.position = original_position;
+        Vector3 panel_correction = this.transform.parent.parent.parent.transform.position - original_panel_position;
+        this.transform.position = original_position + panel_correction;
         this.transform.rotation = original_rotation;
         rigid_body.isKinematic = false;
 

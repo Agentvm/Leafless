@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     bool end_game = false;
     float end_game_time = 0f;
 
+    public bool Dying { get => dying; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,7 @@ public class Enemy : MonoBehaviour
         if ( Vector3.Distance (this.transform.position, FollowScriptReference.FollowedObject.position) > 50f )
             Respawn ();
 
-        if ( dying && Time.time > death_time + 1f )
+        if ( Dying && Time.time > death_time + 1f )
         {
             Destroy (this.gameObject);
         }
