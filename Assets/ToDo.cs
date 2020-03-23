@@ -10,6 +10,8 @@
         Guitar Sound
     
     Done:
+        v 1.3
+
         v 1.2
         Tutorials
         Springy Leaves

@@ -69,7 +69,8 @@ public class Enemy : MonoBehaviour
         this.GetComponent<CharacterController> ().enabled = false;
         this.gameObject.AddComponent<BoxCollider> ();
         Rigidbody death_rigidbody = this.gameObject.AddComponent<Rigidbody> ();
-        death_rigidbody.AddExplosionForce (600f, this.transform.position + this.transform.forward * 1f - this.transform.up * 0.6f, 100f );
+        if (death_rigidbody)
+            death_rigidbody.AddExplosionForce (650f, this.transform.position + this.transform.forward * 1f - this.transform.up * 0.6f, 100f );
 
         // 
         death_time = Time.time;
