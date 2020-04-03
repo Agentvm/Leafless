@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     bool explosion_started = false;
     float start_time = 0f;
     float maximum_life_time = 10f;
-    float explode_time = 0f;
+    //float explode_time = 0f;
 
     [SerializeField]Transform bullet_body;
     [SerializeField]ParticleSystem explode_particle;

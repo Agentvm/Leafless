@@ -23,7 +23,8 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         FollowScriptReference = GetComponent<Follow> ();
-        SpawnWavesReference = this.transform.parent.GetComponent<SpawnWaves> ();
+        if ( this.transform.parent )
+            SpawnWavesReference = this.transform.parent.GetComponent<SpawnWaves> ();
         animator = GetComponent<Animator> ();
 
         RaycastHit ray_hit;
@@ -39,7 +40,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         // if Distance to player gets too large, respawn
-        if ( Vector3.Distance (this.transform.position, FollowScriptReference.FollowedObject.position) > 50f )
+        if ( Vector3.Distance (this.transform.position, FollowScriptReference.FollowedObject.position) > 50f && SpawnWavesReference )
             Respawn ();
 
         if ( Dying && Time.time > death_time + 1f )
@@ -48,12 +49,17 @@ public class Enemy : MonoBehaviour
         }
         else if ( end_game && Time.time > end_game_time + 0.7f )
         {
-            SceneLoader.Instance.loadNextScene ();
+            if ( SceneLoader.Instance )
+                SceneLoader.Instance.loadNextScene ();
+            else
+                Application.Quit ();
         }
     }
 
     private void Respawn ()
     {
+        if ( !SpawnWavesReference ) return;
+
         SpawnWavesReference.spawnEnemy ();
         SpawnWavesReference.NumberOfActiveEnemies--;
         Destroy (this.gameObject);
@@ -72,11 +78,13 @@ public class Enemy : MonoBehaviour
         if (death_rigidbody)
             death_rigidbody.AddExplosionForce (650f, this.transform.position + this.transform.forward * 1f - this.transform.up * 0.6f, 100f );
 
-        // 
+        // start death timer
         death_time = Time.time;
         dying = true;
-        SpawnWavesReference.NumberOfActiveEnemies--;
-        SceneLoader.Instance.Award = 2;
+        if ( SpawnWavesReference )
+            SpawnWavesReference.NumberOfActiveEnemies--;
+        if ( SceneLoader.Instance )
+            SceneLoader.Instance.Award = 2;
     }
 
     // Kill Player
@@ -86,17 +94,15 @@ public class Enemy : MonoBehaviour
         {
             // Stop player and all enemies
             collider.GetComponent<Movement> ().MovementDisabled = true;
-            if (transform.parent)
+            if ( SpawnWavesReference )
             {
-                this.transform.GetComponentInParent<SpawnWaves> ().StopAllEnemies ();
+                SpawnWavesReference.StopAllEnemies ();
                 //this.transform.GetComponentInParent<SpawnWaves> ().StopSpawning ();
             }
             this.GetComponent<Animator> ().SetBool ("Eating", true);
 
             end_game = true;
             end_game_time = Time.time;
-            //UnityEditor.EditorApplication.isPlaying = false;
-            //Application.Quit ();
         }
     }
 }

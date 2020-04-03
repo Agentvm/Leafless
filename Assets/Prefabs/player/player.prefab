@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6692118720582566986}
   - component: {fileID: 4217238480795332278}
+  - component: {fileID: 1454224090}
   m_Layer: 0
   m_Name: AmmoMiddle
   m_TagString: Untagged
@@ -82,6 +83,22 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0017638239, y: -0.0019671055, z: 0.0050782943}
     m_Extent: {x: 0.0042363354, y: 0.0053762044, z: 0.004894143}
   m_DirtyAABB: 0
+--- !u!114 &1454224090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213068816746093711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7114bd23cab904a4d9ffc01f8efaf3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicator_number: 1
+  deactivated_material: {fileID: 2100000, guid: 8cca2c3f2b84e9e4799816b4ba9cd023,
+    type: 2}
+  active_material: {fileID: 2100000, guid: 7405ad9136b09fc44a0949d55e45170f, type: 2}
 --- !u!1 &3989006162714165870
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6874042805830436998}
   - component: {fileID: 1097571793856245175}
+  - component: {fileID: 1154717545}
   m_Layer: 0
   m_Name: AmmoRight
   m_TagString: Untagged
@@ -225,6 +243,22 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.004726709, y: 0.0019711358, z: 0.00441379}
     m_Extent: {x: 0.004250896, y: 0.005394683, z: 0.0049109655}
   m_DirtyAABB: 0
+--- !u!114 &1154717545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5325329163531120970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7114bd23cab904a4d9ffc01f8efaf3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicator_number: 3
+  deactivated_material: {fileID: 2100000, guid: 8cca2c3f2b84e9e4799816b4ba9cd023,
+    type: 2}
+  active_material: {fileID: 2100000, guid: 7405ad9136b09fc44a0949d55e45170f, type: 2}
 --- !u!1 &5427069193153461561
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,10 +445,8 @@ GameObject:
   - component: {fileID: 6782811783927630211}
   - component: {fileID: 6782811783934633577}
   - component: {fileID: 47539240}
-  - component: {fileID: 47539238}
   - component: {fileID: 47539239}
   - component: {fileID: 47539242}
-  - component: {fileID: 2053355174}
   - component: {fileID: 82518909655456966}
   m_Layer: 0
   m_Name: player
@@ -479,18 +511,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &47539238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6782811783927207331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3dc09a0a30cc7640be49dfc9536d7cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &47539239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,6 +527,8 @@ MonoBehaviour:
   leaf_distance: 2.2
   acceleration: 4
   rotation_acceleration: 6
+  ammunition_capacity: 3
+  ammunition: 0
 --- !u!114 &47539242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,21 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c11cb314fe03844aa277258041b9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2053355174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6782811783927207331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0715c6f0e44fb1749b7b3cbf40dbd96e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammunition_capacity: 3
-  ammunition: 0
-  shoot_delay: 0.5
+  pushPower: 2
 --- !u!82 &82518909655456966
 AudioSource:
   m_ObjectHideFlags: 0
@@ -640,6 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6491593020316571989}
   - component: {fileID: 2434306737023853881}
+  - component: {fileID: 1703657549}
   m_Layer: 0
   m_Name: AmmoLeft
   m_TagString: Untagged
@@ -712,3 +721,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0026645972, y: -0.0041543273, z: 0.0044993525}
     m_Extent: {x: 0.004250896, y: 0.005394683, z: 0.0049109645}
   m_DirtyAABB: 0
+--- !u!114 &1703657549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8643129833285576290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7114bd23cab904a4d9ffc01f8efaf3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicator_number: 2
+  deactivated_material: {fileID: 2100000, guid: 8cca2c3f2b84e9e4799816b4ba9cd023,
+    type: 2}
+  active_material: {fileID: 2100000, guid: 7405ad9136b09fc44a0949d55e45170f, type: 2}

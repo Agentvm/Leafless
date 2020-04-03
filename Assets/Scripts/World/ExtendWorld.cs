@@ -10,7 +10,6 @@ public class ExtendWorld : MonoBehaviour
     private float creation_offset = 0f;
     private Vector3 creation_direction;
     private Vector3 downward_offset = Vector3.zero;
-    bool corner = false;
 
     // Start is called before the first frame update
     void Start()

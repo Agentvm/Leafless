@@ -20,6 +20,8 @@ public class Follow : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController> ();
+        if ( !followed_object )
+            followed_object = GameObject.FindWithTag ("Player").transform;
     }
 
     // Update is called once per frame

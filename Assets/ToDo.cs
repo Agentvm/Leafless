@@ -1,16 +1,18 @@
 /*
     Bugs:
-        If two leafs are cliked at once, the game crashes
+        If two leafs are clicked at once, the game crashes
 
     Features:
-        ?? Make Bullets travel through leaves ??
-        !!! SuperLeaves !!!
         Mobile Unterstützung (Touch)
+        The farther, the more intense
+        Make Bullets travel through leaves (and bustle the around in the process)
+        !!! SuperLeaves !!!
         Sound ausschalten
         Guitar Sound
     
     Done:
         v 1.3
+        Start up Bug when leaves tried to delete themselves twice
 
         v 1.2
         Tutorials

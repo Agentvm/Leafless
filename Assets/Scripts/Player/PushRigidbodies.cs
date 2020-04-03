@@ -6,7 +6,7 @@ public class PushRigidbodies : MonoBehaviour
 {
 
     // this script pushes all rigidbodies that the character touches
-    float pushPower = 2.0f;
+    [SerializeField]float pushPower = 2.0f;
     void OnControllerColliderHit ( ControllerColliderHit hit )
     {
         Rigidbody body = hit.collider.attachedRigidbody;

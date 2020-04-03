@@ -18,7 +18,7 @@ public class Leaf : MonoBehaviour
     Vector3 original_position;
     Quaternion original_rotation;
     Vector3 original_scale;
-    Vector3 original_panel_position;
+    Vector3 original_panel_position = new Vector3 (0, 0, 0);
 
     //// Start is called before the first frame update
     void Start()
@@ -29,19 +29,23 @@ public class Leaf : MonoBehaviour
         rigid_body = this.GetComponent<Rigidbody> ();
 
         // Get References
+        Debug.Log ("parent name: " + this.transform.parent.parent.name);
         GrowthScriptReference = this.transform.parent.parent.GetComponent<Growth> ();
 
         // save original transform values
         original_position = this.transform.position;
         original_rotation = this.transform.rotation;
         original_scale = this.transform.localScale;
-        original_panel_position = this.transform.parent.parent.parent.transform.position;
+        if ( this.transform.parent.parent.parent )
+            original_panel_position = this.transform.parent.parent.parent.transform.position;
     }
 
     public void reGrow ()
     {
         // reset transform
-        Vector3 panel_correction = this.transform.parent.parent.parent.transform.position - original_panel_position;
+        Vector3 panel_correction = new Vector3 (0, 0, 0);
+        if ( this.transform.parent.parent.parent )
+            panel_correction = this.transform.parent.parent.parent.transform.position - original_panel_position;
         this.transform.position = original_position + panel_correction;
         this.transform.rotation = original_rotation;
         rigid_body.isKinematic = false;
@@ -82,7 +86,8 @@ public class Leaf : MonoBehaviour
 
         // logic
         GrowthScriptReference.noticeEatenLeaf (this.transform);
-        SceneLoader.Instance.Award = 1;
+        if ( SceneLoader.Instance )
+            SceneLoader.Instance.Award = 1;
     }
 
     IEnumerator getEatenCoroutine ()
@@ -108,9 +113,10 @@ public class Leaf : MonoBehaviour
 
     private void OnTriggerEnter ( Collider collision )
     {
-        if (collision.transform.tag == "PlantBody" || collision.transform.tag == "Interactable")
+        if (collision.transform.tag == "PlantBody" || collision.transform.tag == "Interactable" )
         {
-            GrowthScriptReference.destroyOneLeaf ();
+            if (GrowthScriptReference)
+                GrowthScriptReference.destroyOneLeaf ();
             Destroy (this.transform.parent.gameObject);
         }
     }

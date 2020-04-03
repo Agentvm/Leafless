@@ -9,14 +9,13 @@ public class Movement : MonoBehaviour
     State state;
 
     // References
-    PointAndClick PointAndClickScriptReference;
+    //PointAndClick PointAndClickScriptReference;
 
     // Components
     CharacterController controller;
     Animator animator;
 
     // Movement
-    Vector3 input;
     bool movement_disabled = false;
 
         // Constants
@@ -55,15 +54,10 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator> ();
 
         // Get References
-        PointAndClickScriptReference = GetComponent<PointAndClick> ();
+        //PointAndClickScriptReference = GetComponent<PointAndClick> ();
 
         // Preload bullet object
         bullet_object = Resources.Load ("Bullet");
-
-        // set no input
-        input.x = 0f;
-        input.y = 0f;
-        input.z = 0f;
 
         // set initial state
         state = State.FreeMovement;
@@ -73,11 +67,6 @@ public class Movement : MonoBehaviour
     void Update()
     {
         if ( MovementDisabled ) return;
-
-        // Use input class please
-        input.x = Input.GetAxis ("Horizontal");
-        input.z = Input.GetAxis ("Vertical");
-        //input.Normalize ();
 
         if (state == State.FreeMovement)
         {
@@ -166,14 +155,19 @@ public class Movement : MonoBehaviour
     void Move ( float acceleration_modifier = 1f, float rotation_acceleration_modifier = 1f )
     {
         // gather speed // a max speed of 1f ensures that character does not move faster in diagon alley
-        dampedAccelerate (Mathf.Min (input.magnitude, 1f) * max_movement_speed, acceleration_modifier );
+        dampedAccelerate (Mathf.Min (InputModule.Instance.UserInput.magnitude, 1f) * max_movement_speed, acceleration_modifier );
 
         // move according to input, but keep a height of 0
-        controller.SimpleMove (input.normalized * Time.deltaTime * current_movement_speed);
+        controller.SimpleMove (InputModule.Instance.UserInput.normalized * Time.deltaTime * current_movement_speed);
         this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
 
         // turn towards current mouse position
-        Quaternion look_rotation = Quaternion.LookRotation (PointAndClickScriptReference.Mouse_point - this.transform.position);
+        Quaternion look_rotation;
+        //if ( InputModule.Instance.TouchInputActive )
+        //    look_rotation = Quaternion.LookRotation (InputModule.Instance.UserInput.normalized);
+        //else
+        look_rotation = Quaternion.LookRotation (InputModule.Instance.MousePoint - this.transform.position);
+
         transform.rotation = Quaternion.Slerp (transform.rotation, look_rotation, Time.deltaTime * rotation_acceleration * rotation_acceleration_modifier );
     }
 
@@ -192,17 +186,28 @@ public class Movement : MonoBehaviour
             animator.SetBool ("Shooting", true);
             shoot_time = Time.time;
         }
+        Debug.Log ("Changing State to: " + new_state);
         state = new_state;
     }
 
     public void leafClicked (Transform clicked_leaf)
     {
+        if ( InputModule.Instance.TouchInputActive )
+        {
+            Debug.Log ("Eating Triggered through Touch, state: " + state);
+        }
+
         if ( state != State.ApproachLeaf && state != State.EatLeaf )
             leaf_to_approach = clicked_leaf;
     }
 
     public void tryStartShooting ( bool forced = false )
     {
+        if ( InputModule.Instance.TouchInputActive )
+        {
+            Debug.Log ("Shooting Triggered through Touch, state: " + state);
+        }
+
         if ( state == State.FreeMovement &&
              Ammunition > 0 &&
              Time.time > shoot_time + shoot_delay * 2 )
