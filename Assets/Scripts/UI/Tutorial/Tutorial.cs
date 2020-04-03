@@ -38,7 +38,7 @@ public class Tutorial : MonoBehaviour
         origin = player.position;
         text_offset = move_text.transform.position - player.position;
 
-        if ( !SceneLoader.Instance.tutorial_toggle )
+        if ( !GameState.Instance.tutorial_toggle )
             this.gameObject.SetActive (false);
         else this.gameObject.SetActive (true);
     }
@@ -68,7 +68,7 @@ public class Tutorial : MonoBehaviour
                 leaf_text.transform.position = leaf_position + text_offset;
 
             // stop if score rises
-            if ( SceneLoader.Instance.Award > 2 )
+            if ( GameState.Instance.Award > 2 )
             {
                 leaf_text.SetActive (false);
                 shoot_text.SetActive (true);
@@ -88,7 +88,7 @@ public class Tutorial : MonoBehaviour
                 shoot_text.transform.position = enemy_position + text_offset;
 
             // Stop if score rises
-            if ( SceneLoader.Instance.Award > 7 )
+            if ( GameState.Instance.Award > 7 )
             {
                 shoot_text.SetActive (false);
                 world_text.SetActive (true);
@@ -106,8 +106,8 @@ public class Tutorial : MonoBehaviour
             if ( GameObject.FindGameObjectsWithTag ("Panel").Length > 1 )
             {
                 this.gameObject.SetActive (false);
-                SceneLoader.Instance.tutorial_completed = true;
-                SceneLoader.Instance.tutorial_toggle = false;
+                GameState.Instance.tutorial_completed = true;
+                GameState.Instance.tutorial_toggle = false;
             }
         }
     }

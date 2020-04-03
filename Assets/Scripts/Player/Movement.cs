@@ -186,7 +186,7 @@ public class Movement : MonoBehaviour
             animator.SetBool ("Shooting", true);
             shoot_time = Time.time;
         }
-        Debug.Log ("Changing State to: " + new_state);
+        //Debug.Log ("Changing State to: " + new_state);
         state = new_state;
     }
 

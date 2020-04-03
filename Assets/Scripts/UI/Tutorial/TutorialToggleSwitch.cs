@@ -12,7 +12,7 @@ public class TutorialToggleSwitch : MonoBehaviour
     void Start()
     {
         toggle = this.GetComponent<Toggle> ();
-        toggle.isOn = SceneLoader.Instance.tutorial_toggle;
+        toggle.isOn = GameState.Instance.tutorial_toggle;
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class TutorialToggleSwitch : MonoBehaviour
     {
         //if (status_before != toggle.isOn)
         //{
-            SceneLoader.Instance.tutorial_toggle = toggle.isOn;
+        GameState.Instance.tutorial_toggle = toggle.isOn;
         //}
     }
 }

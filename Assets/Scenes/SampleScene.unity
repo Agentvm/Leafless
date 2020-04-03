@@ -179,7 +179,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 422.98, y: -30.000002, z: 0}
 --- !u!1 &280476588
 GameObject:
@@ -316,7 +316,7 @@ Transform:
   m_Children:
   - {fileID: 1421484384}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &534669902
 GameObject:
@@ -424,7 +424,7 @@ PrefabInstance:
     - target: {fileID: 176008085300242931, guid: b724d215c5c52cb46a3d987f89d082e1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6446612373679024896, guid: b724d215c5c52cb46a3d987f89d082e1,
         type: 3}
@@ -498,7 +498,7 @@ PrefabInstance:
     - target: {fileID: 2578902542649569080, guid: 065abff39b6f46e4b8c7b078f0e15bb6,
         type: 3}
       propertyPath: m_Name
-      value: Scene Loader
+      value: Game Core
       objectReference: {fileID: 0}
     - target: {fileID: 2578902542649569082, guid: 065abff39b6f46e4b8c7b078f0e15bb6,
         type: 3}
@@ -697,7 +697,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1421484384 stripped
 Transform:
@@ -836,7 +836,7 @@ PrefabInstance:
     - target: {fileID: 7669932027477104682, guid: 4168c9e6b4ab9584b96f382637f329cb,
         type: 3}
       propertyPath: m_Name
-      value: InputModule
+      value: Input Module
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4168c9e6b4ab9584b96f382637f329cb, type: 3}
@@ -920,7 +920,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -120.450005, z: 0}
 --- !u!1001 &1662988535227412308
 PrefabInstance:
@@ -1001,7 +1001,7 @@ PrefabInstance:
     - target: {fileID: 3378326713767145657, guid: b7ff5f6626d8eea4f9074e31a7fa0b1f,
         type: 3}
       propertyPath: m_Name
-      value: AudioManager
+      value: Audio Manager
       objectReference: {fileID: 0}
     - target: {fileID: 3378326713767145658, guid: b7ff5f6626d8eea4f9074e31a7fa0b1f,
         type: 3}
@@ -1061,7 +1061,7 @@ PrefabInstance:
     - target: {fileID: 3378326713767145659, guid: b7ff5f6626d8eea4f9074e31a7fa0b1f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3378326713767145659, guid: b7ff5f6626d8eea4f9074e31a7fa0b1f,
         type: 3}

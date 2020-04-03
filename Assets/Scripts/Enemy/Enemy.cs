@@ -83,8 +83,8 @@ public class Enemy : MonoBehaviour
         dying = true;
         if ( SpawnWavesReference )
             SpawnWavesReference.NumberOfActiveEnemies--;
-        if ( SceneLoader.Instance )
-            SceneLoader.Instance.Award = 2;
+        if ( GameState.Instance )
+            GameState.Instance.Award = 2;
     }
 
     // Kill Player

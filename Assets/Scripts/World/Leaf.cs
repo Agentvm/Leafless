@@ -29,7 +29,6 @@ public class Leaf : MonoBehaviour
         rigid_body = this.GetComponent<Rigidbody> ();
 
         // Get References
-        Debug.Log ("parent name: " + this.transform.parent.parent.name);
         GrowthScriptReference = this.transform.parent.parent.GetComponent<Growth> ();
 
         // save original transform values
@@ -86,8 +85,8 @@ public class Leaf : MonoBehaviour
 
         // logic
         GrowthScriptReference.noticeEatenLeaf (this.transform);
-        if ( SceneLoader.Instance )
-            SceneLoader.Instance.Award = 1;
+        if ( GameState.Instance )
+            GameState.Instance.Award = 1;
     }
 
     IEnumerator getEatenCoroutine ()

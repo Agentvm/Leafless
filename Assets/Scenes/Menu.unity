@@ -3762,7 +3762,7 @@ PrefabInstance:
     - target: {fileID: 2578902542649569080, guid: 065abff39b6f46e4b8c7b078f0e15bb6,
         type: 3}
       propertyPath: m_Name
-      value: Scene Loader
+      value: Game Core
       objectReference: {fileID: 0}
     - target: {fileID: 2578902542649569082, guid: 065abff39b6f46e4b8c7b078f0e15bb6,
         type: 3}

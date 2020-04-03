@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2578902542649569082}
   - component: {fileID: 2578902542649569081}
+  - component: {fileID: 1258275964717119061}
   m_Layer: 0
-  m_Name: Scene Loader
+  m_Name: Game Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,3 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c03c851208bb54bbff03418b6298e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1258275964717119061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578902542649569080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dfa120631a1f1847a3e023a74ae76ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorial_toggle: 1
+  tutorial_completed: 0

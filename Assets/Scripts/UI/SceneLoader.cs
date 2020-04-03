@@ -8,14 +8,9 @@ public class SceneLoader : MonoBehaviour
     // Static instance of SceneLoader which allows it to be accessed by any other script.
     public static SceneLoader Instance = null;
 
-    private int award = 0;
-    private int ewerd = 0;
-    private Text award_text;
     private string current_scene_name = "";
-    public bool tutorial_toggle = true;
-    public bool tutorial_completed = false;
 
-    public int Award { get => award; set => award += value; }
+    public string CurrentSceneName { get => current_scene_name; }
 
     // Start is called before the first frame update
     void Awake ()
@@ -27,8 +22,6 @@ public class SceneLoader : MonoBehaviour
             Destroy (gameObject);
         DontDestroyOnLoad (gameObject);
 
-        if (PlayerPrefs.HasKey ("Ewerd"))
-            ewerd = PlayerPrefs.GetInt ("Ewerd");
         current_scene_name = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
     }
 
@@ -39,29 +32,14 @@ public class SceneLoader : MonoBehaviour
 
     private void Update ()
     {
-        if ( award_text )
-            if ( current_scene_name == "Menu")
-            {
-                award_text.text = "Maximum Score: " + ewerd.ToString ();
-                award = 0;
-            }
-            else
-                award_text.text = "Score: " + Award.ToString ();
-        else
-        {
-            award_text = GameObject.FindWithTag ("Score").GetComponent<Text> ();
+        // See if it works without this
+        if ( current_scene_name != UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name )
             current_scene_name = UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name;
-        }
-            
     }
 
     public void loadNextScene ()
     {
-        if ( Award > ewerd )
-        {
-            ewerd = Award;
-            PlayerPrefs.SetInt ("Ewerd", ewerd);
-        }
+        GameState.Instance.sceneChanged ();
 
         if ( current_scene_name == "Menu" )
             UnityEngine.SceneManagement.SceneManager.LoadScene ("SampleScene");
