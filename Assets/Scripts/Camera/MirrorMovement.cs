@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowWithOffset : MonoBehaviour
+public class MirrorMovement : MonoBehaviour
 {
 
     [SerializeField] private Transform master;

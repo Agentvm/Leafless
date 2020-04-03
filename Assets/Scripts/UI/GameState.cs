@@ -21,8 +21,10 @@ public class GameState : MonoBehaviour
     public bool tutorial_toggle = true;
     public bool tutorial_completed = false;
 
-    public int Award { get => award; set => award += Mathf.Min (value, 30); } // max 30 award points for one action
-    public float PlayerOriginDistance { get => Vector3.Distance (player_transform.position, origin_position);}
+    public int Award { get => award; set => award += Mathf.Min (value, 30) * (int)GameIntensity; } // max 30 award points for one action
+
+    // document this formula - fast
+    public float GameIntensity { get => Mathf.Max (Vector3.Distance (player_transform.position, origin_position) / (100f + 2f * Vector3.Distance (player_transform.position, origin_position )) * 4, 1f);}
 
     // Start is called before the first frame update
     void Awake ()
@@ -38,11 +40,19 @@ public class GameState : MonoBehaviour
             ewerd = PlayerPrefs.GetInt ("Ewerd");
     }
 
+    // Called once at the start of the game, since this is DontDestroyOnLoad
     private void Start ()
     {
+        // Find player at game start
         if ( GameObject.FindWithTag ("Player") )
             player_transform = GameObject.FindWithTag ("Player").transform;
-        Debug.Log ("Game Core Started.");
+    }
+
+    private void OnLevelWasLoaded ( int level )
+    {
+        // Search for player at Scene Change
+        if ( GameObject.FindWithTag ("Player") )
+            player_transform = GameObject.FindWithTag ("Player").transform;
     }
 
     private void Update ()
@@ -59,10 +69,9 @@ public class GameState : MonoBehaviour
         {
             award_text = GameObject.FindWithTag ("Score").GetComponent<Text> ();
         }
-            
     }
 
-    public void sceneChanged ()
+    public void sceneChange ()
     {
         if ( Award > ewerd )
         {

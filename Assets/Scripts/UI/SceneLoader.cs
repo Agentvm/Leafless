@@ -39,7 +39,7 @@ public class SceneLoader : MonoBehaviour
 
     public void loadNextScene ()
     {
-        GameState.Instance.sceneChanged ();
+        GameState.Instance.sceneChange ();
 
         if ( current_scene_name == "Menu" )
             UnityEngine.SceneManagement.SceneManager.LoadScene ("SampleScene");

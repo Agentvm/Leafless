@@ -28,6 +28,11 @@ public class Growth : MonoBehaviour
     // Start is called before the first frame update
     void Start ()
     {
+        max_size /= 4f;
+        if ( max_size < min_size )
+            max_size = min_size + 1f;
+        max_size *= GameState.Instance.GameIntensity;
+
         // Resize plant randomly
         float size = max_size * fakeGaussian () + min_size;
         plant_scale.Set (size, size, size);

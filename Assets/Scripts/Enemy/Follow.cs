@@ -19,6 +19,8 @@ public class Follow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        movement_speed *= GameState.Instance.GameIntensity;
+
         controller = GetComponent<CharacterController> ();
         if ( !followed_object )
             followed_object = GameObject.FindWithTag ("Player").transform;
