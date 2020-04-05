@@ -13,7 +13,6 @@ public class InputModule : MonoBehaviour
     [SerializeField]private TextMesh display_text2;
 
     // References
-    //PointAndClick PointAndClickScriptReference;
     Movement MovementScriptReference;
 
     // Input Variables
@@ -26,6 +25,7 @@ public class InputModule : MonoBehaviour
     private Vector2 touch_start_position;
     private string direction;
     private float time_touch_ended;
+    private List<int> known_touch_ids = new List<int> ();
 
     // Touch Constants
     private float max_input_distance = 5f;
@@ -33,7 +33,6 @@ public class InputModule : MonoBehaviour
 
     // Mouse Point and Click
     private Vector3 mouse_point; // current mouse position
-    //Transform clicked_interactable = null; // object clicked by mouse
 
     // Mouse Timing
     float last_click_time = 0f;
@@ -48,7 +47,6 @@ public class InputModule : MonoBehaviour
     public bool TouchInputActive { get => touch_input_active; }
     public Vector3 UserInput { get => user_input; }
     public Vector3 MousePoint { get => mouse_point; }
-    //public Transform ClickedInteractable { get => clicked_interactable; }
 
     // Singleton
     void Awake ()
@@ -65,8 +63,9 @@ public class InputModule : MonoBehaviour
     private void Start ()
     {
         // Get References
-        MovementScriptReference = GameObject.FindWithTag ("Player").GetComponent<Movement> ();
-        //PointAndClickScriptReference = this.GetComponent<PointAndClick> ();
+        MovementScriptReference = GameObject.FindWithTag ("Player").GetComponent<Movement> (); // Player Movement
+
+        // Get Scene Camera
         main_camera = Camera.main;
 
         touch_input = new Vector2 (0f, 0f);
@@ -89,7 +88,7 @@ public class InputModule : MonoBehaviour
         {
             // Disable Touch
             touch_input_active = false;
-            if ( Time.time > time_touch_ended + display_time  && display_text && display_text2)
+            if ( Time.time > time_touch_ended + display_time && display_text && display_text2)
             {
                 display_text.text = "No Touch Input"; // Debug
                 display_text2.text = "No Touch Input"; // Debug
@@ -109,13 +108,16 @@ public class InputModule : MonoBehaviour
     // Handle touch input
     void touchAndTouch ()
     {
+        List<int> current_touch_ids = new List<int> ();
+
         // Iterate through all touches
         for (int i = 0; i < Input.touchCount; i++ )
         {
             Touch touch = Input.GetTouch (i);
+            current_touch_ids.Add (touch.fingerId);
 
             // First Touch
-            if ( i == 0 )
+            if ( touch.fingerId == known_touch_ids[0] )
             {
                 // Debug Text
                 if (display_text)
@@ -165,7 +167,7 @@ public class InputModule : MonoBehaviour
             }
 
             // Second Touch
-            else if ( i == 1 )
+            else if ( touch.fingerId == known_touch_ids[1] )
             {
                 // Debug Text
                 if (display_text2)
@@ -209,8 +211,35 @@ public class InputModule : MonoBehaviour
 
                 }
             }
+
+            // add unknown touch id to the list of known ids
+            if ( !known_touch_ids.Contains (touch.fingerId) )
+                known_touch_ids.Add (touch.fingerId);
+
         }
-        
+
+        // Debug
+        if ( Time.time % 5f > -0.02f && Time.time % 5f < 0.02f )
+        {
+            string ids_string = "";
+            foreach ( int id in current_touch_ids )
+                ids_string += id + ", ";
+            Debug.Log ("Current Touch ID's: " + ids_string);
+
+            ids_string = "";
+            foreach ( int id in known_touch_ids )
+                ids_string += id + ", ";
+            Debug.Log ("Known Touch ID's: " + known_touch_ids);
+        }
+
+
+        // after all touches have been treated, delete finger touch id's that are no longer viable
+        foreach (int known_id in known_touch_ids)
+        {
+            if ( !current_touch_ids.Contains (known_id) )
+                known_touch_ids.Remove (known_touch_ids.IndexOf (known_id ));
+        }
+
     }
 
     void setTouchInput (Touch touch)

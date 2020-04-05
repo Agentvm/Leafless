@@ -24,7 +24,7 @@ public class GameState : MonoBehaviour
     public int Award { get => award; set => award += Mathf.Min (value, 30) * (int)GameIntensity; } // max 30 award points for one action
 
     // document this formula - fast
-    public float GameIntensity { get => Mathf.Max (Vector3.Distance (player_transform.position, origin_position) / (100f + 2f * Vector3.Distance (player_transform.position, origin_position )) * 4, 1f);}
+    public float GameIntensity { get => getGameIntensity ();}
 
     // Start is called before the first frame update
     void Awake ()
@@ -53,6 +53,8 @@ public class GameState : MonoBehaviour
         // Search for player at Scene Change
         if ( GameObject.FindWithTag ("Player") )
             player_transform = GameObject.FindWithTag ("Player").transform;
+
+        Debug.Log ("player_transform: " + player_transform);
     }
 
     private void Update ()
@@ -69,6 +71,14 @@ public class GameState : MonoBehaviour
         {
             award_text = GameObject.FindWithTag ("Score").GetComponent<Text> ();
         }
+    }
+
+    private float getGameIntensity ()
+    {
+        if ( !player_transform ) return 1f;
+        return Mathf.Max (Vector3.Distance (player_transform.position, origin_position) /
+                          (100f + 2f * Vector3.Distance (player_transform.position, origin_position)) * 4,
+                          1f);
     }
 
     public void sceneChange ()

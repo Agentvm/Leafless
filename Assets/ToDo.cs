@@ -1,8 +1,10 @@
 /*
     Bugs:
         If two leafs are clicked at once, the game crashes
+        SceneManager.activeSceneChanged statt OnLevelWasLoaded
 
     Features:
+        Remove Output on Screen
         Mobile Unterstützung (Touch)
         The farther, the more intense
         Make Bullets travel through leaves (and bustle the around in the process)

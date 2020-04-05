@@ -66,7 +66,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log ("Intensity: " + GameState.Instance.GameIntensity);
+        //Debug.Log ("Intensity: " + GameState.Instance.GameIntensity);
 
         if ( MovementDisabled ) return;
 
