@@ -527,8 +527,11 @@ MonoBehaviour:
   leaf_distance: 2.2
   acceleration: 4
   rotation_acceleration: 6
+  shoot_rotation_acceleration: 0.4
+  touch_shoot_rotation_acceleration: 2
+  touch_aim_correction: 0
   ammunition_capacity: 3
-  ammunition: 0
+  ammunition: 3
 --- !u!114 &47539242
 MonoBehaviour:
   m_ObjectHideFlags: 0

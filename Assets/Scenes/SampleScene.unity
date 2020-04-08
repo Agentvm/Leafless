@@ -219,6 +219,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 517494394}
     m_Modifications:
+    - target: {fileID: 47539239, guid: e5a755cf4b19e6e439c8fdcff43a2a74, type: 3}
+      propertyPath: ammunition
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6782811783927207331, guid: e5a755cf4b19e6e439c8fdcff43a2a74,
         type: 3}
       propertyPath: m_Name
@@ -421,10 +425,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 176008084130641696, guid: b724d215c5c52cb46a3d987f89d082e1,
+        type: 3}
+      propertyPath: m_Text
+      value: Move with WASD or finger swipe
+      objectReference: {fileID: 0}
+    - target: {fileID: 176008084326741116, guid: b724d215c5c52cb46a3d987f89d082e1,
+        type: 3}
+      propertyPath: m_Text
+      value: Shoot on Enemies by clicking or tapping on them
+      objectReference: {fileID: 0}
     - target: {fileID: 176008085300242931, guid: b724d215c5c52cb46a3d987f89d082e1,
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 176008085962583245, guid: b724d215c5c52cb46a3d987f89d082e1,
+        type: 3}
+      propertyPath: m_Text
+      value: Eat a Leaf by clicking or tapping on it
       objectReference: {fileID: 0}
     - target: {fileID: 6446612373679024896, guid: b724d215c5c52cb46a3d987f89d082e1,
         type: 3}

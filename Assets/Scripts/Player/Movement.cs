@@ -15,15 +15,17 @@ public class Movement : MonoBehaviour
     CharacterController controller;
     Animator animator;
 
+    // Configuration
+    [Range(0f, 1600f)][SerializeField] float max_movement_speed = 800f;
+    [Range(0f, 6f)][SerializeField] float leaf_distance = 4f;
+    [Range(1f, 10f)][SerializeField] float acceleration = 4f;
+    [Range(1f, 10f)][SerializeField] float rotation_acceleration = 6f;
+    [Range(0f, 2f)][SerializeField] float shoot_rotation_acceleration = 0.4f;
+    [Range(0f, 20f)][SerializeField] float touch_shoot_rotation_acceleration = 2f;
+    [Range(0f, 20f)][SerializeField] float touch_aim_correction = 2.0f;
+
     // Movement
     bool movement_disabled = false;
-
-        // Constants
-        [Range(0f, 1600f)][SerializeField] float max_movement_speed = 800f;
-        [Range(0f, 6f)][SerializeField] float leaf_distance = 4f;
-        [Range(1f, 10f)][SerializeField] float acceleration = 4f;
-        [Range(1f, 10f)][SerializeField] float rotation_acceleration = 6f;
-
     float current_movement_speed = 0f;
 
     // Damping variables
@@ -31,6 +33,7 @@ public class Movement : MonoBehaviour
 
     // Shoot
     Object bullet_object;
+    Vector3 aim_position;
     [SerializeField]int ammunition_capacity = 3;
     [SerializeField]int ammunition = 0;
     float shoot_time = 0f;
@@ -75,11 +78,11 @@ public class Movement : MonoBehaviour
             if ( leaf_to_approach != null )
                 changeState (State.ApproachLeaf );
 
-            Move ();
+            Move (InputModule.Instance.MousePoint);
         }
         else if ( state == State.ApproachLeaf )
         {
-            if ( Mathf.Abs (Input.GetAxis ("Horizontal" )) > .5f || Mathf.Abs (Input.GetAxis ("Vertical" )) > .5f )
+            if ( Mathf.Abs (InputModule.Instance.UserInput.x) > .5f || Mathf.Abs (InputModule.Instance.UserInput.x) > .5f )
             {
                 changeState (State.FreeMovement);
                 leaf_to_approach = null;
@@ -138,8 +141,11 @@ public class Movement : MonoBehaviour
         else if (state == State.Shoot)
         {
             // Make speed changes less fast
-            Move (0.5f, 0.4f );
-            
+            if ( InputModule.Instance.TouchInputActive )
+                Move (aim_position, 0.7f, touch_shoot_rotation_acceleration);
+            else
+                Move (aim_position, 0.7f, shoot_rotation_acceleration);
+
             // at the right time in the animation, instantiate the bullet
             if ( Time.time > shoot_time + shoot_delay )
             {
@@ -154,7 +160,8 @@ public class Movement : MonoBehaviour
 
     }
 
-    void Move ( float acceleration_modifier = 1f, float rotation_acceleration_modifier = 1f )
+    // Move by UserInput while looking at look_position, speed can be varied
+    void Move ( Vector3 look_position, float acceleration_modifier = 1f, float rotation_acceleration_modifier = 1f )
     {
         // gather speed // a max speed of 1f ensures that character does not move faster in diagon alley
         dampedAccelerate (Mathf.Min (InputModule.Instance.UserInput.magnitude, 1f) * max_movement_speed, acceleration_modifier );
@@ -165,14 +172,11 @@ public class Movement : MonoBehaviour
 
         // turn towards current mouse position
         Quaternion look_rotation;
-        //if ( InputModule.Instance.TouchInputActive )
-        //    look_rotation = Quaternion.LookRotation (InputModule.Instance.UserInput.normalized);
-        //else
-        look_rotation = Quaternion.LookRotation (InputModule.Instance.MousePoint - this.transform.position);
-
+        look_rotation = Quaternion.LookRotation (look_position - this.transform.position);
         transform.rotation = Quaternion.Slerp (transform.rotation, look_rotation, Time.deltaTime * rotation_acceleration * rotation_acceleration_modifier );
     }
 
+    // damp the acceleration of the movement speed
     void dampedAccelerate (float speed_to_be, float acceleration_modifier = 1f)
     {
         current_movement_speed = Mathf.SmoothDamp (current_movement_speed, speed_to_be, ref damp_movement, acceleration * acceleration_modifier * Time.deltaTime);
@@ -185,6 +189,10 @@ public class Movement : MonoBehaviour
             leaf_to_approach.transform.GetComponent<Leaf> ().getEaten ();
         else if (new_state == State.Shoot)
         {
+            aim_position = InputModule.Instance.MousePoint;
+            if ( InputModule.Instance.TouchInputActive )
+                aim_position += Vector3.forward * touch_aim_correction;
+
             animator.SetBool ("Shooting", true);
             shoot_time = Time.time;
         }
@@ -207,7 +215,7 @@ public class Movement : MonoBehaviour
     {
         if ( InputModule.Instance.TouchInputActive )
         {
-            Debug.Log ("Shooting Triggered through Touch, state: " + state);
+            //Debug.Log ("Shooting Triggered through Touch, state: " + state);
         }
 
         if ( state == State.FreeMovement &&
