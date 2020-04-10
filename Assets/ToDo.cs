@@ -5,9 +5,13 @@
         Remove Output on Screen
 
     Features:
+        Put the credits right
+        Find the right Intensity Curve
+        Find or make a cool model for the edges of the map
+        Add shimmery blue Leaves that give permanent bonuses (speed, ammo consumption [+ effect], )
+        Add temporary powerups for plants that are eaten whole (flight, )
         Make Touch more reliable by tracking each single touch Instance
         Make Bullets travel through leaves (and bustle them around in the process)
-        !!! SuperLeaves !!!
         Sound ausschalten
         Guitar Sound
     
