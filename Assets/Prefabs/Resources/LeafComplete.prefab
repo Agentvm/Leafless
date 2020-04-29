@@ -54,7 +54,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -0.43, z: 0.39}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.017725782, y: 0.27348658, z: 0.32176134}
+  m_ConnectedAnchor: {x: -0.017725782, y: 0.16214788, z: 0.19621408}
   m_UseSpring: 1
   m_Spring:
     spring: 10
@@ -204,6 +204,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac8469c5aa68364e9c9a6c804228dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3926157400200837177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566776664376424245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70307d7d61d71614fa95d57855f65bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intermediateColor: {r: 1, g: 0, b: 0.9324703, a: 0.6901961}
+  maxColor: {r: 1, g: 0, b: 0, a: 0.75686276}
+  maxEmission: 0.6
 --- !u!1 &4710834080504058621
 GameObject:
   m_ObjectHideFlags: 0

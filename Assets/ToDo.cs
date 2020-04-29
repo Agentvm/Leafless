@@ -8,6 +8,7 @@
         Put the credits right
         Find the right Intensity Curve
         Find or make a cool model for the edges of the map
+        Make a Minimap with RenderTexture
         Add shimmery blue Leaves that give permanent bonuses (speed, ammo consumption [+ effect], )
         Add temporary powerups for plants that are eaten whole (flight, )
         Make Touch more reliable by tracking each single touch Instance

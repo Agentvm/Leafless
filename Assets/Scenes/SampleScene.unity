@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: ammunition
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 47539239, guid: e5a755cf4b19e6e439c8fdcff43a2a74, type: 3}
+      propertyPath: max_movement_speed
+      value: 1600
+      objectReference: {fileID: 0}
     - target: {fileID: 6782811783927207331, guid: e5a755cf4b19e6e439c8fdcff43a2a74,
         type: 3}
       propertyPath: m_Name

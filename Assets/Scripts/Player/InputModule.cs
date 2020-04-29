@@ -148,7 +148,7 @@ public class InputModule : MonoBehaviour
                     if ( (touch_start_position - touch.position).magnitude < tap_threshold )
                     {
                         // Raycast at touch position
-                        Transform active_object_transform = Raycast (Input.mousePosition);
+                        Transform active_object_transform = Raycast (touch.position);
 
                         // Clicked on object, or in the air?
                         if ( active_object_transform && active_object_transform.tag == "Interactable" )

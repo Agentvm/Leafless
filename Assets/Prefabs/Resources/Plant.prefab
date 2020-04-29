@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2377161579795371756}
   - component: {fileID: 2377161579795371754}
   - component: {fileID: 9051261444171449303}
+  - component: {fileID: 4688034213810510182}
   m_Layer: 2
   m_Name: PlantBody
   m_TagString: PlantBody
@@ -109,6 +110,21 @@ CapsuleCollider:
   m_Height: 2.6169991
   m_Direction: 1
   m_Center: {x: -7.8716466e-17, y: 0.003254509, z: -0.00000009536743}
+--- !u!114 &4688034213810510182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377161579795371753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70307d7d61d71614fa95d57855f65bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intermediateColor: {r: 0.6046717, g: 0.3495016, b: 0.6226415, a: 0.7137255}
+  maxColor: {r: 0.754717, g: 0.26583546, b: 0.19579923, a: 0}
+  maxEmission: 0.2
 --- !u!1 &2377161580157018624
 GameObject:
   m_ObjectHideFlags: 0

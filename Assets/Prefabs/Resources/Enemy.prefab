@@ -168,6 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6831568929144034022}
   - component: {fileID: 6831568929155892170}
+  - component: {fileID: 6558218563859238036}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -240,6 +241,21 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0022375323, y: 0.00094754994, z: 0.0010735523}
     m_Extent: {x: 0.014507163, y: 0.0150195975, z: 0.013012438}
   m_DirtyAABB: 0
+--- !u!114 &6558218563859238036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831568929144327878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70307d7d61d71614fa95d57855f65bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intermediateColor: {r: 0.9245283, g: 0.9114068, b: 0.3270737, a: 0.72156864}
+  maxColor: {r: 0.8679245, g: 0.20879315, b: 0.20879315, a: 0.73333335}
+  maxEmission: 0.7
 --- !u!1 &6831568929144327880
 GameObject:
   m_ObjectHideFlags: 0
