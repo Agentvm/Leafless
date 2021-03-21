@@ -253,9 +253,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70307d7d61d71614fa95d57855f65bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intermediateColor: {r: 0.9245283, g: 0.9114068, b: 0.3270737, a: 0.72156864}
-  maxColor: {r: 0.8679245, g: 0.20879315, b: 0.20879315, a: 0.73333335}
-  maxEmission: 0.7
+  materialStages:
+  - {fileID: 2100000, guid: a6a3f0f6b459a2b48858a545ccd80776, type: 2}
+  - {fileID: 2100000, guid: 8a1edce97c329a34cb487db26576c556, type: 2}
+  - {fileID: 2100000, guid: 778b6aec123ac7d4f94c45206013505b, type: 2}
+  stageSequence:
+  - 0
+  - 0.34
+  - 1
 --- !u!1 &6831568929144327880
 GameObject:
   m_ObjectHideFlags: 0

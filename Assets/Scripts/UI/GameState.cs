@@ -16,7 +16,7 @@ public class GameState : MonoBehaviour
     private Transform player_transform;
     private Vector3 origin_position = new Vector3 (0f, 0.5f, 0f);
     private float player_origin_distance;
-    private float maxIntensity = 2f;
+    private float maxIntensity = 3.5f;
 
     // tutorial state
     public bool tutorial_toggle = true;
@@ -80,16 +80,19 @@ public class GameState : MonoBehaviour
     public float getGameIntensity ()
     {
         if ( !player_transform ) return 1f;
-        return Mathf.Min (Mathf.Max (Vector3.Distance (player_transform.position, origin_position) /
-                          (100f + 2f * Vector3.Distance (player_transform.position, origin_position)) * 4,
-                          1f), maxIntensity);
+        float playerOriginDistance = Vector3.Distance (player_transform.position, origin_position);
+        //return Mathf.Min (Mathf.Max (Vector3.Distance (player_transform.position, origin_position) /
+        //                  (100f + 2f * Vector3.Distance (player_transform.position, origin_position)) * 4,
+        //                  1f), maxIntensity);
+        return Mathf.Min (Mathf.Max (0.219f * Mathf.Pow (playerOriginDistance, 0.3598f), 1f), maxIntensity);
     }
 
     IEnumerator logIntensity ()
     {
         while ( true )
         {
-            Debug.Log ("Intensity: " + getGameIntensity ());
+            //if ( player_transform )
+                //Debug.Log ("Distance/Intensity: " + Vector3.Distance (player_transform.position, origin_position) + " / " + getGameIntensity ());
             yield return new WaitForSeconds (0.8f);
         }
     }

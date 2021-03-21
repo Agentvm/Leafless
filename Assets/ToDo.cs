@@ -5,6 +5,8 @@
         Remove Output on Screen
 
     Features:
+        Dim Light
+        Black Ocean
         Put the credits right
         Find the right Intensity Curve
         Find or make a cool model for the edges of the map
