@@ -1,24 +1,31 @@
 /*
-    Bugs / ToDo:
-        If two leafs are clicked at once, the game crashes
-        SceneManager.activeSceneChanged statt OnLevelWasLoaded
+### Bugs / ToDo:
+        If two leaves are clicked at once, the game crashes
         Remove Output on Screen
 
-    Features:
-        Dim Light
-        Black Ocean
-        Put the credits right
+### Features:
+        Make Color Arrays that are Lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
+            Black Ocean
         Find the right Intensity Curve
         Find or make a cool model for the edges of the map
-        Make a Minimap with RenderTexture
-        Add shimmery blue Leaves that give permanent bonuses (speed, ammo consumption [+ effect], )
-        Add temporary powerups for plants that are eaten whole (flight, )
+        
+        Rework Shooting
         Make Touch more reliable by tracking each single touch Instance
         Make Bullets travel through leaves (and bustle them around in the process)
-        Sound ausschalten
+
+        Add shimmery blue Leaves that act as powerups (flight, )
+        Award permanent bonuses for fully grazed plants (speed, ammo consumption [+ effect], )
+
+        Add Sound Toggle
         Guitar Sound
+        Make a Minimap with RenderTexture
     
-    Done:
+### Done:
+
+        v 1.4 - in development
+        Put the credits right
+        SceneManager.activeSceneChanged statt OnLevelWasLoaded
+
         v 1.3 - released
         The farther, the more intense
         Start up Bug when leaves tried to delete themselves twice
@@ -33,7 +40,7 @@
         Bug: Spawn on Leaf at game start
         Menu Scene Fixed
         Growing Leaves
-        Ins Leere klicken lässt das Spiel abstürzen
+        Bug: Ins Leere klicken lässt das Spiel abstürzen
         Shoot in State Machine
         Schießen optimieren
 

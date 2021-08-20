@@ -41,7 +41,18 @@ public class GameState : MonoBehaviour
         if (PlayerPrefs.HasKey ("Ewerd"))
             ewerd = PlayerPrefs.GetInt ("Ewerd");
 
+        UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged; ;
+
         StartCoroutine (logIntensity ());
+    }
+
+    private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
+    {
+        // Search for player at Scene Change
+        if (GameObject.FindWithTag("Player"))
+            player_transform = GameObject.FindWithTag("Player").transform;
+
+        Debug.Log("player_transform: " + player_transform);
     }
 
     // Called once at the start of the game, since this is DontDestroyOnLoad
@@ -50,15 +61,6 @@ public class GameState : MonoBehaviour
         // Find player at game start
         if ( GameObject.FindWithTag ("Player") )
             player_transform = GameObject.FindWithTag ("Player").transform;
-    }
-
-    private void OnLevelWasLoaded ( int level )
-    {
-        // Search for player at Scene Change
-        if ( GameObject.FindWithTag ("Player") )
-            player_transform = GameObject.FindWithTag ("Player").transform;
-
-        Debug.Log ("player_transform: " + player_transform);
     }
 
     private void Update ()
