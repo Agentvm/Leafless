@@ -37,13 +37,13 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         //Play ("Theme");
-        Play ("UnderwaterGrowl");
+        Play (SoundNames.UnderwaterGrowl);
     }
 
     private void Update ()
     {
         if ( Time.time > 10f && Time.time < 12f )
-            Play ("Theme");
+            Play (SoundNames.Theme);
     }
 
     public void Play ( int sound )
@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour
         sound_found.audio_source.Play ();
     }
 
-    public void Play ( string sound_name )
+    public void Play (SoundNames sound_name )
     {
         Sound sound_found = null;
 
