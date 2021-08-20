@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class TouchCreator
 {
-    static BindingFlags flag = BindingFlags.Instance | BindingFlags.NonPublic;
+    //static BindingFlags flag = BindingFlags.Instance | BindingFlags.NonPublic;
     static Dictionary<string, FieldInfo> fields;
 
     object touch;

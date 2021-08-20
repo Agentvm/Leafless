@@ -8,7 +8,7 @@ public class Leaf : MonoBehaviour
     AudioSource audio_source;
     [SerializeField]AudioClip[] regrow_sounds;
     [SerializeField]AudioClip[] get_eaten_sounds;
-    Renderer renderer;
+    Renderer _renderer;
     Rigidbody rigid_body;
 
     // References
@@ -25,7 +25,7 @@ public class Leaf : MonoBehaviour
     {
         // Get Components
         audio_source = this.GetComponent<AudioSource> ();
-        renderer = this.GetComponent<Renderer> ();
+        _renderer = this.GetComponent<Renderer> ();
         rigid_body = this.GetComponent<Rigidbody> ();
 
         // Get References

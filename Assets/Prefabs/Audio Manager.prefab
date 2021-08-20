@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3378326713767145659}
   - component: {fileID: 3378326713767145658}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: Audio Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,25 +40,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 3378326713767145657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b63370669455f4cb0a4b062f0ae6db, type: 3}
+  m_Script: {fileID: 11500000, guid: e4b17011fdb331b46b54ed1b351e4c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sounds_array:
-  - name: Theme
+  - name: A
     clip: {fileID: 8300000, guid: 947959be7aeed574eb64f7540a1836ba, type: 3}
     volume: 1
     pitch: 1
     priority: 200
+    play_looped: 0
     audio_source: {fileID: 0}
-  - name: Chime
+  - name: B
     clip: {fileID: 8300000, guid: d1602ebb4b3f08f4c9379250531f41a2, type: 3}
     volume: 1
     pitch: 1
     priority: 128
+    play_looped: 0
     audio_source: {fileID: 0}
-  - name: UnderwaterGrowl
+  - name: 4
     clip: {fileID: 8300000, guid: b5e14a971ed9c7541ab4cdb0b7eb737a, type: 3}
     volume: 1
     pitch: 1
     priority: 128
+    play_looped: 0
     audio_source: {fileID: 0}
