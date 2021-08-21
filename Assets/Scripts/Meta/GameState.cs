@@ -52,7 +52,7 @@ public class GameState : MonoBehaviour
         if (GameObject.FindWithTag("Player"))
             player_transform = GameObject.FindWithTag("Player").transform;
 
-        Debug.Log("player_transform: " + player_transform);
+        Debug.Assert(player_transform.name != null);
     }
 
     // Called once at the start of the game, since this is DontDestroyOnLoad
@@ -79,14 +79,17 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public float getGameIntensity ()
+    private float getGameIntensity ()
     {
         if ( !player_transform ) return 1f;
         float playerOriginDistance = Vector3.Distance (player_transform.position, origin_position);
         //return Mathf.Min (Mathf.Max (Vector3.Distance (player_transform.position, origin_position) /
         //                  (100f + 2f * Vector3.Distance (player_transform.position, origin_position)) * 4,
         //                  1f), maxIntensity);
-        return Mathf.Min (Mathf.Max (0.219f * Mathf.Pow (playerOriginDistance, 0.3598f), 1f), maxIntensity);
+
+        // Minimum Intensity is 1
+        // It rises exponentially from below 1 to maxIntensity
+        return Mathf.Min (Mathf.Max (0.219f * Mathf.Pow (playerOriginDistance, 0.35f), 1f), maxIntensity);
     }
 
     IEnumerator logIntensity ()

@@ -1,5 +1,9 @@
 /*
 ### Bugs / ToDo:
+        No Despawn on Death
+        Leaves Shader does not reset after MouseOver
+        Blending Colors is not blended, but digitalized
+        Tutorials do not toggle
         If two leaves are clicked at once, the game crashes
         Remove Output on Screen
 
@@ -9,7 +13,7 @@
         Find the right Intensity Curve
         Find or make a cool model for the edges of the map
         
-        Rework Shooting
+        Rework Shooting - strongly increase turn speed after triggering a shot
         Make Touch more reliable by tracking each single touch Instance
         Make Bullets travel through leaves (and bustle them around in the process)
 
