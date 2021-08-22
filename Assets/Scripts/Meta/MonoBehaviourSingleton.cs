@@ -13,28 +13,28 @@ public class MonoBehaviourSingleton<T> : MonoBehaviour where T : Component
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<T>();
+                instance = FindObjectOfType<T> ();
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject();
-                    obj.name = typeof(T).Name;
-                    instance = obj.AddComponent<T>();
+                    GameObject obj = new GameObject ();
+                    obj.name = typeof (T).Name;
+                    instance = obj.AddComponent<T> ();
                 }
             }
             return instance;
         }
     }
 
-    public virtual void Awake()
+    public virtual void Awake ()
     {
         if (instance == null)
         {
             instance = this as T;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad (this.gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            Destroy (gameObject);
         }
     }
 }

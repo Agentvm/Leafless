@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AmmunitionIndicator : MonoBehaviour
 {
@@ -12,32 +10,32 @@ public class AmmunitionIndicator : MonoBehaviour
     Movement MovementScriptReference = null;
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         MovementScriptReference = this.transform.parent.GetComponent<Movement> ();
         _renderer = this.GetComponent<Renderer> ();
 
         if (!deactivated_material)
-            _renderer.material.SetColor ("_Color", Color.white );
+            _renderer.material.SetColor ("_Color", Color.white);
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
         if (MovementScriptReference.Ammunition >= indicator_number)
         {
-            if ( !active_material )
+            if (!active_material)
                 _renderer.material.SetColor ("_Color", Color.red);
             else
                 _renderer.material = active_material;
         }
         else
         {
-            if ( !deactivated_material )
+            if (!deactivated_material)
                 _renderer.material.SetColor ("_Color", Color.white);
             else
                 _renderer.material = deactivated_material;
         }
-            
+
     }
 }

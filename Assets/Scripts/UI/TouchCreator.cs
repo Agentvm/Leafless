@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class TouchCreator
 {
@@ -30,7 +30,7 @@ public class TouchCreator
     static TouchCreator ()
     {
         fields = new Dictionary<string, FieldInfo> ();
-        foreach ( var f in typeof (Touch).GetFields (BindingFlags.Instance | BindingFlags.NonPublic) )
+        foreach (var f in typeof (Touch).GetFields (BindingFlags.Instance | BindingFlags.NonPublic))
         {
             fields.Add (f.Name, f);
             //Debug.Log ("name: " + f.Name);

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -9,12 +7,12 @@ public class Bullet : MonoBehaviour
     float maximum_life_time = 10f;
     //float explode_time = 0f;
 
-    [SerializeField]Transform bullet_body;
-    [SerializeField]ParticleSystem explode_particle;
-    [SerializeField]ParticleSystem explode_flash;
-    [SerializeField]TrailRenderer trail_renderer;
+    [SerializeField] Transform bullet_body;
+    [SerializeField] ParticleSystem explode_particle;
+    [SerializeField] ParticleSystem explode_flash;
+    [SerializeField] TrailRenderer trail_renderer;
 
-    [SerializeField]AudioClip[] shoot_sounds;
+    [SerializeField] AudioClip[] shoot_sounds;
 
     private void Awake ()
     {
@@ -22,22 +20,22 @@ public class Bullet : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         start_time = Time.time;
         this.GetComponent<AudioSource> ().Play ();
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
-        if ( explosion_started && !explode_particle.isPlaying || Time.time > start_time + maximum_life_time )
+        if (explosion_started && !explode_particle.isPlaying || Time.time > start_time + maximum_life_time)
             Destroy (this.gameObject);
     }
 
-    private void OnTriggerEnter ( Collider collider )
+    private void OnTriggerEnter (Collider collider)
     {
-        if ( collider.transform.tag == "Enemy")
+        if (collider.transform.tag == "Enemy")
             collider.transform.GetComponent<Enemy> ().Die ();
 
         if (collider.tag != "Player" && collider.tag != "Interactable")
@@ -48,7 +46,7 @@ public class Bullet : MonoBehaviour
     {
         // hold the bullet in the air and disable the bullet body as well as the collider
         this.GetComponent<Translate> ().stopTranslating ();
-        bullet_body.gameObject.SetActive(false );
+        bullet_body.gameObject.SetActive (false);
         this.GetComponent<Collider> ().enabled = false;
 
         // play the explosion animation, disable the trail

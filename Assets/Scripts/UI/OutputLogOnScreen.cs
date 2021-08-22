@@ -1,11 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OutputLogOnScreen : MonoBehaviour
 {
     string myLog;
-    Queue myLogQueue = new Queue();
+    Queue myLogQueue = new Queue ();
 
 
     void OnEnable ()
@@ -18,22 +17,22 @@ public class OutputLogOnScreen : MonoBehaviour
         Application.logMessageReceived -= HandleLog;
     }
 
-    void HandleLog ( string logString, string stackTrace, LogType type )
+    void HandleLog (string logString, string stackTrace, LogType type)
     {
         myLog = logString;
         string newString = "\n " + myLog;
         myLogQueue.Enqueue (newString);
-        if ( type == LogType.Exception )
+        if (type == LogType.Exception)
         {
             newString = "\n" + stackTrace;
             myLogQueue.Enqueue (newString);
         }
         myLog = string.Empty;
-        foreach ( string mylog in myLogQueue )
+        foreach (string mylog in myLogQueue)
         {
             myLog += mylog;
         }
-        if ( myLogQueue.Count > 12 )
+        if (myLogQueue.Count > 12)
             myLogQueue.Dequeue ();
     }
 

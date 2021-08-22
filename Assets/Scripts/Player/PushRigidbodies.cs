@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PushRigidbodies : MonoBehaviour
 {
 
     // this script pushes all rigidbodies that the character touches
-    [SerializeField]float pushPower = 2.0f;
+    [SerializeField] float pushPower = 2.0f;
 
 
     void PushRigidbody (Rigidbody body, Vector3 moveDirection = default)
@@ -38,7 +36,7 @@ public class PushRigidbodies : MonoBehaviour
         body.velocity = pushDir * pushPower;
     }
 
-    void OnControllerColliderHit ( ControllerColliderHit hit )
+    void OnControllerColliderHit (ControllerColliderHit hit)
     {
         PushRigidbody (hit.collider.attachedRigidbody, hit.moveDirection);
     }

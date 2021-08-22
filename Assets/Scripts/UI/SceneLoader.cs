@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -16,13 +13,13 @@ public class SceneLoader : MonoBehaviour
     void Awake ()
     {
         // check that there is only one instance of this and that it is not destroyed on load
-        if ( Instance == null )
+        if (Instance == null)
             Instance = this;
-        else if ( Instance != this )
+        else if (Instance != this)
             Destroy (gameObject);
         DontDestroyOnLoad (gameObject);
 
-        current_scene_name = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        current_scene_name = UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name;
     }
 
     //private void Start ()
@@ -33,7 +30,7 @@ public class SceneLoader : MonoBehaviour
     private void Update ()
     {
         // See if it works without this
-        if ( current_scene_name != UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name )
+        if (current_scene_name != UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)
             current_scene_name = UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name;
     }
 
@@ -41,7 +38,7 @@ public class SceneLoader : MonoBehaviour
     {
         GameState.Instance.sceneChange ();
 
-        if ( current_scene_name == "Menu" )
+        if (current_scene_name == "Menu")
             UnityEngine.SceneManagement.SceneManager.LoadScene ("SampleScene");
         else
             UnityEngine.SceneManagement.SceneManager.LoadScene ("Menu");

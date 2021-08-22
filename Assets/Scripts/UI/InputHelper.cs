@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class InputHelper : MonoBehaviour
 {
@@ -10,15 +9,15 @@ public class InputHelper : MonoBehaviour
 
     public static List<Touch> GetTouches ()
     {
-        List<Touch> touches = new List<Touch>();
+        List<Touch> touches = new List<Touch> ();
         touches.AddRange (Input.touches);
 #if UNITY_EDITOR
-        if ( lastFakeTouch == null )
+        if (lastFakeTouch == null)
         {
             lastFakeTouch = new TouchCreator ();
             //mirrorFakeTouch = new TouchCreator ();
         }
-        if ( Input.GetMouseButtonDown (0) )
+        if (Input.GetMouseButtonDown (0))
         {
             lastFakeTouch.phase = TouchPhase.Began;
             lastFakeTouch.deltaPosition = new Vector2 (0, 0);
@@ -30,10 +29,10 @@ public class InputHelper : MonoBehaviour
             //mirrorFakeTouch.position = new Vector2 (Input.mousePosition.x, Input.mousePosition.y) + Vector2.right * 10f;
             //mirrorFakeTouch.fingerId = 13;
         }
-        else if ( Input.GetMouseButtonUp (0) )
+        else if (Input.GetMouseButtonUp (0))
         {
             lastFakeTouch.phase = TouchPhase.Ended;
-            Vector2 newPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            Vector2 newPosition = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
             lastFakeTouch.deltaPosition = newPosition - lastFakeTouch.position;
             lastFakeTouch.position = newPosition;
             lastFakeTouch.fingerId = 0;
@@ -44,10 +43,10 @@ public class InputHelper : MonoBehaviour
             //mirrorFakeTouch.position = newPosition;
             //mirrorFakeTouch.fingerId = 13;
         }
-        else if ( Input.GetMouseButton (0) )
+        else if (Input.GetMouseButton (0))
         {
             lastFakeTouch.phase = TouchPhase.Moved;
-            Vector2 newPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            Vector2 newPosition = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
             lastFakeTouch.deltaPosition = newPosition - lastFakeTouch.position;
             lastFakeTouch.position = newPosition;
             lastFakeTouch.fingerId = 0;
@@ -63,7 +62,7 @@ public class InputHelper : MonoBehaviour
             lastFakeTouch = null;
             //mirrorFakeTouch = null;
         }
-        if ( lastFakeTouch != null )
+        if (lastFakeTouch != null)
         {
             touches.Add (lastFakeTouch.Create ());
             //touches.Add (mirrorFakeTouch.Create ());

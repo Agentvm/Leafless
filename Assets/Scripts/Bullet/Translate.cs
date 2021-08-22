@@ -1,22 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Translate : MonoBehaviour
 {
-    [Range (1f, 30f)][SerializeField]float bullet_speed = 10f;
+    [Range (1f, 30f)] [SerializeField] float bullet_speed = 10f;
     bool stop_translating = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
-        if ( stop_translating )
+        if (stop_translating)
         {
             this.transform.Translate (Vector3.zero);
             return;

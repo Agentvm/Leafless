@@ -10,7 +10,7 @@ public class Growth : MonoBehaviour
     [SerializeField] float max_size = 20f;
     [SerializeField] float min_size = 5f;
     Vector3 plant_scale = Vector3.zero;
-    [Range (20f, 40f)][SerializeField] float max_grow_delay = 30f;
+    [Range (20f, 40f)] [SerializeField] float max_grow_delay = 30f;
     [SerializeField] float min_grow_delay = 6f;
     float current_grow_delay = 0f;
 
@@ -29,7 +29,7 @@ public class Growth : MonoBehaviour
     void Start ()
     {
         max_size /= 4f;
-        if ( max_size < min_size )
+        if (max_size < min_size)
             max_size = min_size + 1f;
         max_size *= GameState.Instance.GameIntensity;
 
@@ -41,7 +41,7 @@ public class Growth : MonoBehaviour
         // increase max_grow_delay for big plants
         max_grow_delay -= max_size;
         max_grow_delay += size;
-        if ( max_grow_delay < 0 ) max_grow_delay = 10f;
+        if (max_grow_delay < 0) max_grow_delay = 10f;
 
         // get plant radius from child model
         plant_radius = this.transform.GetChild (0).transform.GetComponent<Renderer> ().bounds.extents.magnitude / 2;
@@ -56,8 +56,8 @@ public class Growth : MonoBehaviour
         //instantiateLeafOnRadius (point_on_radius);
 
         // grow all leafs at the start of the game
-        int leaf_count = (int)((Mathf.PI * (plant_radius/.81f)) / 2.2f);
-        foreach ( Vector3 position in getPositionsOnRadius ((int)(leaf_count)) )
+        int leaf_count = (int)((Mathf.PI * (plant_radius / .81f)) / 2.2f);
+        foreach (Vector3 position in getPositionsOnRadius ((int)(leaf_count)))
         {
             instantiateLeaf (position);
         }
@@ -78,29 +78,29 @@ public class Growth : MonoBehaviour
     {
         // draw samples
         List<float> liste = new List<float> ();
-        for ( int i = 0; i < 20000; i++ )
+        for (int i = 0; i < 20000; i++)
         {
             liste.Add (fakeGaussian ());
         }
 
         // fill histogram
         float[] histogram = new float[10];
-        foreach ( float sample in liste )
+        foreach (float sample in liste)
         {
-            if ( sample < 0.1f ) histogram[0]++;
-            else if ( sample < 0.2f ) histogram[1]++;
-            else if ( sample < 0.3f ) histogram[2]++;
-            else if ( sample < 0.4f ) histogram[3]++;
-            else if ( sample < 0.5f ) histogram[4]++;
-            else if ( sample < 0.6f ) histogram[5]++;
-            else if ( sample < 0.7f ) histogram[6]++;
-            else if ( sample < 0.8f ) histogram[7]++;
-            else if ( sample < 0.9f ) histogram[8]++;
+            if (sample < 0.1f) histogram[0]++;
+            else if (sample < 0.2f) histogram[1]++;
+            else if (sample < 0.3f) histogram[2]++;
+            else if (sample < 0.4f) histogram[3]++;
+            else if (sample < 0.5f) histogram[4]++;
+            else if (sample < 0.6f) histogram[5]++;
+            else if (sample < 0.7f) histogram[6]++;
+            else if (sample < 0.8f) histogram[7]++;
+            else if (sample < 0.9f) histogram[8]++;
             else histogram[9]++;
         }
 
         // normalise
-        for ( int i = 0; i < 10; i++ )
+        for (int i = 0; i < 10; i++)
         {
             histogram[i] /= 20000;
         }
@@ -113,11 +113,11 @@ public class Growth : MonoBehaviour
     }
 
     // returns even-spaced positions on a unit circle
-    List<Vector3> getPositionsOnRadius ( int number_of_positions )
+    List<Vector3> getPositionsOnRadius (int number_of_positions)
     {
         List<Vector3> list_of_points = new List<Vector3> ();
 
-        for ( int i = 0; i < number_of_positions; ++i )
+        for (int i = 0; i < number_of_positions; ++i)
         {
             // calculate angle that points to the edge of the unit circle
             float theta = ((2 * Mathf.PI) / number_of_positions) * i;
@@ -135,15 +135,15 @@ public class Growth : MonoBehaviour
     }
 
     // build new leaf and orient it according to plant center
-    void instantiateLeaf ( Vector3 point_on_radius )
+    void instantiateLeaf (Vector3 point_on_radius)
     {
-        Transform new_leaf = ((GameObject)Instantiate ( leaf_object,
+        Transform new_leaf = ((GameObject)Instantiate (leaf_object,
                                                         point_on_radius,
                                                         Quaternion.LookRotation (point_on_radius - this.transform.position, Vector3.up),
                                                         this.transform)).transform;
 
 
-        if ( leaf_offset == 0f && new_leaf.GetChild (1) ) // leaf offset is the same for each leaf
+        if (leaf_offset == 0f && new_leaf.GetChild (1)) // leaf offset is the same for each leaf
             leaf_offset = Vector3.Distance (new_leaf.GetChild (1).transform.position, new_leaf.position) + 0.15f * plant_radius; // get leaf-joint distance
         new_leaf.position += new_leaf.forward.normalized * leaf_offset;
     }
@@ -151,19 +151,19 @@ public class Growth : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if ( number_of_leaves < max_leaves )
+        if (number_of_leaves < max_leaves)
         {
-            if ( !regrowing_started )
+            if (!regrowing_started)
             {
                 regrowing_started = true;
                 regrow_start_time = Time.time;
             }
-            else if ( Time.time > regrow_start_time + current_grow_delay )
+            else if (Time.time > regrow_start_time + current_grow_delay)
             {
                 leaf_regrow_queue.Dequeue ().GetComponent<Leaf> ().reGrow ();
                 number_of_leaves++;
                 reCalculateGrowDelay ();
-                if ( leaf_regrow_queue.Count > 0 ) regrow_start_time = Time.time;
+                if (leaf_regrow_queue.Count > 0) regrow_start_time = Time.time;
             }
             //if (number_of_leaves == 1)
             //    AudioManager.Instance.Play ("Chime");
@@ -184,7 +184,7 @@ public class Growth : MonoBehaviour
         current_grow_delay = max_grow_delay - ((max_grow_delay - min_grow_delay) * number_of_leaves / max_leaves);
     }
 
-    public void noticeEatenLeaf ( Transform eaten_leaf )
+    public void noticeEatenLeaf (Transform eaten_leaf)
     {
         leaf_regrow_queue.Enqueue (eaten_leaf);
         number_of_leaves--;

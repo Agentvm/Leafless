@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseOutline : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class MouseOutline : MonoBehaviour
     Shader defaultShader;
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         renderer_ = GetComponent<Renderer> ();
         defaultShader = renderer_.material.shader;

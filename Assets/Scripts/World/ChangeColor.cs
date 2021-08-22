@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ChangeColor : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class ChangeColor : MonoBehaviour
     Material startMaterial;
 
     // Costomization
-    [Tooltip("Contains Materials that will be slowly blended into each other (color-wise)")]
+    [Tooltip ("Contains Materials that will be slowly blended into each other (color-wise)")]
     [SerializeField] Material[] materialStages;
 
     // Variables
@@ -19,23 +17,23 @@ public class ChangeColor : MonoBehaviour
     Material _activeMaterial;
 
     // This Script only changes Color once, at startup
-    void Start()
+    void Start ()
     {
         // Get Components
-        renderer_ = this.GetComponent<Renderer>();
+        renderer_ = this.GetComponent<Renderer> ();
         startMaterial = renderer_.material;
-        colorProgress = arduinoMap(GameState.Instance.GameIntensity, 1f, GameState.Instance.MaxIntensity, 0f, 1f);
+        colorProgress = arduinoMap (GameState.Instance.GameIntensity, 1f, GameState.Instance.MaxIntensity, 0f, 1f);
         stageSequence = new float[ColorStageSequence.Instance.GlobalStageSequence.Length];
-        ColorStageSequence.Instance.GlobalStageSequence.CopyTo(stageSequence, 0);
+        ColorStageSequence.Instance.GlobalStageSequence.CopyTo (stageSequence, 0);
 
         // Check Setup
         if (materialStages.Length == 0 || stageSequence.Length == 0)
             return;
 
         if (materialStages.Length > stageSequence.Length)
-            System.Array.Resize(ref materialStages, stageSequence.Length);
+            System.Array.Resize (ref materialStages, stageSequence.Length);
         else if (stageSequence.Length > materialStages.Length)
-            System.Array.Resize(ref stageSequence, materialStages.Length);
+            System.Array.Resize (ref stageSequence, materialStages.Length);
 
         // Set Progress
         while (activeColorStage + 1 < stageSequence.Length && colorProgress > stageSequence[activeColorStage + 1])
@@ -44,7 +42,7 @@ public class ChangeColor : MonoBehaviour
         }
 
         // No more Material specified
-        if(activeColorStage == stageSequence.Length - 1)
+        if (activeColorStage == stageSequence.Length - 1)
         {
             renderer_.material = materialStages[materialStages.Length - 1];
             return;
@@ -63,11 +61,11 @@ public class ChangeColor : MonoBehaviour
             //Debug.Log("stageValues: " + stageValue);
 
             // Remap the progress to 0 - 1
-            float progress = arduinoMap(colorProgress,
+            float progress = arduinoMap (colorProgress,
                 0, stageValue,
                 0, 1);
 
-            Material blendedMaterial = blendMaterial(materialStages[activeColorStage], materialStages[activeColorStage + 1], progress);
+            Material blendedMaterial = blendMaterial (materialStages[activeColorStage], materialStages[activeColorStage + 1], progress);
 
             if (blendedMaterial != null)
             {
@@ -78,14 +76,14 @@ public class ChangeColor : MonoBehaviour
     }
 
     // Lerp between two given Materials
-    Material blendMaterial(Material fromMaterial, Material toMaterial, float mapValue)
+    Material blendMaterial (Material fromMaterial, Material toMaterial, float mapValue)
     {
         //Debug.Log("mapValue: " + mapValue);
         //Debug.Log("fromMaterial: " + fromMaterial.color.ToString());
         //Debug.Log("toMaterial: " + toMaterial.color.ToString());
 
-        _activeMaterial = new Material(fromMaterial);
-        _activeMaterial.Lerp(fromMaterial, toMaterial, mapValue);
+        _activeMaterial = new Material (fromMaterial);
+        _activeMaterial.Lerp (fromMaterial, toMaterial, mapValue);
         //Debug.Log("_activeMaterial: " + _activeMaterial.color.ToString());
         return _activeMaterial;
 
@@ -93,7 +91,7 @@ public class ChangeColor : MonoBehaviour
 
     // Maps x, that was originally between fromLow and fromHigh, to the corresponding value in the range between toLow and toHigh
     // Source: https://www.arduino.cc/reference/de/language/functions/math/map/
-    float arduinoMap(float x, float fromLow, float fromHigh, float toLow, float toHigh)
+    float arduinoMap (float x, float fromLow, float fromHigh, float toLow, float toHigh)
     {
         return (x - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
     }

@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InputModule : MonoBehaviour
 {
@@ -9,8 +7,8 @@ public class InputModule : MonoBehaviour
     public static InputModule Instance = null;
 
     // Debug
-    [SerializeField]private TextMesh display_text;
-    [SerializeField]private TextMesh display_text2;
+    [SerializeField] private TextMesh display_text;
+    [SerializeField] private TextMesh display_text2;
 
     // References
     Movement MovementScriptReference;
@@ -21,8 +19,8 @@ public class InputModule : MonoBehaviour
     private bool touch_input_active = false;
 
     // Configuration
-    [Range(0f, 30f)][SerializeField] private float tap_threshold = 15f;
-   
+    [Range (0f, 30f)] [SerializeField] private float tap_threshold = 15f;
+
     // Touch Variables
     private Vector2 touch_start_position, touch2_start_position;
     private string direction;
@@ -56,9 +54,9 @@ public class InputModule : MonoBehaviour
     void Awake ()
     {
         // check that there is only one instance of this and that it is not destroyed on load
-        if ( Instance == null )
+        if (Instance == null)
             Instance = this;
-        else if ( Instance != this )
+        else if (Instance != this)
             Destroy (gameObject);
         DontDestroyOnLoad (gameObject);
     }
@@ -73,15 +71,15 @@ public class InputModule : MonoBehaviour
         main_camera = Camera.main;
 
         touch_input = new Vector2 (0f, 0f);
-        if ( !display_text )
+        if (!display_text)
             display_text = this.transform.GetComponentInChildren<TextMesh> ();
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
         // Touch input
-        if ( Input.touchCount > 0/* || InputHelper.GetTouches ().Count > 0*/)
+        if (Input.touchCount > 0/* || InputHelper.GetTouches ().Count > 0*/)
         {
             // Get touch information
             touch_input_active = true;
@@ -89,9 +87,9 @@ public class InputModule : MonoBehaviour
             touchAndTouch ();
         }
         // Mouse Input Active
-        else if (Time.time > time_no_touch_since + touch_time_delay )
+        else if (Time.time > time_no_touch_since + touch_time_delay)
         {
-            if ( Input.touchCount == 0/*  || InputHelper.GetTouches ().Count == 0*/ )
+            if (Input.touchCount == 0/*  || InputHelper.GetTouches ().Count == 0*/ )
             {
                 touch_input.x = 0f;
                 touch_input.y = 0f;
@@ -99,7 +97,7 @@ public class InputModule : MonoBehaviour
 
             // Disable Touch
             touch_input_active = false;
-            if ( Time.time > time_touch_ended + display_time && display_text && display_text2)
+            if (Time.time > time_touch_ended + display_time && display_text && display_text2)
             {
                 display_text.text = "No Touch Input"; // Debug
                 display_text2.text = "No Touch Input"; // Debug
@@ -110,7 +108,7 @@ public class InputModule : MonoBehaviour
         }
 
         // Set actual input values for external scripts
-        if ( TouchInputActive )
+        if (TouchInputActive)
             user_input.Set (touch_input.x, 0f, touch_input.y);
         else
             user_input.Set (Input.GetAxis ("Horizontal"), 0f, Input.GetAxis ("Vertical"));
@@ -127,31 +125,31 @@ public class InputModule : MonoBehaviour
             current_touch_ids.Add (touch.fingerId);
 
             // First Touch
-            if ( known_touch_ids.Count == 0 || (known_touch_ids.Count > 0 && touch.fingerId == known_touch_ids[0]) )
+            if (known_touch_ids.Count == 0 || (known_touch_ids.Count > 0 && touch.fingerId == known_touch_ids[0]))
             {
                 // Debug Text
                 if (display_text)
                     display_text.text = touch.phase.ToString ();
 
                 // On first sensing the touch
-                if ( touch.phase == TouchPhase.Began )
+                if (touch.phase == TouchPhase.Began)
                     touch_start_position = touch.position;
 
                 // On swiping
-                else if ( touch.phase == TouchPhase.Moved && (touch_start_position - touch.position).magnitude >= tap_threshold )
+                else if (touch.phase == TouchPhase.Moved && (touch_start_position - touch.position).magnitude >= tap_threshold)
                     setTouchInput (touch);
 
                 // When the touch contact is ending
-                else if ( touch.phase == TouchPhase.Ended )
+                else if (touch.phase == TouchPhase.Ended)
                 {
                     // Check if tapped
-                    if ( (touch_start_position - touch.position).magnitude < tap_threshold )
+                    if ((touch_start_position - touch.position).magnitude < tap_threshold)
                     {
                         // Raycast at touch position
                         Transform active_object_transform = Raycast (touch.position);
 
                         // Clicked on object, or in the air?
-                        if ( active_object_transform && active_object_transform.tag == "Interactable" )
+                        if (active_object_transform && active_object_transform.tag == "Interactable")
                         {
                             Debug.Log ("1st Tapped: Interactable");
                             MovementScriptReference.leafClicked (active_object_transform);
@@ -176,14 +174,14 @@ public class InputModule : MonoBehaviour
             }
 
             // Any other Touch
-            else if ( (known_touch_ids.Count > 0 && touch.fingerId != known_touch_ids[0]) )
+            else if ((known_touch_ids.Count > 0 && touch.fingerId != known_touch_ids[0]))
             {
                 // Debug Text
                 if (display_text2)
                     display_text2.text = touch.phase.ToString ();
 
                 // On first sensing the touch
-                if ( touch.phase == TouchPhase.Began )
+                if (touch.phase == TouchPhase.Began)
                     touch2_start_position = touch.position;
 
                 //// On swiping
@@ -194,16 +192,16 @@ public class InputModule : MonoBehaviour
                 //}
 
                 // When the touch contact is ending
-                else if ( touch.phase == TouchPhase.Ended )
+                else if (touch.phase == TouchPhase.Ended)
                 {
                     // Check if tapped
-                    if ( (touch2_start_position - touch.position).magnitude < tap_threshold )
+                    if ((touch2_start_position - touch.position).magnitude < tap_threshold)
                     {
                         // Raycast at touch position
                         Transform active_object_transform = Raycast (Input.mousePosition);
 
                         // Clicked on object, or in the air?
-                        if ( active_object_transform && active_object_transform.tag == "Interactable" )
+                        if (active_object_transform && active_object_transform.tag == "Interactable")
                         {
                             Debug.Log ("2nd Tapped: Interactable");
                             MovementScriptReference.leafClicked (active_object_transform);
@@ -222,29 +220,29 @@ public class InputModule : MonoBehaviour
             }
 
             // add unknown touch id to the list of known ids
-            if ( !known_touch_ids.Contains (touch.fingerId) )
+            if (!known_touch_ids.Contains (touch.fingerId))
                 known_touch_ids.Add (touch.fingerId);
 
         }
 
         // Debug
-        if ( Time.time % 5f > -0.02f && Time.time % 5f < 0.02f )
+        if (Time.time % 5f > -0.02f && Time.time % 5f < 0.02f)
         {
             string ids_string = "";
-            foreach ( int id in current_touch_ids )
+            foreach (int id in current_touch_ids)
                 ids_string += id + ", ";
             Debug.Log ("Current Touch ID's: " + ids_string);
 
             ids_string = "";
-            foreach ( int id in known_touch_ids )
+            foreach (int id in known_touch_ids)
                 ids_string += id + ", ";
             Debug.Log ("Known Touch ID's: " + ids_string);
         }
 
         // after all touches have been treated, delete finger touch id's that are no longer viable
-        for ( int i = 0; i < known_touch_ids.Count; i++ )
+        for (int i = 0; i < known_touch_ids.Count; i++)
         {
-            if ( !current_touch_ids.Contains (known_touch_ids[i] ))
+            if (!current_touch_ids.Contains (known_touch_ids[i]))
             {
                 known_touch_ids.RemoveAt (i);
                 i--;
@@ -277,12 +275,12 @@ public class InputModule : MonoBehaviour
         Transform active_object_transform = Raycast (Input.mousePosition);
 
         // Mouse clicked?
-        if ( Input.GetMouseButton (0) && Time.time > last_click_time + click_delay )
+        if (Input.GetMouseButton (0) && Time.time > last_click_time + click_delay)
         {
             last_click_time = Time.time;
 
             // Clicked on object, or in the air?
-            if ( active_object_transform && active_object_transform.tag == "Interactable" )
+            if (active_object_transform && active_object_transform.tag == "Interactable")
                 MovementScriptReference.leafClicked (active_object_transform);
             else // Shoot, if no Interactable object was clicked
                 MovementScriptReference.tryStartShooting ();
@@ -290,12 +288,12 @@ public class InputModule : MonoBehaviour
     }
 
     // Do a raycast from the main camera to the specified position, set the mouse position and return the object hit
-    Transform Raycast ( Vector3 screen_point )
+    Transform Raycast (Vector3 screen_point)
     {
-        if ( !main_camera ) return null;
+        if (!main_camera) return null;
 
         // is point in front of camera?
-        Vector3 viewport_point = main_camera.ScreenToViewportPoint(screen_point);
+        Vector3 viewport_point = main_camera.ScreenToViewportPoint (screen_point);
         if (viewport_point.x > 1 || viewport_point.x < 0 ||
             viewport_point.y > 1 || viewport_point.y < 0 ||
             viewport_point.z < 0)
@@ -304,7 +302,7 @@ public class InputModule : MonoBehaviour
         }
 
         ray = main_camera.ScreenPointToRay (screen_point);
-        if ( Physics.Raycast (ray, out ray_hit) )
+        if (Physics.Raycast (ray, out ray_hit))
         {
             mouse_point = ray_hit.point;
             mouse_point.y = MovementScriptReference.transform.position.y;
@@ -328,5 +326,5 @@ public class InputModule : MonoBehaviour
     //        return ray_hit.point;
     //    else return new Vector3 (0f, 5f, 0f);
     //}
-    
+
 }

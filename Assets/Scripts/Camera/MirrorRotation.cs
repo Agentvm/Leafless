@@ -1,23 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MirrorRotation : MonoBehaviour
 {
-    [SerializeField]Transform look_at_object;
+    [SerializeField] Transform look_at_object;
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
-        if ( !look_at_object )
+        if (!look_at_object)
             look_at_object = Camera.main.transform;
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
-        if ( look_at_object )
+        if (look_at_object)
             this.transform.rotation = look_at_object.rotation;
-                //this.transform.LookAt (2 * transform.position - look_at_object.position);
+        //this.transform.LookAt (2 * transform.position - look_at_object.position);
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnWaves : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class SpawnWaves : MonoBehaviour
     public int NumberOfLeavesEaten { get => number_of_leaves_eaten; set => number_of_leaves_eaten = value; }
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         enemy_object = Resources.Load ("Enemy");
         player = GameObject.FindWithTag ("Player").transform;
@@ -25,22 +23,22 @@ public class SpawnWaves : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
         // start of game: if leaves have been eaten, spawn enemies
-        if ( GameState.Instance.Award > 2 && NumberOfActiveEnemies == 0)
+        if (GameState.Instance.Award > 2 && NumberOfActiveEnemies == 0)
         {
             spawnEnemy ();
         }
 
         // if enemies are less than possible max (tied to award), eneble spawning
-        int current_max_enemies = (Mathf.Min (1, GameState.Instance.Award) + GameState.Instance.Award / 10 );
-        if ( NumberOfActiveEnemies < current_max_enemies)
+        int current_max_enemies = (Mathf.Min (1, GameState.Instance.Award) + GameState.Instance.Award / 10);
+        if (NumberOfActiveEnemies < current_max_enemies)
         {
             // as award increases, decrease spawn time of enemies
             float award_progress = (GameState.Instance.Award) / 100f;
-            int spawn_time_reduction = (int) (7 * Mathf.Min (1, award_progress ));
-            if ( Time.time - start_time > spawn_time + (10 - spawn_time_reduction) )
+            int spawn_time_reduction = (int)(7 * Mathf.Min (1, award_progress));
+            if (Time.time - start_time > spawn_time + (10 - spawn_time_reduction))
             {
                 spawnEnemy ();
                 spawn_time = Time.time - start_time;
@@ -58,7 +56,7 @@ public class SpawnWaves : MonoBehaviour
         return player.transform.position + point_on_circle;
     }
 
-    public void spawnEnemy ( Vector3 global_position )
+    public void spawnEnemy (Vector3 global_position)
     {
         Transform new_enemy = ((GameObject)Instantiate (enemy_object, global_position, Quaternion.LookRotation (global_position - player.position, Vector3.up), this.transform)).transform;
         new_enemy.GetComponent<Follow> ().setGoal (player);
@@ -75,7 +73,7 @@ public class SpawnWaves : MonoBehaviour
 
     public void StopAllEnemies ()
     {
-        foreach ( Transform enemy in transform )
+        foreach (Transform enemy in transform)
         {
             enemy.GetComponent<Follow> ().CurrentlyFollowing = false;
         }
@@ -83,7 +81,7 @@ public class SpawnWaves : MonoBehaviour
 
     public void AllEnemiesAttack ()
     {
-        foreach ( Transform enemy in transform )
+        foreach (Transform enemy in transform)
         {
             enemy.GetComponent<Follow> ().CurrentlyFollowing = true;
         }

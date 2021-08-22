@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class StartButton : MonoBehaviour
@@ -9,7 +7,7 @@ public class StartButton : MonoBehaviour
     private Button start_button;
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         start_button = this.GetComponent<Button> ();
         scene_loader = SceneLoader.Instance;

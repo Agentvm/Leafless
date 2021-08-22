@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TutorialToggleSwitch : MonoBehaviour
@@ -9,14 +7,14 @@ public class TutorialToggleSwitch : MonoBehaviour
     //bool status_before = true;
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         toggle = this.GetComponent<Toggle> ();
         toggle.isOn = GameState.Instance.tutorial_toggle;
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
         //if (status_before != toggle.isOn)
         //{

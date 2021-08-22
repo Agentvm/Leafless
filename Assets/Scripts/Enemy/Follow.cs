@@ -1,46 +1,44 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Follow : MonoBehaviour
 {
-    [SerializeField]Transform followed_object;
-    [SerializeField]float movement_speed = 600f;
+    [SerializeField] Transform followed_object;
+    [SerializeField] float movement_speed = 600f;
 
     // Components
     CharacterController controller;
 
     // variables
-    [SerializeField]bool currently_following = true;
+    [SerializeField] bool currently_following = true;
 
     public bool CurrentlyFollowing { get => currently_following; set => currently_following = value; }
     public Transform FollowedObject { get => followed_object; set => followed_object = value; }
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         movement_speed *= GameState.Instance.GameIntensity;
 
         controller = GetComponent<CharacterController> ();
-        if ( !followed_object )
+        if (!followed_object)
             followed_object = GameObject.FindWithTag ("Player").transform;
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
-        if ( !followed_object || !CurrentlyFollowing) return;
-        
+        if (!followed_object || !CurrentlyFollowing) return;
+
         // figure out move vector towards leaf
         Vector3 move_vector = followed_object.position - this.transform.position;
         move_vector.Normalize ();
 
         // move towards leaf
         controller.SimpleMove (move_vector * Time.deltaTime * movement_speed);
-        this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z );
+        this.transform.position.Set (this.transform.position.x, 0f, this.transform.position.z);
 
         // look to the leaf
-        this.transform.LookAt (followed_object.position );
+        this.transform.LookAt (followed_object.position);
     }
 
     public void stopFollowing ()
