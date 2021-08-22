@@ -523,15 +523,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94efe96f0910164891d4e3a2d4dff83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_movement_speed: 800
+  max_movement_speed: 1600
   leaf_distance: 2.2
   acceleration: 4
   rotation_acceleration: 6
-  shoot_rotation_acceleration: 0.4
+  shoot_rotation_acceleration: 1.7
   touch_shoot_rotation_acceleration: 2
   touch_aim_correction: 0
   ammunition_capacity: 3
-  ammunition: 3
+  ammunition: 0
 --- !u!114 &47539242
 MonoBehaviour:
   m_ObjectHideFlags: 0

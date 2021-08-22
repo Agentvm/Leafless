@@ -1,13 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Leaf : MonoBehaviour
 {
     // Components
     AudioSource audio_source;
-    [SerializeField]AudioClip[] regrow_sounds;
-    [SerializeField]AudioClip[] get_eaten_sounds;
+    [SerializeField] AudioClip[] regrow_sounds;
+    [SerializeField] AudioClip[] get_eaten_sounds;
     Renderer _renderer;
     Rigidbody rigid_body;
 
@@ -20,8 +19,11 @@ public class Leaf : MonoBehaviour
     Vector3 original_scale;
     Vector3 original_panel_position = new Vector3 (0, 0, 0);
 
+    // Properties
+    public bool AboutToBeDestructed { get; private set; }
+
     //// Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         // Get Components
         audio_source = this.GetComponent<AudioSource> ();
@@ -35,7 +37,7 @@ public class Leaf : MonoBehaviour
         original_position = this.transform.position;
         original_rotation = this.transform.rotation;
         original_scale = this.transform.localScale;
-        if ( this.transform.parent.parent.parent )
+        if (this.transform.parent.parent.parent)
             original_panel_position = this.transform.parent.parent.parent.transform.position;
     }
 
@@ -43,7 +45,7 @@ public class Leaf : MonoBehaviour
     {
         // reset transform
         Vector3 panel_correction = new Vector3 (0, 0, 0);
-        if ( this.transform.parent.parent.parent )
+        if (this.transform.parent.parent.parent)
             panel_correction = this.transform.parent.parent.parent.transform.position - original_panel_position;
         this.transform.position = original_position + panel_correction;
         this.transform.rotation = original_rotation;
@@ -51,16 +53,16 @@ public class Leaf : MonoBehaviour
 
         // activate object and play sound
         this.gameObject.SetActive (true);
-        play_audio (regrow_sounds[Random.Range (0, regrow_sounds.Length)] );
+        play_audio (regrow_sounds[Random.Range (0, regrow_sounds.Length)]);
 
         // play grow animation
         StopAllCoroutines ();
-        StartCoroutine (growCoroutine());
+        StartCoroutine (growCoroutine ());
     }
 
     IEnumerator growCoroutine ()
     {
-        for (float strength = 0; strength < 1; strength += 0.01f )
+        for (float strength = 0; strength < 1; strength += 0.01f)
         {
             // change alpha
             //Color color = renderer.material.color;
@@ -75,6 +77,8 @@ public class Leaf : MonoBehaviour
 
     public void getEaten ()
     {
+        Debug.Log ("Getting Eaten");
+
         // play get eaten animation
         rigid_body.isKinematic = true;
         StopAllCoroutines ();
@@ -85,38 +89,53 @@ public class Leaf : MonoBehaviour
 
         // logic
         GrowthScriptReference.noticeEatenLeaf (this.transform);
-        if ( GameState.Instance )
+        if (GameState.Instance)
             GameState.Instance.Award = 1;
     }
 
     IEnumerator getEatenCoroutine ()
     {
-        for ( float strength = 1; strength > 0; strength -= 0.01f )
+        for (float strength = 1; strength > 0; strength -= 0.01f)
         {
             // change alpha
             //renderer.material.color *= strength;
 
             // change size
             this.transform.localScale *= strength;
-            this.transform.Translate (this.transform.forward * 15f * Time.deltaTime );
+            this.transform.Translate (this.transform.forward * 15f * Time.deltaTime);
 
             yield return new WaitForSeconds (.02f);
         }
     }
 
-    void play_audio (AudioClip clip )
+    void play_audio (AudioClip clip)
     {
         audio_source.clip = clip;
         audio_source.Play ();
     }
 
-    private void OnTriggerEnter ( Collider collision )
+    private void OnTriggerEnter (Collider collision)
     {
-        if (collision.transform.tag == "PlantBody" || collision.transform.tag == "Interactable" )
+        if (collision.transform.tag == "PlantBody" || collision.transform.tag == "Interactable")
         {
-            if (GrowthScriptReference)
-                GrowthScriptReference.destroyOneLeaf ();
-            Destroy (this.transform.parent.gameObject);
+            // Destroy Leaves that collide with each other
+            if (collision.transform.tag == "Interactable")
+            {
+                Leaf otherLeaf = collision.GetComponent<Leaf> ();
+                if (!otherLeaf.AboutToBeDestructed)
+                {
+                    Destroy (this.transform.parent.gameObject);
+                    if (GrowthScriptReference)
+                        GrowthScriptReference.destroyOneLeaf ();
+                }
+            }
+            else
+                Destroy (this.transform.parent.gameObject);
         }
+    }
+
+    private void OnDestroy ()
+    {
+        AboutToBeDestructed = true;
     }
 }
