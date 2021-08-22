@@ -2,25 +2,24 @@
 ### Bugs / ToDo:
         No Despawn on Death
         Leaves Shader does not reset after MouseOver
-        Blending Colors is not blended, but digitalized
         Tutorials do not toggle
-        If two leaves are clicked at once, the game crashes
         Remove Output on Screen
+        Find the right Intensity Curve
+        Add Sound Toggle
+        Change Variable Names (use https://docs.unity3d.com/ScriptReference/Serialization.FormerlySerializedAsAttribute.html)
 
 ### Features:
-        Make Color Arrays that are Lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
-            Black Ocean
-        Find the right Intensity Curve
-        Find or make a cool model for the edges of the map
         
+        Black Ocean
+        
+        Find or make a cool model for the edges of the map
         Rework Shooting - strongly increase turn speed after triggering a shot
         Make Touch more reliable by tracking each single touch Instance
-        Make Bullets travel through leaves (and bustle them around in the process)
+        General Balancing
 
         Add shimmery blue Leaves that act as powerups (flight, )
         Award permanent bonuses for fully grazed plants (speed, ammo consumption [+ effect], )
 
-        Add Sound Toggle
         Guitar Sound
         Make a Minimap with RenderTexture
     
@@ -29,6 +28,10 @@
         v 1.4 - in development
         Put the credits right
         SceneManager.activeSceneChanged statt OnLevelWasLoaded
+        Make Bullets travel through leaves (and bustle them around in the process)
+        Make Color Arrays that are Lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
+        Blending Colors is not blended, but digitalized
+        If two leaves are clicked at once, the game crashes
 
         v 1.3 - released
         The farther, the more intense
