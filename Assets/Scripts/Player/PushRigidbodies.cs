@@ -7,25 +7,29 @@ public class PushRigidbodies : MonoBehaviour
 
     // this script pushes all rigidbodies that the character touches
     [SerializeField]float pushPower = 2.0f;
-    void OnControllerColliderHit ( ControllerColliderHit hit )
+
+
+    void PushRigidbody (Rigidbody body, Vector3 moveDirection = default)
     {
-        Rigidbody body = hit.collider.attachedRigidbody;
+        // Default
+        if (moveDirection == default)
+            moveDirection = Vector3.up;
 
         // no rigidbody
-        if ( body == null || body.isKinematic )
+        if (body == null || body.isKinematic)
         {
             return;
         }
 
         // We dont want to push objects below us
-        if ( hit.moveDirection.y < -0.3 )
+        if (moveDirection.y < -0.3)
         {
             return;
         }
 
         // Calculate push direction from move direction,
         // we only push objects to the sides never up and down
-        Vector3 pushDir = new Vector3(hit.moveDirection.x, 2f, hit.moveDirection.z);
+        Vector3 pushDir = new Vector3 (moveDirection.x, 2f, moveDirection.z);
 
         // If you know how fast your character is trying to move,
         // then you can also multiply the push velocity by that.
@@ -34,4 +38,13 @@ public class PushRigidbodies : MonoBehaviour
         body.velocity = pushDir * pushPower;
     }
 
+    void OnControllerColliderHit ( ControllerColliderHit hit )
+    {
+        PushRigidbody (hit.collider.attachedRigidbody, hit.moveDirection);
+    }
+
+    private void OnTriggerEnter (Collider other)
+    {
+        PushRigidbody (other.attachedRigidbody, this.transform.forward);
+    }
 }

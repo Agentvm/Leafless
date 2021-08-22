@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
         if ( collider.transform.tag == "Enemy")
             collider.transform.GetComponent<Enemy> ().Die ();
 
-        if (collider.tag != "Player")
+        if (collider.tag != "Player" && collider.tag != "Interactable")
             explode_on_contact ();
     }
 
