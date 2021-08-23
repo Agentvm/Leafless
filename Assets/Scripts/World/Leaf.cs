@@ -77,8 +77,6 @@ public class Leaf : MonoBehaviour
 
     public void getEaten ()
     {
-        Debug.Log ("Getting Eaten");
-
         // play get eaten animation
         rigid_body.isKinematic = true;
         StopAllCoroutines ();

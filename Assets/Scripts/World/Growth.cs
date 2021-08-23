@@ -160,10 +160,13 @@ public class Growth : MonoBehaviour
             }
             else if (Time.time > regrow_start_time + current_grow_delay)
             {
-                leaf_regrow_queue.Dequeue ().GetComponent<Leaf> ().reGrow ();
-                number_of_leaves++;
-                reCalculateGrowDelay ();
-                if (leaf_regrow_queue.Count > 0) regrow_start_time = Time.time;
+                if (leaf_regrow_queue.Count > 0)
+                {
+                    leaf_regrow_queue.Dequeue ().GetComponent<Leaf> ().reGrow ();
+                    number_of_leaves++;
+                    reCalculateGrowDelay ();
+                    if (leaf_regrow_queue.Count > 0) regrow_start_time = Time.time;
+                }
             }
             //if (number_of_leaves == 1)
             //    AudioManager.Instance.Play ("Chime");
