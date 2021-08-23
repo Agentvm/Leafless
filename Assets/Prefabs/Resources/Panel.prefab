@@ -706,8 +706,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialStages:
   - {fileID: 2100000, guid: cc6471f8b915200448c97e6c86c4b424, type: 2}
-  - {fileID: 2100000, guid: d3abd3eeb74c7df4087372eb141993c7, type: 2}
-  - {fileID: 2100000, guid: 3954a800761360a459fc8f01354fd6db, type: 2}
+  - {fileID: 2100000, guid: 2462790d7304fb945a5753295c35cd5b, type: 2}
+  - {fileID: 2100000, guid: 348f9f0f3e8163b4cb544267939f96fe, type: 2}
 --- !u!1 &5214473158198457918
 GameObject:
   m_ObjectHideFlags: 0
