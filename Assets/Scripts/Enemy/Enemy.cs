@@ -95,7 +95,6 @@ public class Enemy : MonoBehaviour
             if (SpawnWavesReference)
             {
                 SpawnWavesReference.StopAllEnemies ();
-                //this.transform.GetComponentInParent<SpawnWaves> ().StopSpawning ();
             }
             this.GetComponent<Animator> ().SetBool ("Eating", true);
 

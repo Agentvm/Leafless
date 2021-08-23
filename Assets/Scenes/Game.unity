@@ -236,6 +236,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 517494394}
     m_Modifications:
+    - target: {fileID: 47539239, guid: e5a755cf4b19e6e439c8fdcff43a2a74, type: 3}
+      propertyPath: touch_shoot_rotation_acceleration
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6782811783927207331, guid: e5a755cf4b19e6e439c8fdcff43a2a74,
         type: 3}
       propertyPath: m_Name

@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     [Range (0f, 6f)] [SerializeField] float leaf_distance = 4f;
     [Range (1f, 10f)] [SerializeField] float acceleration = 4f;
     [Range (1f, 10f)] [SerializeField] float rotation_acceleration = 6f;
-    [Range (0f, 2f)] [SerializeField] float shoot_rotation_acceleration = 0.4f;
+    [Range (0f, 4f)] [SerializeField] float shoot_rotation_acceleration = 2f;
     [Range (0f, 20f)] [SerializeField] float touch_shoot_rotation_acceleration = 2f;
     [Range (0f, 20f)] [SerializeField] float touch_aim_correction = 2.0f;
 
@@ -145,9 +145,12 @@ public class Movement : MonoBehaviour
         {
             // Make speed changes less fast
             if (InputModule.Instance.TouchInputActive)
+            {
+                aim_position = InputModule.Instance.MousePoint + Vector3.forward * touch_aim_correction;
                 Move (aim_position, 0.7f, touch_shoot_rotation_acceleration);
+            }
             else
-                Move (aim_position, 0.7f, shoot_rotation_acceleration);
+                Move (InputModule.Instance.MousePoint, 0.7f, shoot_rotation_acceleration);
 
             // at the right time in the animation, instantiate the bullet
             if (Time.time > shoot_time + shoot_delay)
@@ -192,10 +195,6 @@ public class Movement : MonoBehaviour
             leaf_to_approach.transform.GetComponent<Leaf> ().getEaten ();
         else if (new_state == State.Shoot)
         {
-            aim_position = InputModule.Instance.MousePoint;
-            if (InputModule.Instance.TouchInputActive)
-                aim_position += Vector3.forward * touch_aim_correction;
-
             animator.SetBool ("Shooting", true);
             shoot_time = Time.time;
         }
