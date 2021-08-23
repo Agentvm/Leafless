@@ -44,24 +44,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds_array:
-  - name: A
+  - name: 0
     clip: {fileID: 8300000, guid: 947959be7aeed574eb64f7540a1836ba, type: 3}
-    volume: 1
+    volume: 0.3
     pitch: 1
     priority: 200
-    play_looped: 0
+    play_looped: 1
     audio_source: {fileID: 0}
-  - name: B
+  - name: 1
     clip: {fileID: 8300000, guid: d1602ebb4b3f08f4c9379250531f41a2, type: 3}
     volume: 1
     pitch: 1
     priority: 128
     play_looped: 0
     audio_source: {fileID: 0}
-  - name: 4
+  - name: 2
     clip: {fileID: 8300000, guid: b5e14a971ed9c7541ab4cdb0b7eb737a, type: 3}
     volume: 1
     pitch: 1
     priority: 128
-    play_looped: 0
+    play_looped: 1
     audio_source: {fileID: 0}

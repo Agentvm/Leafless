@@ -79,7 +79,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176008084130641726}
-  m_Text: Move with WASD
+  m_Text: Move with WASD or finger swipe
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -316,7 +316,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176008084326741113}
-  m_Text: Shoot on Enemies by clicking on them
+  m_Text: Shoot on Enemies by clicking or tapping on them
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -472,7 +472,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176008085962583241}
-  m_Text: Eat a Leaf by clicking on it
+  m_Text: Eat a Leaf by clicking or tapping on it
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
