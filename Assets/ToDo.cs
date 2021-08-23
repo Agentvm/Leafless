@@ -1,21 +1,16 @@
 /*
 ### Bugs / ToDo:
-        No Despawn on Death
-        Leaves Shader does not reset after MouseOver
+        
         Tutorials do not toggle
         Remove Output on Screen
-        Find the right Intensity Curve
         Add Sound Toggle
-        Change Variable Names (use https://docs.unity3d.com/ScriptReference/Serialization.FormerlySerializedAsAttribute.html)
 
 ### Features:
-        
-        Black Ocean
-        
         Find or make a cool model for the edges of the map
-        Rework Shooting - strongly increase turn speed after triggering a shot
+        
         Make Touch more reliable by tracking each single touch Instance
         General Balancing
+            Sparse, giant Plants at maxIntensity, little sprouts at start
 
         Add shimmery blue Leaves that act as powerups (flight, )
         Award permanent bonuses for fully grazed plants (speed, ammo consumption [+ effect], )
@@ -32,6 +27,9 @@
         Make Color Arrays that are Lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
         Blending Colors is not blended, but digitalized
         If two leaves are clicked at once, the game crashes
+        Leaves Shader does not reset after MouseOver
+        Rework Shooting - strongly increase turn speed after triggering a shot
+        Find the right Intensity Curve
 
         v 1.3 - released
         The farther, the more intense

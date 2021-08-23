@@ -227,8 +227,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _globalStageSequence:
   - 0
-  - 0.2
-  - 0.44
+  - 0.4
+  - 1
 --- !u!1001 &311130645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -236,10 +236,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 517494394}
     m_Modifications:
-    - target: {fileID: 47539239, guid: e5a755cf4b19e6e439c8fdcff43a2a74, type: 3}
-      propertyPath: touch_shoot_rotation_acceleration
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 6782811783927207331, guid: e5a755cf4b19e6e439c8fdcff43a2a74,
         type: 3}
       propertyPath: m_Name
@@ -1005,6 +1001,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 7516764650402758744, guid: cc097002644ca0b4e8c30b48249fd084,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 348f9f0f3e8163b4cb544267939f96fe, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc097002644ca0b4e8c30b48249fd084, type: 3}
 --- !u!1001 &3378326714865223140

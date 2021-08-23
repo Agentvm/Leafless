@@ -15,7 +15,7 @@ public class GameState : MonoBehaviour
     private Transform player_transform;
     private Vector3 origin_position = new Vector3 (0f, 0.5f, 0f);
     private float player_origin_distance;
-    private float maxIntensity = 3.5f;
+    private float maxIntensity = 3.0f;
 
     // tutorial state
     public bool tutorial_toggle = true;
