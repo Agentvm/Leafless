@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac8469c5aa68364e9c9a6c804228dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mouseOverMaterial: {fileID: 2100000, guid: d778a597c0b6a1e48b70f44f100666e4, type: 2}
 --- !u!114 &3926157400200837177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,10 +221,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ab79b57c1fa732243a8fb60a5ac0a9ad, type: 2}
   - {fileID: 2100000, guid: 673179de101e4fd4a91ff46e8c938b95, type: 2}
   - {fileID: 2100000, guid: 96146c020a3fda143a72b17393018ead, type: 2}
-  stageSequence:
-  - 0.2
-  - 0.5
-  - 1
 --- !u!1 &4710834080504058621
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +266,7 @@ GameObject:
   - component: {fileID: 4710834081042282047}
   - component: {fileID: 4710834081042282044}
   - component: {fileID: 4710834081042282045}
+  - component: {fileID: 7354685914079668232}
   m_Layer: 0
   m_Name: joint
   m_TagString: Untagged
@@ -364,6 +362,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7354685914079668232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4710834081042282035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70307d7d61d71614fa95d57855f65bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialStages:
+  - {fileID: 2100000, guid: ab79b57c1fa732243a8fb60a5ac0a9ad, type: 2}
+  - {fileID: 2100000, guid: 673179de101e4fd4a91ff46e8c938b95, type: 2}
+  - {fileID: 2100000, guid: 96146c020a3fda143a72b17393018ead, type: 2}
 --- !u!1001 &4710834080431229135
 PrefabInstance:
   m_ObjectHideFlags: 0

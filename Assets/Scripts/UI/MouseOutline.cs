@@ -4,24 +4,28 @@ public class MouseOutline : MonoBehaviour
 {
     // Components
     Renderer renderer_;
-    Shader defaultShader;
+    Material defaultMaterial = null;
+    //Shader _newShader;
+    [SerializeField]
+    Material _mouseOverMaterial;
 
     // Start is called before the first frame update
     void Start ()
     {
         renderer_ = GetComponent<Renderer> ();
-        defaultShader = renderer_.material.shader;
     }
 
     private void OnMouseOver ()
     {
-        renderer_.material.shader = Shader.Find ("Self-Illumin/Outlined Diffuse");
+        if (defaultMaterial == null)
+            defaultMaterial = renderer_.material;
+        renderer_.material = _mouseOverMaterial;
     }
 
     private void OnMouseExit ()
     {
-        renderer_.material.shader = defaultShader;
-        //renderer_.material.shader = Shader.Find ("Nature/SpeedTree8"); // Standard
+        renderer_.material = defaultMaterial;
+        defaultMaterial = null;
     }
 
 
