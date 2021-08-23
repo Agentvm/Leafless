@@ -21,7 +21,7 @@ public class GameState : MonoBehaviour
     public bool tutorial_toggle = true;
     public bool tutorial_completed = false;
 
-    public int Award { get => award; set => award += Mathf.Min (value, 30) * (int)GameIntensity; } // max 30 award points for one action
+    public int Award { get => award; set => award += (int)(Mathf.Min (value, 10) * GameIntensity); } // max 10 flat award points for one action
 
     // document this formula - fast
     public float GameIntensity { get => getGameIntensity (); }
@@ -51,7 +51,8 @@ public class GameState : MonoBehaviour
         if (GameObject.FindWithTag ("Player"))
             player_transform = GameObject.FindWithTag ("Player").transform;
 
-        Debug.Assert (player_transform.name != null);
+        if (arg1.name == "Game")
+            Debug.Assert (player_transform != null);
     }
 
     // Called once at the start of the game, since this is DontDestroyOnLoad
