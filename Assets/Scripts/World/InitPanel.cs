@@ -15,7 +15,12 @@ public class InitPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start ()
     {
-        foreach (Vector3 random_position in create_random_positions (3))
+        // Spawn Plants depending on current difficulty
+        int numberOfPlants = Mathf.Max (1, (int)(GameState.Instance.MaxIntensity - GameState.Instance.GameIntensity) + 1);
+        if (GameState.Instance.GameIntensity < 1.2f)
+            numberOfPlants++;
+
+        foreach (Vector3 random_position in create_random_positions (numberOfPlants))
         {
             Transform new_plant = (
                 (GameObject)(Instantiate (plant_object,
