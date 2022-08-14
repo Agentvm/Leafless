@@ -20,7 +20,7 @@ public class GameState : MonoBehaviour
     public bool tutorial_toggle = true;
     public bool tutorial_completed = false;
 
-    public int Award { get => award; private set => award = (int)(value * GameIntensity); }
+    public int Award { get => award; private set => award = value; }
 
     // document this formula - fast
     public float GameIntensity { get => getGameIntensity(); }
@@ -105,8 +105,15 @@ public class GameState : MonoBehaviour
 
     public static void AddScore(Vector3 position, int scoreValue)
     {
-        Instance.Award = scoreValue;
-        Instantiate(ScoreTextPrefab, position, Quaternion.identity).GetComponent<ScoreText>().DisplayValue = scoreValue;
+        // Add Intensity bonus
+        scoreValue = (int)(scoreValue * Instance.GameIntensity);
+
+        // Add Score
+        if (scoreValue <= 10) Instance.Award += scoreValue;
+
+        // Display the added score
+        Instantiate(ScoreTextPrefab, position, Quaternion.identity).
+            GetComponent<ScoreText>().DisplayValue = scoreValue;
     }
 
     IEnumerator logIntensity()

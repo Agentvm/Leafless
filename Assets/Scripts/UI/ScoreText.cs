@@ -75,7 +75,6 @@ public class ScoreText : MonoBehaviour
                 _tempColor = this.TextMesh.color;
                 _tempColor.a = 1 - ((Time.time - _riseTimeStart) / _riseTimeSeconds);
                 this.TextMesh.color = _tempColor;
-                Debug.Log("this.TextMesh.color.a: " + this.TextMesh.color.a);
             }
             else
                 Activated = false;
@@ -86,7 +85,7 @@ public class ScoreText : MonoBehaviour
     {
         if (DisplayValue == default) return;
 
-        this.TextMesh.text = $"+ {(DisplayValue * GameState.Instance.GameIntensity).ToString()}";
+        this.TextMesh.text = $"+ {(DisplayValue).ToString()}";
         Activated = true;
     }
 }
