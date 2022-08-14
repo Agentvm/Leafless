@@ -3,21 +3,24 @@ using UnityEngine;
 
 public class Leaf : MonoBehaviour
 {
+    // Constants
+    public const int BaseAwardValue = 1;
+
     // Components
-    AudioSource audio_source;
-    [SerializeField] AudioClip[] regrow_sounds;
-    [SerializeField] AudioClip[] get_eaten_sounds;
+    AudioSource _audioSource;
+    [SerializeField] AudioClip[] _regrowSounds;
+    [SerializeField] AudioClip[] _getEatenSounds;
     Renderer _renderer;
-    Rigidbody rigid_body;
+    Rigidbody _rigidBody;
 
     // References
     Growth GrowthScriptReference;
 
     // Transform
-    Vector3 original_position;
-    Quaternion original_rotation;
-    Vector3 original_scale;
-    Vector3 original_panel_position = new Vector3 (0, 0, 0);
+    Vector3 _originalPosition;
+    Quaternion _originalRotation;
+    Vector3 _originalScale;
+    Vector3 _originalPanelPosition = new Vector3 (0, 0, 0);
 
     // Properties
     public bool AboutToBeDestructed { get; private set; }
@@ -26,41 +29,41 @@ public class Leaf : MonoBehaviour
     void Start ()
     {
         // Get Components
-        audio_source = this.GetComponent<AudioSource> ();
+        _audioSource = this.GetComponent<AudioSource> ();
         _renderer = this.GetComponent<Renderer> ();
-        rigid_body = this.GetComponent<Rigidbody> ();
+        _rigidBody = this.GetComponent<Rigidbody> ();
 
         // Get References
         GrowthScriptReference = this.transform.parent.parent.GetComponent<Growth> ();
 
         // save original transform values
-        original_position = this.transform.position;
-        original_rotation = this.transform.rotation;
-        original_scale = this.transform.localScale;
+        _originalPosition = this.transform.position;
+        _originalRotation = this.transform.rotation;
+        _originalScale = this.transform.localScale;
         if (this.transform.parent.parent.parent)
-            original_panel_position = this.transform.parent.parent.parent.transform.position;
+            _originalPanelPosition = this.transform.parent.parent.parent.transform.position;
     }
 
-    public void reGrow ()
+    public void ReGrow ()
     {
         // reset transform
         Vector3 panel_correction = new Vector3 (0, 0, 0);
         if (this.transform.parent.parent.parent)
-            panel_correction = this.transform.parent.parent.parent.transform.position - original_panel_position;
-        this.transform.position = original_position + panel_correction;
-        this.transform.rotation = original_rotation;
-        rigid_body.isKinematic = false;
+            panel_correction = this.transform.parent.parent.parent.transform.position - _originalPanelPosition;
+        this.transform.position = _originalPosition + panel_correction;
+        this.transform.rotation = _originalRotation;
+        _rigidBody.isKinematic = false;
 
         // activate object and play sound
         this.gameObject.SetActive (true);
-        play_audio (regrow_sounds[Random.Range (0, regrow_sounds.Length)]);
+        PlayAudio (_regrowSounds[Random.Range (0, _regrowSounds.Length)]);
 
         // play grow animation
         StopAllCoroutines ();
-        StartCoroutine (growCoroutine ());
+        StartCoroutine (GrowCoroutine ());
     }
 
-    IEnumerator growCoroutine ()
+    IEnumerator GrowCoroutine ()
     {
         for (float strength = 0; strength < 1; strength += 0.01f)
         {
@@ -69,29 +72,32 @@ public class Leaf : MonoBehaviour
             //color.a = strength;
 
             // change size
-            this.transform.localScale = original_scale * strength;
+            this.transform.localScale = _originalScale * strength;
 
             yield return new WaitForSeconds (.1f);
         }
     }
 
-    public void getEaten ()
+    public void GetEaten ()
     {
         // play get eaten animation
-        rigid_body.isKinematic = true;
+        _rigidBody.isKinematic = true;
         StopAllCoroutines ();
-        StartCoroutine (getEatenCoroutine ());
+        StartCoroutine (GetEatenCoroutine ());
 
         // audio
-        play_audio (get_eaten_sounds[Random.Range (0, get_eaten_sounds.Length)]);
+        PlayAudio (_getEatenSounds[Random.Range (0, _getEatenSounds.Length)]);
 
         // logic
         GrowthScriptReference.noticeEatenLeaf (this.transform);
         if (GameState.Instance)
-            GameState.Instance.Award = 1;
+        {
+            GameState.Instance.Award = BaseAwardValue;
+            //Instantiate(GameState.ScoreTextPrefab).GetComponent<ScoreText>().ActivateAndFade(BaseAwardValue);
+        }
     }
 
-    IEnumerator getEatenCoroutine ()
+    IEnumerator GetEatenCoroutine ()
     {
         for (float strength = 1; strength > 0; strength -= 0.01f)
         {
@@ -106,10 +112,10 @@ public class Leaf : MonoBehaviour
         }
     }
 
-    void play_audio (AudioClip clip)
+    void PlayAudio (AudioClip clip)
     {
-        audio_source.clip = clip;
-        audio_source.Play ();
+        _audioSource.clip = clip;
+        _audioSource.Play ();
     }
 
     private void OnTriggerEnter (Collider collision)

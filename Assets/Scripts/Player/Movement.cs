@@ -192,7 +192,7 @@ public class Movement : MonoBehaviour
     void changeState (State new_state)
     {
         if (new_state == State.EatLeaf)
-            leaf_to_approach.transform.GetComponent<Leaf> ().getEaten ();
+            leaf_to_approach.transform.GetComponent<Leaf> ().GetEaten ();
         else if (new_state == State.Shoot && animator)
         {
             animator.SetBool ("Shooting", true);

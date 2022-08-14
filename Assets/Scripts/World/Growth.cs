@@ -162,7 +162,7 @@ public class Growth : MonoBehaviour
             {
                 if (leaf_regrow_queue.Count > 0)
                 {
-                    leaf_regrow_queue.Dequeue ().GetComponent<Leaf> ().reGrow ();
+                    leaf_regrow_queue.Dequeue ().GetComponent<Leaf> ().ReGrow ();
                     number_of_leaves++;
                     reCalculateGrowDelay ();
                     if (leaf_regrow_queue.Count > 0) regrow_start_time = Time.time;
