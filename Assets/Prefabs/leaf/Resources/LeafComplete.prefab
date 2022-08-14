@@ -397,6 +397,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6415806201155261796, guid: c491a51ce8d866f48aa138914963828b,
         type: 3}
+      propertyPath: _getEatenSounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6415806201155261796, guid: c491a51ce8d866f48aa138914963828b,
+        type: 3}
+      propertyPath: _regrowSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6415806201155261796, guid: c491a51ce8d866f48aa138914963828b,
+        type: 3}
       propertyPath: get_eaten_sounds.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 0e8e082f4c10be840a2435168a9bd07d, type: 3}
@@ -408,6 +418,21 @@ PrefabInstance:
     - target: {fileID: 6415806201155261796, guid: c491a51ce8d866f48aa138914963828b,
         type: 3}
       propertyPath: regrow_sounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3dd883e834a17ce4ea9150614e433675, type: 3}
+    - target: {fileID: 6415806201155261796, guid: c491a51ce8d866f48aa138914963828b,
+        type: 3}
+      propertyPath: _getEatenSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0e8e082f4c10be840a2435168a9bd07d, type: 3}
+    - target: {fileID: 6415806201155261796, guid: c491a51ce8d866f48aa138914963828b,
+        type: 3}
+      propertyPath: _getEatenSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: e7f702ab9c3a8ae41b1235c68f0f8d3e, type: 3}
+    - target: {fileID: 6415806201155261796, guid: c491a51ce8d866f48aa138914963828b,
+        type: 3}
+      propertyPath: _regrowSounds.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 3dd883e834a17ce4ea9150614e433675, type: 3}
     - target: {fileID: 9079342117424955386, guid: c491a51ce8d866f48aa138914963828b,

@@ -56,7 +56,7 @@ public class Leaf : MonoBehaviour
 
         // activate object and play sound
         this.gameObject.SetActive (true);
-        PlayAudio (_regrowSounds[Random.Range (0, _regrowSounds.Length)]);
+        if (_regrowSounds.Length > 0) PlayAudio(_regrowSounds[Random.Range (0, _regrowSounds.Length)]);
 
         // play grow animation
         StopAllCoroutines ();
@@ -86,7 +86,7 @@ public class Leaf : MonoBehaviour
         StartCoroutine (GetEatenCoroutine ());
 
         // audio
-        PlayAudio (_getEatenSounds[Random.Range (0, _getEatenSounds.Length)]);
+        if (_getEatenSounds.Length > 0) PlayAudio (_getEatenSounds[Random.Range (0, _getEatenSounds.Length)]);
 
         // logic
         GrowthScriptReference.noticeEatenLeaf (this.transform);
