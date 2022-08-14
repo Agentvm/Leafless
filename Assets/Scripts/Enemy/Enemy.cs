@@ -2,6 +2,9 @@
 
 public class Enemy : MonoBehaviour
 {
+    // Constants
+    public const int BaseAwardValue = 2;
+
     // Components
     Animator animator;
 
@@ -81,8 +84,7 @@ public class Enemy : MonoBehaviour
         dying = true;
         if (SpawnWavesReference)
             SpawnWavesReference.NumberOfActiveEnemies--;
-        if (GameState.Instance)
-            GameState.Instance.Award = 2;
+        GameState.AddScore(this.transform.position, BaseAwardValue);
     }
 
     // Kill Player

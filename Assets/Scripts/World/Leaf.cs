@@ -92,8 +92,7 @@ public class Leaf : MonoBehaviour
         GrowthScriptReference.noticeEatenLeaf (this.transform);
         if (GameState.Instance)
         {
-            GameState.Instance.Award = BaseAwardValue;
-            //Instantiate(GameState.ScoreTextPrefab).GetComponent<ScoreText>().ActivateAndFade(BaseAwardValue);
+            GameState.AddScore(this.transform.position, BaseAwardValue);
         }
     }
 

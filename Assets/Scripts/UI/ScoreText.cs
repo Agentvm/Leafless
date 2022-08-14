@@ -17,6 +17,7 @@ public class ScoreText : MonoBehaviour
     private Color _tempColor;
 
     // Properties
+    public float DisplayValue { get; set; }
     private bool _activated;
     public bool Activated
     {
@@ -57,12 +58,10 @@ public class ScoreText : MonoBehaviour
     }
     #endregion
 
-    private async void Start()
+    private void Start()
     {
         this.TextMesh.text = "";
         _originPosition = this.transform.position;
-
-        await Task.Delay(2000);
         this.ActivateAndFade();
     }
 
@@ -83,9 +82,11 @@ public class ScoreText : MonoBehaviour
         }
     }
 
-    public void ActivateAndFade (int baseAwardValue = 1)
+    private void ActivateAndFade ()
     {
-        this.TextMesh.text = $"+ {(baseAwardValue * GameState.Instance.GameIntensity).ToString()}";
+        if (DisplayValue == default) return;
+
+        this.TextMesh.text = $"+ {(DisplayValue * GameState.Instance.GameIntensity).ToString()}";
         Activated = true;
     }
 }

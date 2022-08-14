@@ -20,7 +20,7 @@ public class GameState : MonoBehaviour
     public bool tutorial_toggle = true;
     public bool tutorial_completed = false;
 
-    public int Award { get => award; set => award += (int)(Mathf.Min(value, 10) * GameIntensity); } // max 10 flat award points for one action
+    public int Award { get => award; private set => award = (int)(value * GameIntensity); }
 
     // document this formula - fast
     public float GameIntensity { get => getGameIntensity(); }
@@ -101,6 +101,12 @@ public class GameState : MonoBehaviour
         // Minimum Intensity is 1
         // It rises exponentially from below 1 to maxIntensity
         return Mathf.Min(Mathf.Max(0.219f * Mathf.Pow(playerOriginDistance, 0.35f), 1f), maxIntensity);
+    }
+
+    public static void AddScore(Vector3 position, int scoreValue)
+    {
+        Instance.Award = scoreValue;
+        Instantiate(ScoreTextPrefab, position, Quaternion.identity).GetComponent<ScoreText>().DisplayValue = scoreValue;
     }
 
     IEnumerator logIntensity()
