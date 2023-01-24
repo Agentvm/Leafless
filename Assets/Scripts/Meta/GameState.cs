@@ -12,7 +12,6 @@ public class GameState : MonoBehaviour
     private Text award_text;
 
     // game difficulty / intensity
-    private Transform player_transform;
     private Vector3 origin_position = new Vector3(0f, 0.5f, 0f);
     private float maxIntensity = 3.0f;
 
@@ -25,6 +24,9 @@ public class GameState : MonoBehaviour
     // document this formula - fast
     public float GameIntensity { get => getGameIntensity(); }
     public float MaxIntensity { get => maxIntensity; }
+
+    // Cached Properties
+    #region CachedProperties
     private static GameObject _scoreTextPrefab;
     public static GameObject ScoreTextPrefab
     {
@@ -36,6 +38,17 @@ public class GameState : MonoBehaviour
         }
     }
 
+    private Transform _playerTransform;
+    public Transform PlayerTransform
+    {
+        get
+        {
+            if (_playerTransform == null)
+                _playerTransform = GameObject.FindWithTag("Player").transform;
+            return _playerTransform;
+        }
+    }
+    #endregion
 
 
     // Start is called before the first frame update
@@ -51,33 +64,21 @@ public class GameState : MonoBehaviour
         if (PlayerPrefs.HasKey("Ewerd"))
             ewerd = PlayerPrefs.GetInt("Ewerd");
 
-        UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged; ;
+        UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
         StartCoroutine(logIntensity());
     }
 
     private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
     {
-        // Search for player at Scene Change
-        if (GameObject.FindWithTag("Player"))
-            player_transform = GameObject.FindWithTag("Player").transform;
-
         if (arg1.name == "Game")
-            Debug.Assert(player_transform != null);
-    }
-
-    // Called once at the start of the game, since this is DontDestroyOnLoad
-    private void Start()
-    {
-        // Find player at game start
-        if (GameObject.FindWithTag("Player"))
-            player_transform = GameObject.FindWithTag("Player").transform;
+            Debug.Assert(PlayerTransform != null);
     }
 
     private void Update()
     {
         if (award_text)
-            if (SceneLoader.Instance.CurrentSceneName == "Menu")
+            if (SceneLoader.Instance.CurrentScene == SceneIdentifiers.Menu)
             {
                 award_text.text = "Maximum Score: " + ewerd.ToString();
                 award = 0;
@@ -92,8 +93,8 @@ public class GameState : MonoBehaviour
 
     private float getGameIntensity()
     {
-        if (!player_transform) return 1f;
-        float playerOriginDistance = Vector3.Distance(player_transform.position, origin_position);
+        if (!PlayerTransform) return 1f;
+        float playerOriginDistance = Vector3.Distance(PlayerTransform.position, origin_position);
         //return Mathf.Min (Mathf.Max (Vector3.Distance (player_transform.position, origin_position) /
         //                  (100f + 2f * Vector3.Distance (player_transform.position, origin_position)) * 4,
         //                  1f), maxIntensity);

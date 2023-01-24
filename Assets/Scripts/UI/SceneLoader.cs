@@ -1,46 +1,52 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+public enum SceneIdentifiers
+{
+    Menu,
+    Game
+
+}
+
 
 public class SceneLoader : MonoBehaviour
 {
     // Static instance of SceneLoader which allows it to be accessed by any other script.
     public static SceneLoader Instance = null;
 
-    private string current_scene_name = "";
+    private readonly Dictionary<SceneIdentifiers, string> _sceneNames =
+        new Dictionary<SceneIdentifiers, string> { { SceneIdentifiers.Game, "Game" }, { SceneIdentifiers.Menu, "Menu" } };
 
-    public string CurrentSceneName { get => current_scene_name; }
+    // Properties
+    private string CurrentSceneName { get => UnityEngine.SceneManagement.SceneManager.GetActiveScene().name; }
+    public SceneIdentifiers CurrentScene { get; set; }
+
 
     // Start is called before the first frame update
-    void Awake ()
+    void Awake()
     {
         // check that there is only one instance of this and that it is not destroyed on load
         if (Instance == null)
             Instance = this;
         else if (Instance != this)
-            Destroy (gameObject);
-        DontDestroyOnLoad (gameObject);
-
-        current_scene_name = UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name;
+            Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
-    //private void Start ()
-    //{
-    //    award_text = GameObject.FindWithTag ("Score").GetComponent<Text> ();
-    //}
-
-    private void Update ()
+    public string GetSceneName(SceneIdentifiers sceneIdentifier)
     {
-        // See if it works without this
-        if (current_scene_name != UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)
-            current_scene_name = UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name;
+        return _sceneNames[sceneIdentifier];
     }
 
-    public void loadNextScene ()
+    public void loadNextScene()
     {
-        GameState.Instance.sceneChange ();
+        GameState.Instance.sceneChange();
 
-        if (current_scene_name == "Menu")
-            UnityEngine.SceneManagement.SceneManager.LoadScene ("Game");
+        if (CurrentSceneName == GetSceneName(SceneIdentifiers.Menu))
+            CurrentScene = (SceneIdentifiers.Game);
         else
-            UnityEngine.SceneManagement.SceneManager.LoadScene ("Menu");
+            CurrentScene = (SceneIdentifiers.Menu);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(GetSceneName(CurrentScene));
+
     }
 }
