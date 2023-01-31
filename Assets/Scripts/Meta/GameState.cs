@@ -16,7 +16,6 @@ public class GameState : MonoBehaviour
     private float maxIntensity = 3.0f;
 
     // tutorial state
-    public bool tutorial_toggle = true;
     public bool tutorial_completed = false;
 
     public int Award { get => award; private set => award = value; }

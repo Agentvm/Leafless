@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Leafless.UI.Elements.Toggles;
+using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class Tutorial : MonoBehaviour
         origin = player.position;
         text_offset = move_text.transform.position - player.position;
 
-        if (!GameState.Instance.tutorial_toggle)
+        if (!TutorialToggleSwitch.State)
             this.gameObject.SetActive (false);
         else this.gameObject.SetActive (true);
     }
@@ -97,15 +98,11 @@ public class Tutorial : MonoBehaviour
         // show the player how to extend the world
         if (world_text.activeSelf && world_text.activeInHierarchy)
         {
-            // get the nearest enemy and place the text above it
-            //world_text.transform.position = getNearestTagPosition (player.position, "Enemy") + text_offset;
-
             // End the Tutorial if world exends
             if (GameObject.FindGameObjectsWithTag ("Panel").Length > 1)
             {
                 this.gameObject.SetActive (false);
                 GameState.Instance.tutorial_completed = true;
-                GameState.Instance.tutorial_toggle = false;
             }
         }
     }
