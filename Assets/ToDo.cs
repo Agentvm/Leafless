@@ -1,9 +1,9 @@
 /*
 ### Bugs / ToDo:
-        
-        Tutorials do not toggle
-        Remove Output on Screen
+
         Add Sound Toggle
+        (Low) A point is still scored when eating with a full belly
+        (Low) Two Leaves can be eaten at once, if both of them are clicked
 
 ### Features:
         Find or make a cool model for the edges of the map
@@ -12,17 +12,21 @@
         General Balancing
             Sparse, giant Plants at maxIntensity, little sprouts at start
 
-        Add shimmery blue Leaves that act as powerups (flight, )
-        Award permanent bonuses for fully grazed plants (speed, ammo consumption [+ effect], )
+        - Add shimmery blue Leaves that act as powerups (flight, pierce shot, reload speed, eating speed)
+        - Award permanent bonuses for fully grazed plants (speed, ammo consumption [+ effect], ) (later marked on the minimap)
+        - Add Wave Events, where one platform is locked and 10 enemies have to be defeated
+            - Started when entering a certain area (later marked on the minimap)
+            - Started when fully grazing a plant
 
-        Guitar Sound
-        Make a Minimap with RenderTexture
+        - Guitar Sound
+        - Make a Minimap with RenderTexture
+            - Add POIs to Minimap
     
 ### Done:
 
         v 1.4 - in development
         Put the credits right
-        SceneManager.activeSceneChanged statt OnLevelWasLoaded
+        SceneManager.activeSceneChanged replaced OnLevelWasLoaded
         Make Bullets travel through leaves (and bustle them around in the process)
         Make Color Arrays that are Lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
         Blending Colors is not blended, but digitalized
