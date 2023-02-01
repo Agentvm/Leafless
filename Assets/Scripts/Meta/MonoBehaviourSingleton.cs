@@ -30,7 +30,9 @@ public class MonoBehaviourSingleton<T> : MonoBehaviour where T : Component
         if (instance == null)
         {
             instance = this as T;
-            DontDestroyOnLoad (this.gameObject);
+
+            // If this is a root object, don't destroy it on load
+            if (this.transform.parent == null) DontDestroyOnLoad (this.gameObject);
         }
         else
         {

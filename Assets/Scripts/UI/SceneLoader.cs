@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+
 
 public enum SceneIdentifiers
 {
@@ -7,7 +9,6 @@ public enum SceneIdentifiers
     Game
 
 }
-
 
 public class SceneLoader : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class SceneLoader : MonoBehaviour
     // Properties
     private string CurrentSceneName { get => UnityEngine.SceneManagement.SceneManager.GetActiveScene().name; }
     public SceneIdentifiers CurrentScene { get; set; }
+
+    // Events
+    public static event Action<SceneIdentifiers> SceneLoaded;
 
 
     // Start is called before the first frame update
@@ -47,6 +51,12 @@ public class SceneLoader : MonoBehaviour
         else
             CurrentScene = (SceneIdentifiers.Menu);
         UnityEngine.SceneManagement.SceneManager.LoadScene(GetSceneName(CurrentScene));
+        OnSceneLoaded(CurrentScene);
 
+    }
+
+    private void OnSceneLoaded(SceneIdentifiers newScene)
+    {
+        SceneLoaded?.Invoke(newScene);
     }
 }

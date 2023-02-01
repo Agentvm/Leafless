@@ -7,9 +7,9 @@ namespace Leafless.UI
 {
     public class MainMenu : MonoBehaviourSingleton<MainMenu>
     {
-        public bool TutorialToggleActive { get => _tutorialToggle.isOn; }
-        [SerializeField] private Toggle _tutorialToggle;
-        /*private Toggle TutorialToggle
+        public bool TutorialToggleActive { get => TutorialToggle.isOn; }
+        private Toggle _tutorialToggle;
+        private Toggle TutorialToggle
         {
             get
             {
@@ -18,11 +18,11 @@ namespace Leafless.UI
 
                 return _tutorialToggle;
             }
-        }*/
+        }
 
-        public bool SoundToggleActive { get => _soundToggle.isOn; }
-        [SerializeField] private Toggle _soundToggle;
-        /*private Toggle SoundToggle
+        public bool SoundToggleActive { get => SoundToggle.isOn; }
+        private Toggle _soundToggle;
+        private Toggle SoundToggle
         {
             get
             {
@@ -31,11 +31,27 @@ namespace Leafless.UI
 
                 return _soundToggle;
             }
-        }*/
+        }
 
         void Start ()
         {
+            // Don't destroy on load
+            if (this.transform.parent == null)
+            {
+                Debug.LogError("Main Menu has no Canvas parent!", this);
+                return;
+            }
+            GameObject.DontDestroyOnLoad(this.transform.parent.gameObject);
 
+            // React to start of game
+            SceneLoader.SceneLoaded += SceneLoader_SceneLoaded;
+        }
+
+        private void SceneLoader_SceneLoaded(SceneIdentifiers newScene)
+        {
+            bool isMenu = newScene == SceneIdentifiers.Menu;
+            if (isMenu) this.gameObject.SetActive(true);
+            else this.gameObject.SetActive(false);
         }
     }
 }
