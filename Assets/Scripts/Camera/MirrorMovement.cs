@@ -11,7 +11,7 @@ public class MirrorMovement : MonoBehaviour
     void Start ()
     {
         if (!master)
-            master = GameObject.FindWithTag ("Player").transform;
+            master = GameObject.FindObjectOfType<Movement>().transform;
         offset = master.position - this.transform.position;
     }
 

@@ -43,7 +43,7 @@ public class GameState : MonoBehaviour
         get
         {
             if (_playerTransform == null)
-                _playerTransform = GameObject.FindWithTag("Player").transform;
+                _playerTransform = GameObject.FindObjectOfType<Movement>().transform;
             return _playerTransform;
         }
     }

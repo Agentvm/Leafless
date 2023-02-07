@@ -68,7 +68,7 @@ public class InputModule : MonoBehaviour
         get
         {
             if (_movementScriptReference == null)
-                _movementScriptReference = GameObject.FindWithTag("Player").GetComponent<Movement>(); // Player Movement
+                _movementScriptReference = GameObject.FindObjectOfType<Movement>(); // Player Movement
 
             return _movementScriptReference;
         }

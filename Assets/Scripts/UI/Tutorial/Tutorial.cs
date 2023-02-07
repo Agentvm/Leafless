@@ -18,7 +18,7 @@ namespace Leafless.UI.Tutorial
         // Start is called before the first frame update
         void Start()
         {
-            player = GameObject.FindWithTag("Player").transform;
+            player = GameObject.FindObjectOfType<Movement>().transform;
             origin = player.position;
             text_offset = move_text.transform.position - player.position;
 

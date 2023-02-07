@@ -17,7 +17,7 @@ public class SpawnWaves : MonoBehaviour
     void Start ()
     {
         enemy_object = Resources.Load ("Enemy");
-        player = GameObject.FindWithTag ("Player").transform;
+        player = GameObject.FindObjectOfType<Movement>().transform;
         start_time = Time.time;
         //InvokeRepeating ("spawnEnemy", 0f, 10f);
     }
