@@ -15,7 +15,10 @@ namespace Leafless.UI.Tutorial
         Vector3 origin;
         Vector3 text_offset;
 
-        // Start is called before the first frame update
+        // Properties
+        public bool TutorialCompleted { get; private set; }
+
+
         void Start()
         {
             player = GameObject.FindObjectOfType<Movement>().transform;
@@ -25,12 +28,18 @@ namespace Leafless.UI.Tutorial
             if (!MainMenu.Instance.TutorialToggleActive)
                 this.gameObject.SetActive(false);
             else this.gameObject.SetActive(true);
+            SceneLoader.SceneLoaded += ActiveSceneChanged;
         }
 
-        // Update is called once per frame
+        private void ActiveSceneChanged(SceneIdentifiers scene)
+        {
+            if (scene == SceneIdentifiers.Menu)
+                TutorialCompleted = true;
+        }
+
         void Update()
         {
-
+            if (TutorialCompleted) return;
 
             // tell the player to move
             if (player && Vector3.Distance(player.position, origin) > 6f)
@@ -84,7 +93,7 @@ namespace Leafless.UI.Tutorial
             if (world_text.activeSelf && world_text.activeInHierarchy && GameObject.FindGameObjectsWithTag("Panel").Length > 1)
             {
                 this.gameObject.SetActive(false);
-                GameState.Instance.tutorial_completed = true;
+                TutorialCompleted = true;
             }
         }
 

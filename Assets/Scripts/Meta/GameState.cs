@@ -15,9 +15,6 @@ public class GameState : MonoBehaviour
     private Vector3 origin_position = new Vector3(0f, 0.5f, 0f);
     private float maxIntensity = 3.0f;
 
-    // tutorial state
-    public bool tutorial_completed = false;
-
     public int Award { get => award; private set => award = value; }
 
     // document this formula - fast
@@ -63,15 +60,7 @@ public class GameState : MonoBehaviour
         if (PlayerPrefs.HasKey("Ewerd"))
             ewerd = PlayerPrefs.GetInt("Ewerd");
 
-        UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-
         StartCoroutine(logIntensity());
-    }
-
-    private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
-    {
-        if (arg1.name == "Game")
-            Debug.Assert(PlayerTransform != null);
     }
 
     private void Update()
