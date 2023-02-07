@@ -1,9 +1,18 @@
 /*
-### Bugs / ToDo:
+### Bugs
+    
+    (Low) A point is still scored when eating with a full belly
+    (Low) Two Leaves can be eaten at once, if both of them are clicked
 
-        Add Sound Toggle
-        (Low) A point is still scored when eating with a full belly
-        (Low) Two Leaves can be eaten at once, if both of them are clicked
+### ToDo:
+
+    Add Sound Toggle
+        
+### Refactoring:
+
+    Think twice about using a singleton for GameState, possible expose static readonly properties instead
+    Use global variables for the player, either using ScriptableObjects (https://www.youtube.com/watch?v=raQ3iHhE_Kk)
+        or using a static base class featuring an extendable dictionary.
 
 ### Features:
         Find or make a cool model for the edges of the map
