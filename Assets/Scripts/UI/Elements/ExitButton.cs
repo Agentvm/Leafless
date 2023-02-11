@@ -1,21 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ExitButton : MonoBehaviour
+
+namespace Leafless.UI.Elements
 {
-    private SceneLoader scene_loader;
-    private Button exit_button;
-
-    // Start is called before the first frame update
-    void Start ()
+    public class ExitButton : MonoBehaviour
     {
-        exit_button = this.GetComponent<Button> ();
-        scene_loader = SceneLoader.Instance;
-        exit_button.onClick.AddListener (exitGame);
-    }
+        private SceneLoader scene_loader;
+        private Button exit_button;
 
-    void exitGame ()
-    {
-        Application.Quit ();
+        // Start is called before the first frame update
+        void Start()
+        {
+            exit_button = this.GetComponent<Button>();
+            scene_loader = SceneLoader.Instance;
+            exit_button.onClick.AddListener(exitGame);
+        }
+
+        void exitGame()
+        {
+            Application.Quit();
+        }
     }
 }

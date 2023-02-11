@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Leafless.UI;
+
 
 public class InputModule : MonoBehaviour
 {
@@ -295,9 +297,10 @@ public class InputModule : MonoBehaviour
         // Also get the object that was hit
         Transform _activeObjectTransform = Raycast(Input.mousePosition);
 
+        // Debug Clicking
         //Vector3 cameraDirection = (_mainCamera.transform.position - _mainCamera.ScreenToWorldPoint(Input.mousePosition)).normalized;
-        if (_activeObjectTransform) Debug.DrawRay(MainCamera.ScreenToWorldPoint(Input.mousePosition), MainCamera.transform.forward * 20f, Color.red, 25f);
-        else Debug.DrawRay(MainCamera.ScreenToWorldPoint(Input.mousePosition), MainCamera.transform.forward * 35f, Color.white, 10f);
+        //if (_activeObjectTransform) Debug.DrawRay(MainCamera.ScreenToWorldPoint(Input.mousePosition), MainCamera.transform.forward * 20f, Color.red, 25f);
+        //else Debug.DrawRay(MainCamera.ScreenToWorldPoint(Input.mousePosition), MainCamera.transform.forward * 35f, Color.white, 10f);
 
         // Mouse clicked?
         if (Input.GetMouseButton(0) && Time.time > last_click_time + click_delay)
