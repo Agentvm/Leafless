@@ -63,13 +63,29 @@ namespace Leafless.UI
         void Start()
         {
             SceneLoader.SceneLoaded += ActiveSceneChanged;
-            TutorialActive = MainMenu.Instance.TutorialToggleActive;
+            TutorialActive = MainMenu.Instance.TutorialToggleActive && SceneLoader.Instance.CurrentScene != SceneIdentifiers.Menu;
+            this.gameObject.SetActive(TutorialActive);
+        }
+
+        private void SceneLoaded(SceneIdentifiers newScene)
+        {
+            bool isMenu = newScene == SceneIdentifiers.Menu;
+            if (isMenu) this.gameObject.SetActive(true);
+            else this.gameObject.SetActive(false);
         }
 
         private void ActiveSceneChanged(SceneIdentifiers scene)
         {
-            if (scene == SceneIdentifiers.Game) TutorialActive = MainMenu.Instance.TutorialToggleActive;
-            else if (scene == SceneIdentifiers.Menu) TutorialActive = false;
+            if (scene == SceneIdentifiers.Game)
+            {
+                TutorialActive = MainMenu.Instance.TutorialToggleActive;
+                this.gameObject.SetActive(TutorialActive);
+            }
+            else if (scene == SceneIdentifiers.Menu)
+            {
+                TutorialActive = false;
+                this.gameObject.SetActive(false);
+            }
         }
 
         void Update()
@@ -77,6 +93,11 @@ namespace Leafless.UI
             if (!TutorialActive) return;
 
             // tell the player to move
+            //if (!leaf_text.activeInHierarchy && !shoot_text.activeInHierarchy && !world_text.activeInHierarchy)
+            //{
+                move_text.SetActive(true);
+            //}
+            
             if (Player && Vector3.Distance(Player.position, Origin) > 6f)
             {
                 move_text.SetActive(false);

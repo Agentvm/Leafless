@@ -45,19 +45,15 @@ namespace Leafless.UI
             GameObject.DontDestroyOnLoad(this.transform.parent.gameObject);
 
             // React to start of game
-            SceneLoader.SceneLoaded += SceneLoader_SceneLoaded;
+            SceneLoader.SceneLoaded += SceneLoaded;
             Tutorial.Completed += TutorialCompleted;
         }
 
-        private void SceneLoader_SceneLoaded(SceneIdentifiers newScene)
+        private void SceneLoaded(SceneIdentifiers newScene)
         {
             bool isMenu = newScene == SceneIdentifiers.Menu;
             if (isMenu) this.gameObject.SetActive(true);
-            else
-            {
-                this.gameObject.SetActive(false);
-                if (this.TutorialToggle.isOn) Tutorial.Instance.gameObject.SetActive(true);
-            }
+            else this.gameObject.SetActive(false);
         }
 
         private void TutorialCompleted()
