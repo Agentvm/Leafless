@@ -8,6 +8,9 @@ namespace Leafless.UI
 {
     public class MainMenu : MonoBehaviourSingleton<MainMenu>
     {
+
+        // Cached Properties
+        #region CachedProperties
         public bool TutorialToggleActive { get => TutorialToggle.isOn; }
         private Toggle _tutorialToggle;
         private Toggle TutorialToggle
@@ -33,6 +36,7 @@ namespace Leafless.UI
                 return _soundToggle;
             }
         }
+        #endregion
 
         void Start ()
         {
@@ -46,14 +50,21 @@ namespace Leafless.UI
 
             // React to start of game
             SceneLoader.SceneLoaded += SceneLoaded;
+            SoundToggle.onValueChanged.AddListener(SoundToggled);
             Tutorial.Completed += TutorialCompleted;
         }
 
         private void SceneLoaded(SceneIdentifiers newScene)
         {
-            bool isMenu = newScene == SceneIdentifiers.Menu;
-            if (isMenu) this.gameObject.SetActive(true);
-            else this.gameObject.SetActive(false);
+            if (newScene == SceneIdentifiers.Menu) this.gameObject.SetActive(true);
+            else if (newScene == SceneIdentifiers.Game) this.gameObject.SetActive(false);
+
+            SoundToggled(SoundToggleActive);
+        }
+
+        private void SoundToggled (bool value)
+        {
+            AudioListener.volume = value ? 1f : 0f;
         }
 
         private void TutorialCompleted()
