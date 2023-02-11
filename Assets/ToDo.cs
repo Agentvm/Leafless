@@ -28,6 +28,7 @@
     - Add Wave Events, where one platform is locked and 10 enemies have to be defeated
         - Started when entering a certain area (later marked on the minimap)
         - Started when fully grazing a plant
+        - Wave Events decrease enemy spawn rate (temporarily?)
 
     - Guitar Sound
     - Make a Minimap with RenderTexture
@@ -47,14 +48,15 @@
         v 1.4 - in development
         Put the credits right
         SceneManager.activeSceneChanged replaced OnLevelWasLoaded
-        Make Bullets travel through leaves (and bustle them around in the process)
-        Make Color Arrays that are Lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
-        Blending Colors is not blended, but digitalized
+        Make bullets travel through leaves (and bustle them around in the process)
+        Make color arrays that are lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
         If two leaves are clicked at once, the game crashes
-        Leaves Shader does not reset after MouseOver
-        Rework Shooting - strongly increase turn speed after triggering a shot
-        Find the right Intensity Curve
-        Added Sound Toggle
+        Leaves shader does not reset after MouseOver
+        Rework shooting - strongly increase turn speed after triggering a shot
+        Find the right intensity curve
+        Added sound toggle
+        Added tutorial toggle
+        Stability fixes + allow multiple games in a row
 
         v 1.3 - released
         The farther, the more intense
