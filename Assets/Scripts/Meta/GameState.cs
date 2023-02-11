@@ -9,6 +9,11 @@ public class GameState : MonoBehaviourSingleton<GameState>
     public const float MaxIntensity = 3.0f;
     private const string PlayerPrefsScoreString = "Award";
 
+    // Serialized Fields
+    [SerializeField] GameObject[] _spawnObjectsOnce;
+
+    // Private Fields
+    private static bool objectsSpawned;
     private int _inGameScore = 0;
     private int _highScore = 0;
     private Text _awardText;
@@ -50,6 +55,11 @@ public class GameState : MonoBehaviourSingleton<GameState>
     {
         if (PlayerPrefs.HasKey(PlayerPrefsScoreString))
             _highScore = PlayerPrefs.GetInt(PlayerPrefsScoreString);
+
+        if (objectsSpawned) return;
+        foreach (GameObject sceneObject in _spawnObjectsOnce)
+            Instantiate(sceneObject);
+        objectsSpawned = true;
     }
 
     private void Update()
