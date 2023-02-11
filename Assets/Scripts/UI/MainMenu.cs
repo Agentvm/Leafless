@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Leafless.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,13 +46,23 @@ namespace Leafless.UI
 
             // React to start of game
             SceneLoader.SceneLoaded += SceneLoader_SceneLoaded;
+            Tutorial.Completed += TutorialCompleted;
         }
 
         private void SceneLoader_SceneLoaded(SceneIdentifiers newScene)
         {
             bool isMenu = newScene == SceneIdentifiers.Menu;
             if (isMenu) this.gameObject.SetActive(true);
-            else this.gameObject.SetActive(false);
+            else
+            {
+                this.gameObject.SetActive(false);
+                if (this.TutorialToggle.isOn) Tutorial.Instance.gameObject.SetActive(true);
+            }
+        }
+
+        private void TutorialCompleted()
+        {
+            this.TutorialToggle.isOn = false;
         }
     }
 }
