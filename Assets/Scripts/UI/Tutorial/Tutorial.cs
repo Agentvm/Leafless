@@ -14,13 +14,16 @@ namespace Leafless.UI
         private bool tutorialActive;
         public bool TutorialActive
         {
-            get => tutorialActive; private set
+            get => tutorialActive;
+            private set
             {
                 tutorialActive = value;
-                if (!value)
-                {
-                    this.gameObject.SetActive(false);
-                }
+
+                if (!value) this.gameObject.SetActive(false);
+                move_text.SetActive(false);
+                leaf_text.SetActive(false);
+                shoot_text.SetActive(false);
+                world_text.SetActive(false);
             }
         }
 
