@@ -26,11 +26,7 @@ public class ScoreText : MonoBehaviour
         {
             _activated = value;
             if (value) _riseTimeStart = Time.time;
-            else
-            {
-                _riseTimeStart = -1f;
-                this.transform.position = _originPosition;
-            }
+            else Destroy(this.gameObject);
         }
     }
 
