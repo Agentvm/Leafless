@@ -3,24 +3,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using Leafless.UI;
 
-public class GameState : MonoBehaviour
+public class GameState : MonoBehaviourSingleton<GameState>
 {
-    // Static instance of GameState which allows it to be accessed by any other script.
-    public static GameState Instance = null;
+    public const float MinIntensity = 1.0f;
+    public const float MaxIntensity = 3.0f;
+    private const string PlayerPrefsScoreString = "Award";
 
-    private int award = 0;
-    private int ewerd = 0;
-    private Text award_text;
+    private int _inGameScore = 0;
+    private int _highScore = 0;
+    private Text _awardText;
 
     // game difficulty / intensity
-    private Vector3 origin_position = new Vector3(0f, 0.5f, 0f);
-    private float maxIntensity = 3.0f;
-
-    public int Award { get => award; private set => award = value; }
-
-    // document this formula - fast
+    private Vector3 _originPosition = new Vector3(0f, 0.5f, 0f);
+    
+    // Properties
+    public int InGameScore { get => _inGameScore; private set => _inGameScore = value; }
     public float GameIntensity { get => getGameIntensity(); }
-    public float MaxIntensity { get => maxIntensity; }
 
     // Cached Properties
     #region CachedProperties
@@ -48,80 +46,63 @@ public class GameState : MonoBehaviour
     #endregion
 
 
-    // Start is called before the first frame update
-    void Awake()
+    public override void Awake()
     {
-        // check that there is only one instance of this and that it is not destroyed on load
-        if (Instance == null)
-            Instance = this;
-        else if (Instance != this)
-            Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
-
-        if (PlayerPrefs.HasKey("Ewerd"))
-            ewerd = PlayerPrefs.GetInt("Ewerd");
-
-        StartCoroutine(logIntensity());
+        if (PlayerPrefs.HasKey(PlayerPrefsScoreString))
+            _highScore = PlayerPrefs.GetInt(PlayerPrefsScoreString);
     }
 
     private void Update()
     {
-        if (award_text)
+        if (_awardText)
             if (SceneLoader.Instance.CurrentScene == SceneIdentifiers.Menu)
             {
-                award_text.text = "Maximum Score: " + ewerd.ToString();
-                award = 0;
+                _awardText.text = "Maximum Score: " + _highScore.ToString();
+                _inGameScore = 0;
             }
             else
-                award_text.text = "Score: " + Award.ToString();
+                _awardText.text = "Score: " + InGameScore.ToString();
         else
         {
-            award_text = GameObject.FindWithTag("Score").GetComponent<Text>();
+            _awardText = GameObject.FindWithTag("Score").GetComponent<Text>();
         }
     }
 
+    // GameIntensity rises exponentially from below 1 (clipped to min 1) to above maxIntensity (clipped to maxIntensity)
+    // Scales Score awards as well as enemy movement & spawnrate.
+    // Also has an effect on the way plants grow
     private float getGameIntensity()
     {
         if (!PlayerTransform) return 1f;
-        float playerOriginDistance = Vector3.Distance(PlayerTransform.position, origin_position);
+
+        // Minimum Intensity is 1
+        float playerOriginDistance = Vector3.Distance(PlayerTransform.position, _originPosition);
+        return Mathf.Min(Mathf.Max(0.219f * Mathf.Pow(playerOriginDistance, 0.35f), MinIntensity), MaxIntensity);
+
         //return Mathf.Min (Mathf.Max (Vector3.Distance (player_transform.position, origin_position) /
         //                  (100f + 2f * Vector3.Distance (player_transform.position, origin_position)) * 4,
         //                  1f), maxIntensity);
-
-        // Minimum Intensity is 1
-        // It rises exponentially from below 1 to maxIntensity
-        return Mathf.Min(Mathf.Max(0.219f * Mathf.Pow(playerOriginDistance, 0.35f), 1f), maxIntensity);
     }
 
-    public static void AddScore(Vector3 position, int scoreValue)
+    public void AddScore(Vector3 position, int scoreValue)
     {
         // Add Intensity bonus
         scoreValue = (int)(scoreValue * Instance.GameIntensity);
 
         // Add Score
-        if (scoreValue <= 10) Instance.Award += scoreValue;
+        if (scoreValue <= 10) InGameScore += scoreValue;
 
         // Display the added score
         Instantiate(ScoreTextPrefab, position, Quaternion.identity).
             GetComponent<ScoreText>().DisplayValue = scoreValue;
     }
 
-    IEnumerator logIntensity()
-    {
-        while (true)
-        {
-            //if ( player_transform )
-            //Debug.Log ("Distance/Intensity: " + Vector3.Distance (player_transform.position, origin_position) + " / " + getGameIntensity ());
-            yield return new WaitForSeconds(0.8f);
-        }
-    }
-
     public void sceneChange()
     {
-        if (Award > ewerd)
+        if (InGameScore > _highScore)
         {
-            ewerd = Award;
-            PlayerPrefs.SetInt("Ewerd", ewerd);
+            _highScore = InGameScore;
+            PlayerPrefs.SetInt(PlayerPrefsScoreString, _highScore);
         }
     }
 }

@@ -22,7 +22,7 @@ public class ChangeColor : MonoBehaviour
         // Get Components
         renderer_ = this.GetComponent<Renderer> ();
         startMaterial = renderer_.material;
-        colorProgress = arduinoMap (GameState.Instance.GameIntensity, 1f, GameState.Instance.MaxIntensity, 0f, 1f);
+        colorProgress = arduinoMap (GameState.Instance.GameIntensity, 1f, GameState.MaxIntensity, 0f, 1f);
         stageSequence = new float[ColorStageSequence.Instance.GlobalStageSequence.Length];
         ColorStageSequence.Instance.GlobalStageSequence.CopyTo (stageSequence, 0);
 

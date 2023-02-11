@@ -16,7 +16,7 @@ public class InitPanel : MonoBehaviour
     void Start ()
     {
         // Spawn Plants depending on current difficulty
-        int numberOfPlants = Mathf.Max (1, (int)(GameState.Instance.MaxIntensity - GameState.Instance.GameIntensity) + 1);
+        int numberOfPlants = Mathf.Max (1, (int)(GameState.MaxIntensity - GameState.Instance.GameIntensity) + 1);
         if (GameState.Instance.GameIntensity < 1.2f)
             numberOfPlants++;
 

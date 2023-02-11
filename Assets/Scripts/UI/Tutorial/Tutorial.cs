@@ -117,7 +117,7 @@ namespace Leafless.UI
                     leaf_text.transform.position = leaf_position + TextOffset;
 
                 // stop if score rises
-                if (GameState.Instance.Award > 2)
+                if (GameState.Instance.InGameScore > 2)
                 {
                     leaf_text.SetActive(false);
                     shoot_text.SetActive(true);
@@ -137,7 +137,7 @@ namespace Leafless.UI
                     shoot_text.transform.position = enemy_position + TextOffset;
 
                 // Stop if score rises
-                if (GameState.Instance.Award > 7)
+                if (GameState.Instance.InGameScore > 7)
                 {
                     shoot_text.SetActive(false);
                     world_text.SetActive(true);

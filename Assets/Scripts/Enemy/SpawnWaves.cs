@@ -26,17 +26,17 @@ public class SpawnWaves : MonoBehaviour
     void Update ()
     {
         // start of game: if leaves have been eaten, spawn enemies
-        if (GameState.Instance.Award > 2 && NumberOfActiveEnemies == 0)
+        if (GameState.Instance.InGameScore > 2 && NumberOfActiveEnemies == 0)
         {
             spawnEnemy ();
         }
 
         // if enemies are less than possible max (tied to award), eneble spawning
-        int current_max_enemies = (Mathf.Min (1, GameState.Instance.Award) + GameState.Instance.Award / 10);
+        int current_max_enemies = (Mathf.Min (1, GameState.Instance.InGameScore) + GameState.Instance.InGameScore / 10);
         if (NumberOfActiveEnemies < current_max_enemies)
         {
             // as award increases, decrease spawn time of enemies
-            float award_progress = (GameState.Instance.Award) / 100f;
+            float award_progress = (GameState.Instance.InGameScore) / 100f;
             int spawn_time_reduction = (int)(7 * Mathf.Min (1, award_progress));
             if (Time.time - start_time > spawn_time + (10 - spawn_time_reduction))
             {

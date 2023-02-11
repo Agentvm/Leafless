@@ -92,7 +92,7 @@ public class Leaf : MonoBehaviour
         GrowthScriptReference.noticeEatenLeaf (this.transform);
         if (GameState.Instance)
         {
-            GameState.AddScore(this.transform.position, BaseAwardValue);
+            GameState.Instance.AddScore(this.transform.position, BaseAwardValue);
         }
     }
 
@@ -100,9 +100,6 @@ public class Leaf : MonoBehaviour
     {
         for (float strength = 1; strength > 0; strength -= 0.01f)
         {
-            // change alpha
-            //renderer.material.color *= strength;
-
             // change size
             this.transform.localScale *= strength;
             this.transform.Translate (this.transform.forward * 15f * Time.deltaTime);
