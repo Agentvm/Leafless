@@ -13,6 +13,7 @@
     Think twice about using a singleton for GameState, possible expose static readonly properties instead
     Use global variables for the player, either using ScriptableObjects (https://www.youtube.com/watch?v=raQ3iHhE_Kk)
         or using a static base class featuring an extendable dictionary.
+        You could also use events to register a player in its start method for everyone who wants to know.
 
 ### Features:
         Find or make a cool model for the edges of the map
