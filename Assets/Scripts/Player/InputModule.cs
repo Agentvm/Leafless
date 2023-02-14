@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Leafless.UI;
-
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Linq;
 
 public class InputModule : MonoBehaviour
 {
@@ -41,7 +42,8 @@ public class InputModule : MonoBehaviour
 
     // Raycasting
 
-    RaycastHit ray_hit;
+    RaycastHit raycastResult;
+    RaycastHit[] raycastResults;
     Ray ray;
 
     // Properties
@@ -168,20 +170,7 @@ public class InputModule : MonoBehaviour
                     // Check if tapped
                     if ((touch_start_position - touch.position).magnitude < tap_threshold)
                     {
-                        // Raycast at touch position
-                        Transform active_object_transform = Raycast(touch.position);
-
-                        // Clicked on object, or in the air?
-                        if (active_object_transform && active_object_transform.tag == "Interactable")
-                        {
-                            Debug.Log("1st Tapped: Interactable");
-                            MovementScriptReference.leafClicked(active_object_transform);
-                        }
-                        else // Shoot, if no Interactable object was clicked
-                        {
-                            Debug.Log("1st Tapped: Empty");
-                            MovementScriptReference.tryStartShooting();
-                        }
+                        HandleTouchClickInput(touch.position);
                     }
                     else // if it was a swipe that just ended
                     {
@@ -220,20 +209,7 @@ public class InputModule : MonoBehaviour
                     // Check if tapped
                     if ((touch2_start_position - touch.position).magnitude < tap_threshold)
                     {
-                        // Raycast at touch position
-                        Transform active_object_transform = Raycast(Input.mousePosition);
-
-                        // Clicked on object, or in the air?
-                        if (active_object_transform && active_object_transform.tag == "Interactable")
-                        {
-                            Debug.Log("2nd Tapped: Interactable");
-                            MovementScriptReference.leafClicked(active_object_transform);
-                        }
-                        else // Shoot, if no Interactable object was clicked
-                        {
-                            Debug.Log("2nd Tapped: Empty");
-                            MovementScriptReference.tryStartShooting();
-                        }
+                        HandleTouchClickInput(Input.mousePosition);
                     }
 
                     // At the end of touch, remove it's ID from the list of known ID's
@@ -273,6 +249,24 @@ public class InputModule : MonoBehaviour
         }
     }
 
+    void HandleTouchClickInput (Vector3 inputPosition)
+    {
+        // Raycast at touch position
+        Transform[] active_object_transform = RaycastAll(inputPosition);
+
+        // Shoot, if an Enemy was clicked
+        if (active_object_transform != null && active_object_transform.Any(rayTarget => rayTarget.tag == "Enemy"))
+        {
+            Debug.Log("Selected: Enemy");
+            MovementScriptReference.tryStartShooting();
+        }
+        else if (active_object_transform != null && active_object_transform.Any(rayTarget => rayTarget.tag == "Interactable"))
+        {
+            Debug.Log("Selected: Interactable");
+            MovementScriptReference.leafClicked(active_object_transform.First(rayTarget => rayTarget.tag == "Interactable"));
+        }
+    }
+
     void setTouchInput(Touch touch)
     {
         // get the magnitude of the swipe based on the distance to the start
@@ -295,7 +289,7 @@ public class InputModule : MonoBehaviour
 
         // Shoot a ray from the camera through the mouse position into the scene and get the collision point
         // Also get the object that was hit
-        Transform _activeObjectTransform = Raycast(Input.mousePosition);
+        
 
         // Debug Clicking
         //Vector3 cameraDirection = (_mainCamera.transform.position - _mainCamera.ScreenToWorldPoint(Input.mousePosition)).normalized;
@@ -306,37 +300,62 @@ public class InputModule : MonoBehaviour
         if (Input.GetMouseButton(0) && Time.time > last_click_time + click_delay)
         {
             last_click_time = Time.time;
-
-            // Clicked on object, or in the air?
-            if (_activeObjectTransform && _activeObjectTransform.tag == "Interactable")
-                MovementScriptReference.leafClicked(_activeObjectTransform);
-            else // Shoot, if no Interactable object was clicked
-                MovementScriptReference.tryStartShooting();
+            HandleTouchClickInput(Input.mousePosition);
         }
     }
 
     // Do a raycast from the main camera to the specified position, set the mouse position and return the object hit
-    Transform Raycast(Vector3 screen_point)
+    Transform Raycast(Vector3 screenPoint)
     {
-        if (MainCamera == null || MovementScriptReference == null) return null;
+        if (!RaycastChecks(screenPoint)) return null;
+
+        ray = MainCamera.ScreenPointToRay(screenPoint);
+        if (Physics.Raycast(ray, out raycastResult))
+        {
+            // Set "mouse" position for mobile devices
+            mouse_point = raycastResult.point;
+            mouse_point.y = MovementScriptReference.transform.position.y;
+            return raycastResult.transform;
+        }
+
+        return null;
+    }
+
+    Transform[] RaycastAll(Vector3 screenPoint)
+    {
+        if (!RaycastChecks(screenPoint)) return null;
+
+        ray = MainCamera.ScreenPointToRay(screenPoint);
+        raycastResults = Physics.RaycastAll(ray, 50f); // Todo: Use Layers to heighten performance (maybe even debug max distance necessary)
+        if (raycastResults != null && raycastResults.Length > 0)
+        {
+            mouse_point = raycastResults[0].point;
+            mouse_point.y = MovementScriptReference.transform.position.y;
+
+            // Return only leafs and enemies
+            Transform[] leavesAndEnemies = raycastResults.
+                Where(result => result.transform.tag == "Enemy" || result.transform.tag == "Interactable").
+                Select(result => result.transform).ToArray();
+            if (leavesAndEnemies.Length > 0) return leavesAndEnemies;
+        }
+        
+        return null;
+    }
+
+    bool RaycastChecks (Vector3 screenPoint)
+    {
+        if (MainCamera == null || MovementScriptReference == null) return false;
 
         // is point in front of camera?
-        Vector3 viewport_point = MainCamera.ScreenToViewportPoint(screen_point);
+        Vector3 viewport_point = MainCamera.ScreenToViewportPoint(screenPoint);
         if (viewport_point.x > 1 || viewport_point.x < 0 ||
             viewport_point.y > 1 || viewport_point.y < 0 ||
             viewport_point.z < 0)
         {
-            return null;
+            return false;
         }
 
-        ray = MainCamera.ScreenPointToRay(screen_point);
-        if (Physics.Raycast(ray, out ray_hit))
-        {
-            mouse_point = ray_hit.point;
-            mouse_point.y = MovementScriptReference.transform.position.y;
-            return ray_hit.transform;
-        }
-        else return null;
+        return true;
     }
 
     //Vector3 RaycastPosition ( Vector3 point )
