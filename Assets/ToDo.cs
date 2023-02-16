@@ -1,23 +1,27 @@
 /*
+
+// Todo: Remove obsolete calls to Debug.Log & .Warn
+
 ### Bugs
     
-    Enemies do not bite
+    (med) fix main menu toggle with aspect ratio fitter
+    (High) Player does not turn anymore when using mouse
+    (Reprocuction?) Enemies do not bite
     (Low) A point is still scored when eating with a full belly
-    (Low) Two Leaves can be eaten at once, if both of them are clicked
-    (Low) Score Text does not disappear
+    (possibly fixed by f6492db) Two Leaves can be eaten at once, if both of them are clicked
     
 ### Features:
 
-    Allow to stop eating leaf
-    If enemy and leaf are both targeted in one click, prefer enemy action (suppress eating the leaf)
-        
+    Allow to stop eating a leaf
+    
+    Update Menu (Loose UI and click the leaves instead, hovering some text over them)
     Extend Menu to be used in-game (Esc)
     - Pause
     - Need to remove the Start Game Button
 
     Find or make a cool model for the edges of the map
 
-    Improve the feeling of shooting, making it more dynamic
+    Improve the feeling of shooting, making it more dynamic (speed +)
         
     Make Touch more reliable by tracking each single touch Instance
     General Balancing
@@ -45,37 +49,39 @@
 
 ------ ### Done ### ------
 
-        v 1.4 - in development
-        Put the credits right
-        SceneManager.activeSceneChanged replaced OnLevelWasLoaded
-        Make bullets travel through leaves (and bustle them around in the process)
-        Make color arrays that are lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
-        If two leaves are clicked at once, the game crashes
-        Leaves shader does not reset after MouseOver
-        Rework shooting - strongly increase turn speed after triggering a shot
-        Find the right intensity curve
-        Added sound toggle
-        Added tutorial toggle
-        Stability fixes + allow multiple games in a row
+    v 1.4 - released
+    Put the credits right
+    SceneManager.activeSceneChanged replaced OnLevelWasLoaded
+    Make bullets travel through leaves (and bustle them around in the process)
+    Make color arrays that are lerped from color to color (use https://color.adobe.com/create/color-wheel for color picking)
+    If two leaves are clicked at once, the game crashes
+    Leaves shader does not reset after MouseOver
+    Rework shooting - strongly increase turn speed after triggering a shot
+    Find the right intensity curve
+    Added sound toggle
+    Added tutorial toggle
+    Stability fixes + allow multiple games in a row
+    If enemy and leaf are both targeted in one click, prefer enemy action (suppress eating the leaf)
+    Added score indicators
 
-        v 1.3 - released
-        The farther, the more intense
-        Start up Bug when leaves tried to delete themselves twice
-        Mobile Support (Touch)
-        Smoothed Shooting behaviour
-        Fixed Player starting orientation
+    v 1.3 - released
+    The farther, the more intense
+    Start up Bug when leaves tried to delete themselves twice
+    Mobile Support (Touch)
+    Smoothed Shooting behaviour
+    Fixed Player starting orientation
 
-        v 1.2 - released
-        Tutorials
-        Springy Leaves
-        Enemy Rigidbody death (Collider change, Bullet Size reduce?)
-        Bug: Spawn on Leaf at game start
-        Menu Scene Fixed
-        Growing Leaves
-        Bug: Ins Leere klicken lässt das Spiel abstürzen
-        Shoot in State Machine
-        Schießen optimieren
+    v 1.2 - released
+    Tutorials
+    Springy Leaves
+    Enemy Rigidbody death (Collider change, Bullet Size reduce?)
+    Bug: Spawn on Leaf at game start
+    Menu Scene Fixed
+    Growing Leaves
+    Bug: Ins Leere klicken lässt das Spiel abstürzen
+    Shoot in State Machine
+    Schießen optimieren
 
-        v 1.1 - released
-        Procedural
+    v 1.1 - released
+    Procedural
  */
