@@ -286,6 +286,10 @@ public class InputModule : MonoBehaviour
             last_click_time = Time.time;
             HandleTouchClickInput(Input.mousePosition);
         }
+        else if (Input.GetMouseButton(1))
+        {
+            MovementScriptReference.TryMoveToPosition();
+        }
     }
 
     void HandleTouchClickInput(Vector3 inputPosition)
@@ -308,10 +312,7 @@ public class InputModule : MonoBehaviour
         // Shoot at position
         else
         {
-            if (TouchInputActive)
-            {
-                // ToDo: Move to position;
-            }
+            if (TouchInputActive) MovementScriptReference.TryMoveToPosition();
             else MovementScriptReference.tryStartShooting();
         }
     }

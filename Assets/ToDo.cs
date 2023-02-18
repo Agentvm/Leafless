@@ -4,11 +4,21 @@
 
 ### Bugs
 
+    (medium) Player acceleration is not damped in l.199, Movement.cs
     (Reprocuction?) Enemies do not bite
     (Low) A point is still scored when eating with a full belly
     
     
 ### Features:
+
+    Mobile
+        - move
+            - make swipe-move feel more intuitive
+            - allow tap move
+        - see
+            - more sight, higher camera
+            - enemy indicator at screen border
+        - allow shooting on unseen enemies (double-tap)
 
     Allow to stop eating a leaf
     
@@ -46,7 +56,10 @@
     
 
 ------ ### Done ### ------
+    
+    Allow moving to a position by (modified) click
 
+    v 1.4.0.1 - released
     (fixed) fix main menu toggle with aspect ratio fitter
     (fixed) Credits broken
     (possibly fixed by f6492db) Two Leaves can be eaten at once, if both of them are clicked
