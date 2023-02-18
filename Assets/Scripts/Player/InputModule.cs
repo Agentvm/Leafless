@@ -288,9 +288,8 @@ public class InputModule : MonoBehaviour
     {
         if (MainCamera == null || MovementScriptReference == null) return;
 
-        // Shoot a ray from the camera through the mouse position into the scene and get the collision point
-        // Also get the object that was hit
-        
+        // Set the mouse position every frame
+        Raycast(Input.mousePosition);
 
         // Debug Clicking
         //Vector3 cameraDirection = (_mainCamera.transform.position - _mainCamera.ScreenToWorldPoint(Input.mousePosition)).normalized;
@@ -300,6 +299,8 @@ public class InputModule : MonoBehaviour
         // Mouse clicked?
         if (Input.GetMouseButton(0) && Time.time > last_click_time + click_delay)
         {
+            // Shoot a ray from the camera through the mouse position into the scene and get the collision point
+            // Also get the object that was hit
             last_click_time = Time.time;
             HandleTouchClickInput(Input.mousePosition);
         }
