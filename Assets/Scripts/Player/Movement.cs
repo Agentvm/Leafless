@@ -213,13 +213,8 @@ public class Movement : MonoBehaviour
             leaf_to_approach = clicked_leaf;
     }
 
-    public void tryStartShooting (bool forced = false)
+    public void tryStartShooting ()
     {
-        if (InputModule.Instance.TouchInputActive)
-        {
-            //Debug.Log ("Shooting Triggered through Touch, state: " + state);
-        }
-
         if (state == State.FreeMovement &&
              Ammunition > 0 &&
              Time.time > shoot_time + shoot_delay * 2)

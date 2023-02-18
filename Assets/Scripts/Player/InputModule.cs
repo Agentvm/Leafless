@@ -250,24 +250,6 @@ public class InputModule : MonoBehaviour
         }
     }
 
-    void HandleTouchClickInput (Vector3 inputPosition)
-    {
-        // Raycast at touch position
-        Transform[] active_object_transform = RaycastAll(inputPosition);
-
-        // Shoot, if an Enemy was clicked
-        if (active_object_transform != null && active_object_transform.Any(rayTarget => rayTarget.tag == "Enemy"))
-        {
-            Debug.Log("Selected: Enemy");
-            MovementScriptReference.tryStartShooting();
-        }
-        else if (active_object_transform != null && active_object_transform.Any(rayTarget => rayTarget.tag == "Interactable"))
-        {
-            Debug.Log("Selected: Interactable");
-            MovementScriptReference.leafClicked(active_object_transform.First(rayTarget => rayTarget.tag == "Interactable"));
-        }
-    }
-
     void setTouchInput(Touch touch)
     {
         // get the magnitude of the swipe based on the distance to the start
@@ -303,6 +285,34 @@ public class InputModule : MonoBehaviour
             // Also get the object that was hit
             last_click_time = Time.time;
             HandleTouchClickInput(Input.mousePosition);
+        }
+    }
+
+    void HandleTouchClickInput(Vector3 inputPosition)
+    {
+        // Raycast at touch position
+        Transform[] active_object_transform = RaycastAll(inputPosition);
+
+        // Shoot, if an Enemy was clicked
+        if (active_object_transform != null && active_object_transform.Any(rayTarget => rayTarget.tag == "Enemy"))
+        {
+            Debug.Log("Selected: Enemy");
+            MovementScriptReference.tryStartShooting();
+        }
+        // Navigate to leaf
+        else if (active_object_transform != null && active_object_transform.Any(rayTarget => rayTarget.tag == "Interactable"))
+        {
+            Debug.Log("Selected: Interactable");
+            MovementScriptReference.leafClicked(active_object_transform.First(rayTarget => rayTarget.tag == "Interactable"));
+        }
+        // Shoot at position
+        else
+        {
+            if (TouchInputActive)
+            {
+                // ToDo: Move to position;
+            }
+            else MovementScriptReference.tryStartShooting();
         }
     }
 
