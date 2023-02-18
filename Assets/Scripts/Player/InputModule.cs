@@ -209,7 +209,8 @@ public class InputModule : MonoBehaviour
                     // Check if tapped
                     if ((touch2_start_position - touch.position).magnitude < tap_threshold)
                     {
-                        HandleTouchClickInput(Input.mousePosition);
+                        //HandleTouchClickInput(Input.mousePosition);
+                        HandleTouchClickInput(touch.position);
                     }
 
                     // At the end of touch, remove it's ID from the list of known ID's
