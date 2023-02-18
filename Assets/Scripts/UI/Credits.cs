@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// Todo: find a more performant way to close this
 public class Credits : MonoBehaviour
 {
     [SerializeField]

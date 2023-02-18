@@ -36,6 +36,32 @@ namespace Leafless.UI
                 return _soundToggle;
             }
         }
+
+        private Button _creditsButton;
+        private Button CreditsButton
+        {
+            get
+            {
+                if (_creditsButton == null)
+                    _creditsButton = this.transform.Find(nameof(CreditsButton)).GetComponent<Button>();
+
+                return _creditsButton;
+            }
+        }
+
+        private Credits _credits;
+        private Credits Credits
+        {
+            get
+            {
+                if (_credits == null)
+                    _credits = this.transform.parent.Find(nameof(Credits)).GetComponent<Credits>();
+
+                return _credits;
+            }
+        }
+
+        
         #endregion
 
         void Start ()
@@ -51,6 +77,7 @@ namespace Leafless.UI
             // React to start of game
             SceneLoader.SceneLoaded += SceneLoaded;
             SoundToggle.onValueChanged.AddListener(SoundToggled);
+            CreditsButton.onClick.AddListener(OpenCredits);
             Tutorial.Completed += TutorialCompleted;
         }
 
@@ -70,6 +97,11 @@ namespace Leafless.UI
         private void TutorialCompleted()
         {
             this.TutorialToggle.isOn = false;
+        }
+        
+        private void OpenCredits()
+        {
+            this.Credits.gameObject.SetActive(true);
         }
     }
 }

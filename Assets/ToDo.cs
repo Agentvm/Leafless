@@ -5,10 +5,9 @@
 ### Bugs
     
     (med) fix main menu toggle with aspect ratio fitter
-    (High) Player does not turn anymore when using mouse
     (Reprocuction?) Enemies do not bite
     (Low) A point is still scored when eating with a full belly
-    (possibly fixed by f6492db) Two Leaves can be eaten at once, if both of them are clicked
+    
     
 ### Features:
 
@@ -48,6 +47,11 @@
     
 
 ------ ### Done ### ------
+
+    (fixed) Credits broken
+    (possibly fixed by f6492db) Two Leaves can be eaten at once, if both of them are clicked
+    (fixed) Player does not turn anymore when using mouse
+    (fixed) Player can not shoot at empty space
 
     v 1.4 - released
     Put the credits right
