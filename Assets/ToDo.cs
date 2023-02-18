@@ -3,8 +3,7 @@
 // Todo: Remove obsolete calls to Debug.Log & .Warn
 
 ### Bugs
-    
-    (med) fix main menu toggle with aspect ratio fitter
+
     (Reprocuction?) Enemies do not bite
     (Low) A point is still scored when eating with a full belly
     
@@ -48,6 +47,7 @@
 
 ------ ### Done ### ------
 
+    (fixed) fix main menu toggle with aspect ratio fitter
     (fixed) Credits broken
     (possibly fixed by f6492db) Two Leaves can be eaten at once, if both of them are clicked
     (fixed) Player does not turn anymore when using mouse
